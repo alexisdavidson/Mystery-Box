@@ -20,7 +20,6 @@ body {
   color: white;
   text-align: center;
   overflow: hidden;
-  background-color: #1c0840;
   background-image: linear-gradient(#3e0d52, #1c0840);
 }
 
@@ -74,7 +73,7 @@ body {
 }
 
 a:link, a:visited, a:hover, a:active {
-  color: #4f271e;
+  color: white;
   text-decoration: none;
 }
 
@@ -97,10 +96,11 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .mintButton {
-  width: 15rem;
+  width: 20rem;
   font-size: 1rem;
   line-height: 3.2rem;
   /* height: 3rem; */
+  margin-bottom: 2vh;
 }
 
 .enterTitle {
@@ -120,10 +120,6 @@ a:link, a:visited, a:hover, a:active {
 }
 .wideButton {
   background-color: #f8d451;
-}
-
-.logo {
-  width: 60%;
 }
 
 .popup, .popupBig, .popupBigSmallText {

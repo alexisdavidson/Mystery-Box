@@ -200,7 +200,7 @@ function App() {
             <Navigation menu={menu} togglePopup={togglePopup} setMobileMenu={setMobileMenu} setMenu={setMenu} />
             {
               {
-              '0': <Home />,
+              '0': <Home web3Handler={web3Handler} account={account} />,
               '1': <Mint web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
               '2': <Scratch account={account} togglePopup={togglePopup} nft={nft} web3Handler={web3Handler} items={items}/>,
               }[menu]

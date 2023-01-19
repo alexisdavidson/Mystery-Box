@@ -15,13 +15,13 @@ const Navigation = ({ menu, togglePopup, setMobileMenu, setMenu }) => {
     return (
         <Navbar collapseOnSelect fixed="top" expand="lg" bg="black" variant="dark" className="navbarCustom">
             <Container>
-            <Navbar.Brand href="#home"><a href="/#top" className="logo"><img src={logo} className="logoNavbarImg" /></a></Navbar.Brand>
+            <Navbar.Brand onClick={() => setMenu(0)} ><img src={logo} className="logo logoNavbarImg" /></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
                 </Nav>
                 <Nav>
-                    <Nav.Link href="/inventory" className="navbarElement">Inventory</Nav.Link>
+                    <Nav.Link onClick={() => setMenu(1)} className="navbarElement">Inventory</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             </Container>
