@@ -6,7 +6,7 @@ import homeBox from './assets/homeBox.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const Home = ({ web3Handler, account }) => {
+const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }) => {
     return (
         <Row className="home">
             <Col className="homeCol">
@@ -18,9 +18,9 @@ const Home = ({ web3Handler, account }) => {
                     <div className="mintButton" onClick={web3Handler}>Connect MetaMask</div>
                 ) : (
                     <div>
-                        <div className="mintButton" >MINT ALL RARITIES x1 $80</div>
-                        <div className="mintButton" >MINT ONLY 1% ISLANDS x1 $350</div>
-                        <div className=""><a href="https://opensea.io">No Mystery Box? Get one on OpenSea</a></div>
+                        <div className="mintButton" onClick={mintButtonAllRarities}>MINT ALL RARITIES x1 $80</div>
+                        <div className="mintButton" onClick={mintButtonIslands}>MINT ONLY 1% ISLANDS x1 $350</div>
+                        <div className=""><a href="https://opensea.io" target="_blank">No Mystery Box? Get one on OpenSea</a></div>
                     </div>
                 )}
             </Col>

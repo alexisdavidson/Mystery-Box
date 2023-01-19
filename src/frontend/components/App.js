@@ -5,9 +5,6 @@ import {
 } from "react-router-dom"
 import './App.css';
 import Navigation from './Navigation';
-import Mint from './Mint'
-import Scratch from './Scratch'
-import PopupDiscord from './PopupDiscord'
 import Home from './Home'
 
 import { useState, useEffect, useRef } from 'react'
@@ -186,6 +183,13 @@ function App() {
     console.log("nft address: " + nft.address)
   }
   
+  const mintButtonAllRarities = async () => {
+    console.log("mintButtonAllRarities")
+  }
+  
+  const mintButtonIslands = async () => {
+    console.log("mintButtonIslands")
+  }
 
   useEffect(async () => {
     return () => {
@@ -200,16 +204,17 @@ function App() {
             <Navigation menu={menu} togglePopup={togglePopup} setMobileMenu={setMobileMenu} setMenu={setMenu} />
             {
               {
-              '0': <Home web3Handler={web3Handler} account={account} />,
-              '1': <Mint web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
-              '2': <Scratch account={account} togglePopup={togglePopup} nft={nft} web3Handler={web3Handler} items={items}/>,
+              '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
+                    mintButtonIslands={mintButtonIslands} />,
+              // '1': <Mint web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
+              // '2': <Scratch account={account} togglePopup={togglePopup} nft={nft} web3Handler={web3Handler} items={items}/>,
               }[menu]
             }
           
             {
               {
               '0': <></>,
-              '1': <PopupDiscord closePopup={closePopup} />,
+              // '1': <PopupDiscord closePopup={closePopup} />,
               }[popup]
             }
         </div>

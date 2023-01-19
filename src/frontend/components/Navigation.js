@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Image, Row, Col, Button, Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import logo from './assets/logo.png'
-import mobileMenu from './assets/mobile/Menu.svg'
 
 const Navigation = ({ menu, togglePopup, setMobileMenu, setMenu }) => {
     
