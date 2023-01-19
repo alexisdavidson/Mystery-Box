@@ -72,6 +72,29 @@ a:link, a:visited, a:hover, a:active {
   margin-bottom: 6vh;
 }
 
+.openingBoxBackground {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.openingBoxWaiting {
+  position: fixed;
+  bottom: 10%;
+  z-index: 2;
+}
+
+.openingBoxResult {
+  position: fixed;
+  top: 40%;
+  z-index: 2;
+  color: white;
+  font-size: 2rem;
+}
+
 .flexAlignLeft {
   display: flex;
   justify-content: start;
