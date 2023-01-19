@@ -12,8 +12,9 @@ body {
   height: 100vh;
   /* font-family: "Montserrat,sans-serif"; */
   font-family: "Verdana";
-  color: white;
+  color: rgb(255, 255, 255, 0.6);
   text-align: center;
+  background-color: #1c0840;
 }
 
 .home {
@@ -32,7 +33,7 @@ body {
 }
 
 a:link, a:visited, a:hover, a:active {
-  color: white;
+  color: rgb(255, 255, 255, 0.8);
   text-decoration: none;
 }
 
@@ -59,9 +60,16 @@ a:link, a:visited, a:hover, a:active {
   margin-bottom: 2vh;
 }
 
-.enterTitle {
+.enterTitle, .openBoxTitle {
   font-size: 3rem;
   margin: 3vh;
+  text-align: center;
+  /* color: rgb(255, 255, 255, 1); */
+}
+
+.openBoxTitle {
+  font-size: 2rem;
+  margin-bottom: 6vh;
 }
 
 .flexAlignLeft {
@@ -88,7 +96,9 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .nftList {
-
+  display: flex;
+  vertical-align: middle;
+  align-items: start;
 }
 
 .nftListItem {

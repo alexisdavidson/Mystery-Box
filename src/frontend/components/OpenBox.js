@@ -17,7 +17,7 @@ const OpenBox = ({ web3Handler, account, mintButtonAllRarities, mintButtonIsland
                 <img src={homeBox} className="homeBoxImage" />
             </Col>
             <Col className="homeCol">
-                <Row className="enterTitle">SELECT A MISTERY BOX</Row>
+                <Row className="openBoxTitle">Select a Mistery Box</Row>
                 {!account ? (
                     <Row className="mintButton" onClick={web3Handler}>Connect MetaMask</Row>
                 ) : (
@@ -27,6 +27,7 @@ const OpenBox = ({ web3Handler, account, mintButtonAllRarities, mintButtonIsland
                         <Col onClick={clickBox} ><img src={homeBox} className="nftListItem" /></Col>
                         <Col onClick={clickBox} ><img src={homeBox} className="nftListItem" /></Col>
                         <Col onClick={clickBox} ><img src={homeBox} className="nftListItem" /></Col>
+                        <Col onClick={clickBox} ></Col>
                     </Row>
                 )}
             </Col>
