@@ -20,7 +20,8 @@ const Navigation = ({ menu, togglePopup, setMobileMenu, setMenu }) => {
                 <Nav className="me-auto">
                 </Nav>
                 <Nav>
-                    <Nav.Link onClick={() => setMenu(1)} className="navbarElement">Inventory</Nav.Link>
+                    <Nav.Link onClick={() => setMenu(1)} className="navbarElement">Open Mystery Box</Nav.Link>
+                    <Nav.Link onClick={() => setMenu(2)} className="navbarElement">Inventory</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             </Container>

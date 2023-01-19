@@ -6,6 +6,8 @@ import {
 import './App.css';
 import Navigation from './Navigation';
 import Home from './Home'
+import OpenBox from './OpenBox'
+import Inventory from './Inventory'
 
 import { useState, useEffect, useRef } from 'react'
 import { ethers } from 'ethers'
@@ -185,10 +187,14 @@ function App() {
   
   const mintButtonAllRarities = async () => {
     console.log("mintButtonAllRarities")
+
+    setMenu(1)
   }
   
   const mintButtonIslands = async () => {
     console.log("mintButtonIslands")
+    
+    setMenu(1)
   }
 
   useEffect(async () => {
@@ -206,8 +212,8 @@ function App() {
               {
               '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
                     mintButtonIslands={mintButtonIslands} />,
-              // '1': <Mint web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
-              // '2': <Scratch account={account} togglePopup={togglePopup} nft={nft} web3Handler={web3Handler} items={items}/>,
+              '1': <OpenBox web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
+              '2': <Inventory web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
               }[menu]
             }
           
