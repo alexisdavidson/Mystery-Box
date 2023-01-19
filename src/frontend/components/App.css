@@ -15,11 +15,12 @@
 
 body {
   height: 100vh;
-  font-family: myFirstFont;
+  font-family: "Verdana";
   color: #4f271e;
   text-align: center;
   overflow: hidden;
-  background-color: #fbe9bb;
+  background-color: #1c0840;
+  background-image: linear-gradient(#3e0d52, #1c0840);
 }
 
 .Home {
@@ -29,7 +30,8 @@ body {
 }
 
 .logoNavbarImg {
-  width: 100px;
+  width: 30vh;
+  margin: 1vh;
 }
 
 .navigationRow {

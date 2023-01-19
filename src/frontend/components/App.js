@@ -4,7 +4,7 @@ import {
   Route
 } from "react-router-dom"
 import './App.css';
-import Navbar from './Navbar';
+import Navigation from './Navigation';
 import Mint from './Mint'
 import Audio from './Audio'
 import Scratch from './Scratch'
@@ -199,7 +199,7 @@ function App() {
     <BrowserRouter>
       <div className="App" id="wrapper">
         <div className="m-0 p-0 container-fluid">
-            <Navbar menu={menu} togglePopup={togglePopup} setMobileMenu={setMobileMenu} setMenu={setMenu} />
+            <Navigation menu={menu} togglePopup={togglePopup} setMobileMenu={setMobileMenu} setMenu={setMenu} />
             {
               {
               '0': <Audio />,
