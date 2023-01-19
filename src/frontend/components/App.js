@@ -6,11 +6,9 @@ import {
 import './App.css';
 import Navigation from './Navigation';
 import Mint from './Mint'
-import Audio from './Audio'
 import Scratch from './Scratch'
 import PopupDiscord from './PopupDiscord'
-import PopupListingSoon from './PopupListingSoon'
-import Menu from './ActionMenu'
+import Home from './Home'
 
 import { useState, useEffect, useRef } from 'react'
 import { ethers } from 'ethers'
@@ -202,7 +200,7 @@ function App() {
             <Navigation menu={menu} togglePopup={togglePopup} setMobileMenu={setMobileMenu} setMenu={setMenu} />
             {
               {
-              '0': <Audio />,
+              '0': <Home />,
               '1': <Mint web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
               '2': <Scratch account={account} togglePopup={togglePopup} nft={nft} web3Handler={web3Handler} items={items}/>,
               }[menu]
@@ -212,19 +210,8 @@ function App() {
               {
               '0': <></>,
               '1': <PopupDiscord closePopup={closePopup} />,
-              '2': <PopupListingSoon closePopup={closePopup} />,
               }[popup]
             }
-
-            {mobileMenu ? (
-              <>
-                <div className="quitMenuDiv" onClick={clickQuitMenu}>
-                </div>
-                <Menu togglePopup={togglePopup} setMenu={setMenu} setMobileMenu={setMobileMenu} />
-              </>
-            ) : (
-              <></>
-            )}
         </div>
       </div>
     </BrowserRouter>

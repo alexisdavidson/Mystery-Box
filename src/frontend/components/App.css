@@ -15,18 +15,23 @@
 
 body {
   height: 100vh;
+  /* font-family: "Montserrat,sans-serif"; */
   font-family: "Verdana";
-  color: #4f271e;
+  color: white;
   text-align: center;
   overflow: hidden;
   background-color: #1c0840;
   background-image: linear-gradient(#3e0d52, #1c0840);
 }
 
-.Home {
+.Home, .home {
   width: auto;
   height: 100vh;
   z-index: -39;
+}
+
+.homeCol {
+  margin: auto;
 }
 
 .logoNavbarImg {
@@ -83,21 +88,24 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .popupButtonClose, .mintButton, .wideButton, .wideButtonRed {
-  background-color: #e46459;
-  border: 4px solid #653f2c;
+  background-color: #5534f5;
   font-size: 2rem;
   vertical-align: middle;
   margin: auto;
-  text-transform: uppercase;
   width: 12rem;
+  border-radius: 1vh;
 }
 
 .mintButton {
-  background-color: #f8d451;
   width: 15rem;
-  font-size: 1.6rem;
+  font-size: 1rem;
   line-height: 3.2rem;
   /* height: 3rem; */
+}
+
+.enterTitle {
+  font-size: 3rem;
+  margin: 3vh;
 }
 
 .cardsPerWallet {
