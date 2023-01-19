@@ -14,14 +14,12 @@ body {
   font-family: "Verdana";
   color: white;
   text-align: center;
-  overflow: hidden;
-  background-image: linear-gradient(#3e0d52, #1c0840);
 }
 
-.Home, .home {
-  width: auto;
-  height: 100vh;
-  z-index: -39;
+.home {
+  margin: 0;
+  height: 105vh;
+  background-image: linear-gradient(#3e0d52, #1c0840);
 }
 
 .homeCol {
@@ -87,6 +85,24 @@ a:link, a:visited, a:hover, a:active {
 
 .minusPlusImage:hover {
   cursor: pointer;
+}
+
+.nftList {
+
+}
+
+.nftListItem {
+  width: 20vh;
+  border-radius: 15%;
+  margin: 1vh;
+}
+
+.nftListItem:hover {
+  cursor: pointer;
+}
+
+.homeBoxImage {
+  width: 30vh;
 }
 
 

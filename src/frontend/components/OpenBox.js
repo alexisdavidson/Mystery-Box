@@ -7,18 +7,27 @@ const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 const OpenBox = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }) => {
+    const clickBox = () => {
+        console.log("clickBox")
+    }
+
     return (
         <Row className="home">
             <Col className="homeCol">
                 <img src={homeBox} className="homeBoxImage" />
             </Col>
             <Col className="homeCol">
-                <div className="enterTitle">SELECT A MISTERY BOX</div>
+                <Row className="enterTitle">SELECT A MISTERY BOX</Row>
                 {!account ? (
-                    <div className="mintButton" onClick={web3Handler}>Connect MetaMask</div>
+                    <Row className="mintButton" onClick={web3Handler}>Connect MetaMask</Row>
                 ) : (
-                    <div>
-                    </div>
+                    <Row className="nftList">
+                        <Col onClick={clickBox} ><img src={homeBox} className="nftListItem" /></Col>
+                        <Col onClick={clickBox} ><img src={homeBox} className="nftListItem" /></Col>
+                        <Col onClick={clickBox} ><img src={homeBox} className="nftListItem" /></Col>
+                        <Col onClick={clickBox} ><img src={homeBox} className="nftListItem" /></Col>
+                        <Col onClick={clickBox} ><img src={homeBox} className="nftListItem" /></Col>
+                    </Row>
                 )}
             </Col>
         </Row>
