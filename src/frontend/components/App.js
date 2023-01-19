@@ -8,6 +8,7 @@ import Navigation from './Navigation';
 import Home from './Home'
 import OpenBox from './OpenBox'
 import Inventory from './Inventory'
+import Equip from './Equip'
 
 import { useState, useEffect, useRef } from 'react'
 import { ethers } from 'ethers'
@@ -29,7 +30,6 @@ function App() {
   const [nft, setNFT] = useState({})
   const [mobileMenu, setMobileMenu] = useState(false)
   const [menu, setMenu] = useState(0)
-  const [popup, setPopup] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [amountMinted, setAmountMinted] = useState(0)
   const [provider, setProvider] = useState({})
@@ -58,23 +58,9 @@ function App() {
     ex.click();
   }
 
-  const closePopup = () => {
-    setPopup(0)
-  }
-
   const clickQuitMenu = () => {
     console.log("clickQuitMenu")
     setMobileMenu(false)
-  }
-
-  const togglePopup = (popupId) => {
-    console.log("togglePopup", popupId)
-
-    if (popup == popupId)
-      setPopup(0)
-    else setPopup(popupId)
-
-    // setMobileMenu(false)
   }
 
   const changeQuantity = (direction) => {
@@ -197,6 +183,12 @@ function App() {
     setMenu(1)
   }
 
+  const setSelectedSneaker = async (selectedSneaker) => {
+    console.log("setSelectedSneaker", selectedSneaker)
+    
+    // setMenu(1)
+  }
+
   useEffect(async () => {
     return () => {
       nft?.removeAllListeners("MintSuccessful");
@@ -207,21 +199,16 @@ function App() {
     <BrowserRouter>
       <div className="App" id="wrapper">
         <div className="m-0 p-0 container-fluid">
-            <Navigation menu={menu} togglePopup={togglePopup} setMobileMenu={setMobileMenu} setMenu={setMenu} />
+            <Navigation setMobileMenu={setMobileMenu} setMenu={setMenu} />
             {
               {
               '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
                     mintButtonIslands={mintButtonIslands} />,
               '1': <OpenBox web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
-              '2': <Inventory web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
+              '2': <Inventory web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} 
+                    setSelectedSneaker={setSelectedSneaker}/>,
+              '3': <Equip web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
               }[menu]
-            }
-          
-            {
-              {
-              '0': <></>,
-              // '1': <PopupDiscord closePopup={closePopup} />,
-              }[popup]
             }
         </div>
       </div>

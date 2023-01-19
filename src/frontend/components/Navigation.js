@@ -3,7 +3,7 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button, Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import logo from './assets/logo.png'
 
-const Navigation = ({ menu, togglePopup, setMobileMenu, setMenu }) => {
+const Navigation = ({ setMenu }) => {
     
     const buttonLinkOnClick = async (elementId) => {
         console.log("buttonLinkOnClick: " + elementId)

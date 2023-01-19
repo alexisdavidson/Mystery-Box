@@ -6,7 +6,7 @@ import homeBox from './assets/homeBox.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const OpenBox = ({ web3Handler, account, setMenu }) => {
+const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [chosenItemIndex, setChosenItemIndex] = useState(0)
 
@@ -19,18 +19,13 @@ const OpenBox = ({ web3Handler, account, setMenu }) => {
     const clickAgree = () => {
         console.log("clickAgree")
         setSubMenu(2)
-        openBox()
+        equipEgg()
     }
 
-    const openBox = async () => {
-        console.log("openBox", chosenItemIndex)
+    const equipEgg = async () => {
+        console.log("equipEgg", chosenItemIndex)
         await new Promise(r => setTimeout(r, 2000));
-        setSubMenu(3)
-    }
-
-    const clickInventory = () => {
-        console.log("clickInventory")
-        setMenu(2)
+        setSubMenu(0)
     }
 
     useEffect(async () => {
@@ -58,7 +53,7 @@ const OpenBox = ({ web3Handler, account, setMenu }) => {
                                         <img src={homeBox} className="homeBoxImage" />
                                     </Col>
                                     <Col className="homeCol">
-                                        <Row className="openBoxTitle">Select a Mistery Box</Row>
+                                        <Row className="openBoxTitle">Select Egg to Equip</Row>
                                         <Row className="nftList">
                                             <Col onClick={() => clickBox(0)} ><img src={homeBox} className="nftListItem" /></Col>
                                             <Col onClick={() => clickBox(1)} ><img src={homeBox} className="nftListItem" /></Col>
@@ -76,7 +71,9 @@ const OpenBox = ({ web3Handler, account, setMenu }) => {
                                     </Col>
                                     <Col className="homeCol">
                                         <Row className="">
-                                            <div className="mintButton" onClick={clickAgree}>I agree to the MUSURE World TOS</div>
+                                            <div>Equip this Skin?</div>
+                                            <div><img src={homeBox} className="homeBoxImage" /></div>
+                                            <div className="mintButton" onClick={clickAgree}>Equip</div>
                                         </Row>
                                     </Col>
                                 </>,
@@ -89,29 +86,6 @@ const OpenBox = ({ web3Handler, account, setMenu }) => {
                                         </div>
                                     </Row>
                                 </>,
-                            '3':
-                                <>
-                                    <Row className="">
-                                        <div className="openingBoxResult">
-                                            <div className="">
-                                                Congratulations!
-                                            </div>
-                                            <div className="">
-                                                You unlocked +1 Dunks, +1 Skins and +1MNLTH2
-                                            </div>
-                                            <div className="">
-                                                <img src={homeBox} className="homeBoxImage" />
-                                            </div>
-                                            <div className="">
-                                                <div className="mintButton" onClick={clickInventory}>Inventory</div>
-                                                <div className="mintButton" onClick={() => setSubMenu(0)}>Open Another Box</div>
-                                            </div>
-                                        </div>
-                                        <div className="">
-                                            <div><img src={homeBox} className="openingBoxBackground" /></div>
-                                        </div>
-                                    </Row>
-                                </>,
                         }[subMenu]
                     }
                     </>
@@ -119,4 +93,4 @@ const OpenBox = ({ web3Handler, account, setMenu }) => {
         </Row>
     );
 }
-export default OpenBox
+export default Equip
