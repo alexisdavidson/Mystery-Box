@@ -33,7 +33,7 @@ contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
     function mint(uint256 _boxId, uint256 _quantity) external payable {
         require(_boxId < boxes.length, "boxId out of range");
         require(boxes[_boxId].mintEnabled, 'Minting is not enabled');
-        require(boxes[_boxId].remainingSupply > 0, 'Cannot mint more than max supply');
+        require(boxes[_boxId].remainingSupply >= _quantity, 'Cannot mint more than max supply');
         require(msg.value >= getPrice(_boxId) * _quantity, "Not enough ETH sent; check price!");
 
         for(uint256 i = 0; i < _quantity;) {
