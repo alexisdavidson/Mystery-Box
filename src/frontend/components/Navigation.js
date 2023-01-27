@@ -12,7 +12,7 @@ const Navigation = ({ setMenu }) => {
     }
     
     return (
-        <Navbar collapseOnSelect fixed="top" expand="lg" bg="black" variant="dark" className="navbarCustom">
+        <Navbar collapseOnSelect fixed="top" expand="lg" variant="dark" className="navbarCustom">
             <Container>
             <Navbar.Brand onClick={() => setMenu(0)} ><img src={logo} className="logo logoNavbarImg" /></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Image, Row, Col, Button } from 'react-bootstrap'
+import { Image, Row, Col, Button, Form } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
@@ -13,16 +13,24 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                 <img src={homeBox} className="homeBoxImage" />
             </Col>
             <Col className="homeCol">
-                <div className="enterTitle">ENTER</div>
+                <div className="enterTitle">JOIN the ORIGIN</div>
                 {!account ? (
-                    <div className="mintButton" onClick={web3Handler}>Connect MetaMask</div>
+                    <div className="mintButton" onClick={web3Handler}>Connect Metamask</div>
                 ) : (
                     <div>
                         <div className="mintButton" onClick={mintButtonAllRarities}>MINT ALL RARITIES x1 $80</div>
                         <div className="mintButton" onClick={mintButtonIslands}>MINT ONLY 1% ISLANDS x1 $350</div>
-                        <div className=""><a href="https://opensea.io" target="_blank">No Mystery Box? Get one on OpenSea</a></div>
                     </div>
                 )}
+                <div className="">Get yours on <a href="https://opensea.io" target="_blank">OpenSea</a> using your <span style={{fontWeight: "bold", color: "white", fontStyle: "italic"}}>credit card.</span></div>
+                <div className="mt-3">
+                    <Form.Check className="checkboxForm"
+                        type="checkbox"
+                        id="default-checkbox"
+                        label={(<>I have read and accept the <a href="#">Terms & Conditions.</a></>)}
+                    />
+                    
+                </div>
             </Col>
         </Row>
     );
