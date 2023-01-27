@@ -15,16 +15,33 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
     }
     return (
         <Row className="home">
-            <Row className="inventoryTitle">Inventory</Row>
+            <div className="openingBoxCongratulationsTitle">OPEN A ORIGIN BOX & EQUIP AN ORIGIN EGG</div>
+            <div className="openingBoxCongratulationsDesc mb-5">We are the future. 🌐</div>
             {!account ? (
                 <div className="mintButton" onClick={web3Handler}>Connect MetaMask</div>
             ) : (
                 <Row className="nftList">
-                    <Col onClick={() => clickSneaker(0)} ><img src={homeBox} className="nftListItem" /></Col>
-                    <Col onClick={() => clickSneaker(1)} ><img src={homeBox} className="nftListItem" /></Col>
-                    <Col onClick={() => clickSneaker(2)} ><img src={homeBox} className="nftListItem" /></Col>
-                    <Col onClick={() => clickSneaker(3)} ><img src={homeBox} className="nftListItem" /></Col>
-                    <Col></Col>
+                    <Col className="p-0 col-6 col-lg-3">
+                        <div className="itemSlot">
+                            <img src={homeBox} className="nftListItem" onClick={() => clickSneaker(0)} />
+                        </div>
+                    </Col>
+                    <Col className="p-0 col-6 col-lg-3">
+                        <div className="itemSlot">
+                        </div>
+                    </Col>
+                    <Col className="p-0 col-6 col-lg-3">
+                        <div className="itemSlot">
+                        </div>
+                    </Col>
+                    <Col className="p-0 col-6 col-lg-3">
+                        <div className="itemSlot">
+                        </div>
+                    </Col>
+                    <Col className="p-0 col-6 col-lg-3">
+                        <div className="itemSlot">
+                        </div>
+                    </Col>
                 </Row>
             )}
         </Row>
