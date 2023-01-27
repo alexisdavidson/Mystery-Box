@@ -12,18 +12,18 @@ const Navigation = ({ setMenu }) => {
     }
     
     return (
-        <Navbar collapseOnSelect fixed="top" expand="lg" variant="dark" className="navbarCustom">
+        <Navbar collapseOnSelect fixed="top" variant="dark" className="navbarCustom">
             <Container>
-            <Navbar.Brand onClick={() => setMenu(0)} ><img src={logo} className="logo logoNavbarImg" /></Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="me-auto">
-                </Nav>
-                <Nav>
-                    <Nav.Link onClick={() => setMenu(1)} className="navbarElement">Open Mystery Box</Nav.Link>
-                    <Nav.Link onClick={() => setMenu(2)} className="navbarElement">Inventory</Nav.Link>
-                </Nav>
-            </Navbar.Collapse>
+                <Navbar.Brand onClick={() => setMenu(0)} ><img src={logo} className="logo logoNavbarImg" /></Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
+                    </Nav>
+                    <Nav className="displayDesktop">
+                        <Nav.Link onClick={() => setMenu(1)} className="navbarElement">Open Mystery Box</Nav.Link>
+                        <Nav.Link onClick={() => setMenu(2)} className="navbarElement">Inventory</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
             </Container>
         </Navbar>
     );
