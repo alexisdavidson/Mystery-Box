@@ -14,10 +14,10 @@ const Navigation = ({ setMenu }) => {
     return (
         <Row className="navbarCustom">
             <Col className="navbarLogoDiv">
-                <img src={logo} className="logo logoNavbarImg" />
+                <img src={logo} className="logo logoNavbarImg" onClick={() => setMenu(0)}/>
             </Col>
             <Col className="navbarLinksDiv">
-                <div onClick={() => setMenu(2)} className="navbarElement">Inventory</div>
+                <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
             </Col>
         </Row>
         // <Navbar collapseOnSelect fixed="top" variant="dark" className="navbarCustom">

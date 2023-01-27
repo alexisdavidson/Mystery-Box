@@ -200,6 +200,13 @@ function App() {
       <div className="App" id="wrapper">
         <div className="m-0 p-0 container-fluid">
             <Navigation setMobileMenu={setMobileMenu} setMenu={setMenu} />
+            {!account ? (
+              <div className="menuMobile">
+                <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
+              </div>
+            ) : (
+              <></>
+            )}
             {
               {
               '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
