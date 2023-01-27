@@ -13,7 +13,13 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                 <img src={homeBox} className="homeBoxImage" />
             </Col>
             <Col className="homeCol">
-                <div className="enterTitle">JOIN the ORIGIN</div>
+                <div className="enterTitle topTitleTextEffect">
+                    <div className="topDescriptionFirst">
+                        <div className="topDescriptionFirst1">JOIN</div>
+                        <div className="topDescriptionFirst2">the</div>
+                    </div>
+                    <div className="topDescriptionSecond">ORIGIN</div>
+                </div>
                 {!account ? (
                     <div className="mintButton" onClick={web3Handler}>Connect Metamask</div>
                 ) : (
