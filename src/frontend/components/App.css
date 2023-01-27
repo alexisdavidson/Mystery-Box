@@ -27,6 +27,7 @@ html, body {
 .home {
   margin: 0;
   /* background-image: linear-gradient(#54096c, #37085d, #090212); */
+  margin-top: 10vh;
 }
 
 .homeBoxImage {
@@ -51,7 +52,8 @@ a:link, a:visited, a:hover, a:active {
 
 .popupButton:hover, .popupButtonClose:hover, .audioDiv:hover, .subNavbarMenuNotSelected:hover,
 .coinDiv:hover, .mintButton:hover, .connectButton:hover, .wideButton:hover ,.wideButtonRed:hover, .navbarLinkElement:hover,
-.scratchyCardScratchable:hover, .logo:hover, .inventoryButton:hover, .itemDescButton:hover, .openingBoxButton:hover {
+.scratchyCardScratchable:hover, .logo:hover, .inventoryButton:hover, .itemDescButton:hover, .openingBoxButton:hover,
+.equipListItem:hover {
   cursor: pointer;
 }
 
@@ -283,7 +285,7 @@ a:link, a:visited, a:hover, a:active {
   font-size: .8rem;
 }
 
-.itemSlot, .openingBoxItemSlot {
+.itemSlot, .openingBoxItemSlot, .equipItemSlot {
   background-image: url("./assets/ItemSlot.png");
   background-repeat: no-repeat;
   background-size: contain;
@@ -295,7 +297,7 @@ a:link, a:visited, a:hover, a:active {
   padding: 0;
 }
 
-.nftListItem, .openingBoxNftListItem {
+.nftListItem, .openingBoxNftListItem, .equipListItem {
   width: 20vw;
   margin: 0;
   padding: 0;
@@ -305,7 +307,7 @@ a:link, a:visited, a:hover, a:active {
   cursor: pointer;
 }
 
-.itemDescDiv {
+.itemDescDiv, .equipItemDescDiv {
   display: flex;
   justify-content: left;
   font-size: .7rem;
@@ -372,11 +374,33 @@ a:link, a:visited, a:hover, a:active {
 
 }
 
+.equipPanel {
+  background-color: #2c0542;
+  border: solid 2px gray;
+  border-radius: 3vh;
+}
 
+.equipImage {
+  width: 30vw;
+  border: solid 2vh #220430;
+  border-radius: 3vh;
+  box-shadow:0 0 2vh #a545b8;
+}
 
+.equipItemSlot {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 3vh;
+}
 
+.equipListItem{
+  border-radius: 3vh;
+}
 
-
+.equipItemDescDiv {
+  text-align: center;
+  padding: 0;
+}
 
 
 
@@ -385,6 +409,25 @@ a:link, a:visited, a:hover, a:active {
 
 
 @media only screen and (max-width: 1199.98px){
+  .home {
+    margin: 0;
+  }
+  .equipImage {
+    width: 70vw;
+    margin: 2vh;
+    border: solid 2vh #220430;
+    border-radius: 3vh;
+    box-shadow:0 0 2vh #a545b8;
+  }
+  .equipItemSlot {
+    width: 25vw;
+    height: 25vw;
+  }
+  .equipListItem{
+    width: 25vw;
+    height: 25vw;
+  }
+
   .openingBoxItemSlot {
     width: 40vw;
     height: 40vw;

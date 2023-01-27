@@ -226,6 +226,7 @@ function App() {
                     setSelectedSneaker={setSelectedSneaker}/>,
               '3': <Equip web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
               '4': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
+              '5': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               }[menu]
             }
         </div>

@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
-import homeBox from './assets/homeBox.png'
+import videoPlaceholder from './assets/videoPlaceholder.png'
+import eggItemEquip from './assets/eggItemEquip.png'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }) => {
+const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [chosenItemIndex, setChosenItemIndex] = useState(0)
 
     const clickBox = (itemIndex) => {
         console.log("clickBox", itemIndex)
         setChosenItemIndex(itemIndex)
-        setSubMenu(1)
+        setMenu(5)
     }
 
     const clickAgree = () => {
@@ -37,7 +38,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands 
                 {!account ? (
                     <>
                         <Col className="homeCol">
-                            <img src={homeBox} className="homeBoxImage" />
+                            <img src={videoPlaceholder} className="homeBoxImage" />
                         </Col>
                         <Col className="homeCol">
                             <Row className="mintButton" onClick={web3Handler}>Connect MetaMask</Row>
@@ -49,30 +50,79 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands 
                         {
                             '0': 
                                 <>
-                                    <Col className="homeCol">
-                                        <img src={homeBox} className="homeBoxImage" />
+                                    <Col className="col-12 col-lg-6 homeCol">
+                                        <img src={videoPlaceholder} className="equipImage" />
                                     </Col>
-                                    <Col className="homeCol">
-                                        <Row className="openBoxTitle">Select Egg to Equip</Row>
-                                        <Row className="nftList">
-                                            <Col onClick={() => clickBox(0)} ><img src={homeBox} className="nftListItem" /></Col>
-                                            <Col onClick={() => clickBox(1)} ><img src={homeBox} className="nftListItem" /></Col>
-                                            <Col onClick={() => clickBox(2)} ><img src={homeBox} className="nftListItem" /></Col>
-                                            <Col onClick={() => clickBox(3)} ><img src={homeBox} className="nftListItem" /></Col>
-                                            <Col onClick={() => clickBox(4)} ><img src={homeBox} className="nftListItem" /></Col>
-                                            <Col></Col>
-                                        </Row>
+                                    <Col className="col-12 col-lg-6 homeCol">
+                                        <div className="m-0 equipPanel">
+                                            <div className="m-0 openingBoxCongratulationsTitle">
+                                                EQUIP ORIGIN EGG
+                                            </div>
+                                            <Row className="m-0 equipList">
+                                                <Col className="m-0 p-0 col-6 col-lg-4">
+                                                    <Row className="equipItemSlot">
+                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
+                                                    </Row>
+                                                    <Row className="equipItemDescDiv">
+                                                            <div className="itemDescTitle">
+                                                                CREATORS NAME
+                                                            </div>
+                                                            <div className="itemDescDesc">
+                                                                ORIGIN EGG
+                                                            </div>
+                                                    </Row>
+                                                </Col>
+                                                <Col className="m-0 p-0 col-6 col-lg-4">
+                                                    <Row className="equipItemSlot">
+                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
+                                                    </Row>
+                                                    <Row className="equipItemDescDiv">
+                                                        <div className="itemDescTitle">
+                                                            CREATORS NAME
+                                                        </div>
+                                                        <div className="itemDescDesc">
+                                                            ORIGIN EGG
+                                                        </div>
+                                                    </Row>
+                                                </Col>
+                                                <Col className="m-0 p-0 col-6 col-lg-4">
+                                                    <Row className="equipItemSlot">
+                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
+                                                    </Row>
+                                                    <Row className="equipItemDescDiv">
+                                                        <div className="itemDescTitle">
+                                                            CREATORS NAME
+                                                        </div>
+                                                        <div className="itemDescDesc">
+                                                            ORIGIN EGG
+                                                        </div>
+                                                    </Row>
+                                                </Col>
+                                                <Col className="m-0 p-0 col-6 col-lg-4">
+                                                    <Row className="equipItemSlot">
+                                                    </Row>
+                                                </Col>
+                                                <Col className="m-0 p-0 col-6 col-lg-4">
+                                                    <Row className="equipItemSlot">
+                                                    </Row>
+                                                </Col>
+                                                <Col className="m-0 p-0 col-6 col-lg-4">
+                                                    <Row className="equipItemSlot">
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        </div>
                                     </Col>
                                 </>,
                             '1':
                                 <>
                                     <Col className="homeCol">
-                                        <img src={homeBox} className="homeBoxImage" />
+                                        <img src={videoPlaceholder} className="homeBoxImage" />
                                     </Col>
                                     <Col className="homeCol">
                                         <Row className="">
                                             <div>Equip this Skin?</div>
-                                            <div><img src={homeBox} className="homeBoxImage" /></div>
+                                            <div><img src={eggItemEquip} className="homeBoxImage" /></div>
                                             <div className="mintButton" onClick={clickAgree}>Equip</div>
                                         </Row>
                                     </Col>
@@ -82,7 +132,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands 
                                     <Row className="">
                                         <div className="openingBoxWaiting">Waiting for MetaMask transaction...</div>
                                         <div className="">
-                                            <div><img src={homeBox} className="openingBoxBackground" /></div>
+                                            <div><img src={videoPlaceholder} className="openingBoxBackground" /></div>
                                         </div>
                                     </Row>
                                 </>,
