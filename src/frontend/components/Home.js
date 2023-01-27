@@ -28,14 +28,16 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                         <div className="mintButton" onClick={mintButtonIslands}>MINT ONLY 1% ISLANDS x1 $350</div>
                     </div>
                 )}
-                <div className="">Get yours on <a href="https://opensea.io" target="_blank">OpenSea</a> using your <span style={{fontWeight: "bold", color: "white", fontStyle: "italic"}}>credit card.</span></div>
-                <div className="mt-3">
-                    <Form.Check className="checkboxForm"
-                        type="checkbox"
-                        id="default-checkbox"
-                        label={(<>I have read and accept the <a href="#">Terms & Conditions.</a></>)}
-                    />
-                    
+                <div className="homeBelowButton">
+                    <div className="">Get yours on <a href="https://opensea.io" target="_blank">OpenSea</a> using your <span style={{fontWeight: "bold", color: "white", fontStyle: "italic"}}>credit card.</span></div>
+                    <div className="mt-3">
+                        <Form.Check className="checkboxForm"
+                            type="checkbox"
+                            id="default-checkbox"
+                            label={(<>I have read and accept the <a href="#">Terms & Conditions.</a></>)}
+                        />
+                        
+                    </div>
                 </div>
             </Col>
         </Row>
