@@ -21,10 +21,25 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
                 <div className="mintButton" onClick={web3Handler}>Connect MetaMask</div>
             ) : (
                 <Row className="nftList">
-                    <Col className="p-0 col-6 col-lg-3">
-                        <div className="itemSlot">
+                    <Col className="m-0 p-0 col-6 col-lg-3">
+                        <Row className="itemSlot">
                             <img src={homeBox} className="nftListItem" onClick={() => clickSneaker(0)} />
-                        </div>
+                        </Row>
+                        <Row className="itemDescDiv">
+                            <Col className="col-12 col-lg-6 itemDescDivLeft">
+                                <div className="itemDescTitle">
+                                    ORIGIN BOX
+                                </div>
+                                <div className="itemDescDesc">
+                                    What’s inside? 👀
+                                </div>
+                            </Col>
+                            <Col className="col-12 col-lg-6">
+                                <div className="itemDescButton" onClick={() => clickSneaker(0)} >
+                                    Open
+                                </div>
+                            </Col>
+                        </Row>
                     </Col>
                     <Col className="p-0 col-6 col-lg-3">
                         <div className="itemSlot">
