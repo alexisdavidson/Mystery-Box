@@ -8,6 +8,7 @@ import Navigation from './Navigation';
 import Home from './Home'
 import Inventory from './Inventory'
 import BoxWaitingTransaction from './BoxWaitingTransaction'
+import BoxOpenResult from './BoxOpenResult'
 import Equip from './Equip'
 
 import { useState, useEffect, useRef } from 'react'
@@ -224,6 +225,7 @@ function App() {
               '2': <Inventory web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker}/>,
               '3': <Equip web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
+              '4': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               }[menu]
             }
         </div>
