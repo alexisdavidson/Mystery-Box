@@ -14,18 +14,18 @@
   display: none;
 }
 
-body {
-  height: 100vh;
+html, body {
+  height: 100%;
+  margin:0;
+  padding:0;
   font-family: montserratFont;
   color: rgb(255, 255, 255, 0.6);
   text-align: center;
-  background-color: #1c0840;
+  background-image: linear-gradient(#54096c, #37085d, #090212);
 }
 
 .home {
   margin: 0;
-  /* height: 105vh; */
-  background-image: linear-gradient(#54096c, #37085d, #090212);
 }
 
 .homeBoxImage {
