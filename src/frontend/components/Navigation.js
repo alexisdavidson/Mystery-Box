@@ -3,7 +3,7 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button, Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import logo from './assets/logo.png'
 
-const Navigation = ({ setMenu }) => {
+const Navigation = ({ account, setMenu }) => {
     
     const buttonLinkOnClick = async (elementId) => {
         console.log("buttonLinkOnClick: " + elementId)
@@ -17,7 +17,11 @@ const Navigation = ({ setMenu }) => {
                 <img src={logo} className="logo logoNavbarImg" onClick={() => setMenu(0)}/>
             </Col>
             <Col className="navbarLinksDiv">
-                <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
+                {account ? (
+                    <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
+                ) : (
+                    <></>
+                )}
             </Col>
         </Row>
         // <Navbar collapseOnSelect fixed="top" variant="dark" className="navbarCustom">

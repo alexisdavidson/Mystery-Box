@@ -149,12 +149,12 @@ function App() {
     const signer = providerTemp.getSigner()
 
     const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer)
-    const amountMintedTemp = parseInt(await nft.totalSupply()) + parseInt(await nft.burnAmount())
+    const amountMintedTemp = parseInt(await nft.totalSupply())/* + parseInt(await nft.burnAmount())*/
     setAmountMinted(amountMintedTemp)
     const supplyLeftTemp = totalSupply - amountMintedTemp
     console.log("tickets left: " + supplyLeftTemp)
     setSupplyLeft(supplyLeftTemp)
-    setPrice(fromWei(await nft.getPrice()))
+    setPrice(fromWei(await nft.getPrice(0)))
     const balanceTemp = parseInt(await nft.balanceOf(acc))
     console.log("balance", balanceTemp)
     setBalance(balanceTemp)
@@ -199,8 +199,8 @@ function App() {
     <BrowserRouter>
       <div className="App" id="wrapper">
         <div className="m-0 p-0 container-fluid">
-            <Navigation setMobileMenu={setMobileMenu} setMenu={setMenu} />
-            {!account ? (
+            <Navigation account={account} setMobileMenu={setMobileMenu} setMenu={setMenu} />
+            {account ? (
               <div className="menuMobile">
                 <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
               </div>
