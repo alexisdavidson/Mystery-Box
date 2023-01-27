@@ -5,7 +5,6 @@ import homeBox from './assets/homeBox.png'
 import sneakerItem from './assets/sneakerItem.png'
 
 const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
-
     const clickOpenBox = (boxIndex) => {
         console.log("clickOpenBox", boxIndex)
         setSelectedSneaker(boxIndex)
@@ -17,7 +16,7 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
         setMenu(3)
     }
     return (
-        <Row className="home">
+        <Row className="m-0">
             <div className="openingBoxCongratulationsTitle">OPEN A ORIGIN BOX & EQUIP AN ORIGIN EGG</div>
             <div className="openingBoxCongratulationsDesc mb-5">We are the future. 🌐</div>
             {!account ? (

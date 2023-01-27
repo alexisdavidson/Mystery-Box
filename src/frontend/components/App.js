@@ -10,6 +10,7 @@ import Inventory from './Inventory'
 import BoxWaitingTransaction from './BoxWaitingTransaction'
 import BoxOpenResult from './BoxOpenResult'
 import Equip from './Equip'
+import EquipResult from './EquipResult'
 
 import { useState, useEffect, useRef } from 'react'
 import { ethers } from 'ethers'
@@ -226,7 +227,7 @@ function App() {
                     setSelectedSneaker={setSelectedSneaker}/>,
               '3': <Equip web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
               '4': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
-              '5': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
+              '5': <EquipResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               }[menu]
             }
         </div>
