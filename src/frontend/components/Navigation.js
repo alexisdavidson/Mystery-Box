@@ -12,20 +12,28 @@ const Navigation = ({ setMenu }) => {
     }
     
     return (
-        <Navbar collapseOnSelect fixed="top" variant="dark" className="navbarCustom">
-            <Container>
-                <Navbar.Brand onClick={() => setMenu(0)} ><img src={logo} className="logo logoNavbarImg" /></Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
-                    </Nav>
-                    <Nav className="displayDesktop">
-                        <Nav.Link onClick={() => setMenu(1)} className="navbarElement">Open Mystery Box</Nav.Link>
-                        <Nav.Link onClick={() => setMenu(2)} className="navbarElement">Inventory</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+        <Row className="navbarCustom">
+            <Col className="navbarLogoDiv">
+                <img src={logo} className="logo logoNavbarImg" />
+            </Col>
+            <Col className="navbarLinksDiv">
+                <div onClick={() => setMenu(2)} className="navbarElement">Inventory</div>
+            </Col>
+        </Row>
+        // <Navbar collapseOnSelect fixed="top" variant="dark" className="navbarCustom">
+        //     <Container>
+        //         <Navbar.Brand onClick={() => setMenu(0)} ><img src={logo} className="logo logoNavbarImg" /></Navbar.Brand>
+        //         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        //         <Navbar.Collapse id="responsive-navbar-nav">
+        //             <Nav className="me-auto">
+        //             </Nav>
+        //             <Nav className="displayDesktop">
+        //                 <Nav.Link onClick={() => setMenu(1)} className="navbarElement">Open Mystery Box</Nav.Link>
+        //                 <Nav.Link onClick={() => setMenu(2)} className="navbarElement">Inventory</Nav.Link>
+        //             </Nav>
+        //         </Navbar.Collapse>
+        //     </Container>
+        // </Navbar>
     );
 }
 export default Navigation
