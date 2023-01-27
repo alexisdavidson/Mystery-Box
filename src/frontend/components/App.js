@@ -6,8 +6,8 @@ import {
 import './App.css';
 import Navigation from './Navigation';
 import Home from './Home'
-import OpenBox from './OpenBox'
 import Inventory from './Inventory'
+import BoxWaitingTransaction from './BoxWaitingTransaction'
 import Equip from './Equip'
 
 import { useState, useEffect, useRef } from 'react'
@@ -34,6 +34,7 @@ function App() {
   const [amountMinted, setAmountMinted] = useState(0)
   const [provider, setProvider] = useState({})
   const [items, setItems] = useState(null)
+  const [transactionFinished, setTransactionFinished] = useState(false)
 
   const providerRef = useRef();
   providerRef.current = provider;
@@ -174,13 +175,21 @@ function App() {
   const mintButtonAllRarities = async () => {
     console.log("mintButtonAllRarities")
 
+    setTransactionFinished(false)
     setMenu(1)
+
+    await new Promise(r => setTimeout(r, 2000));
+    setTransactionFinished(true)
   }
   
   const mintButtonIslands = async () => {
     console.log("mintButtonIslands")
     
+    setTransactionFinished(false)
     setMenu(1)
+
+    await new Promise(r => setTimeout(r, 2000));
+    setTransactionFinished(true)
   }
 
   const setSelectedSneaker = async (selectedSneaker) => {
@@ -211,7 +220,7 @@ function App() {
               {
               '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
                     mintButtonIslands={mintButtonIslands} />,
-              '1': <OpenBox web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
+              '1': <BoxWaitingTransaction transactionFinished={transactionFinished} />,
               '2': <Inventory web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker}/>,
               '3': <Equip web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,

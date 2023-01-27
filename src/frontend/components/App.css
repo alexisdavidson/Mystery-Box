@@ -269,6 +269,34 @@ a:link, a:visited, a:hover, a:active {
   -webkit-text-fill-color: transparent;
 }
 
+.openingBoxWaitingDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.openingBoxWaiting {
+  background-image: linear-gradient(rgba(255, 255, 255, .5), rgba(100, 100, 100, .5));
+  font-size: 1rem;
+  line-height: 2rem;
+  width: 25rem;
+  font-weight: normal;
+  border-radius: 10vh;
+  color: white;
+}
+
+.openingBoxCongratulationsTitle {
+  font-size: 2.0rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: -webkit-linear-gradient(right, #f44ce1, #f9d64e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.openingBoxCongratulationsDesc {
+  font-style: italic;
+  font-size: .8rem;
+}
 
 
 
@@ -329,5 +357,10 @@ a:link, a:visited, a:hover, a:active {
 
   .mintButton {
     font-size: 1rem;
+  }
+  
+  .openingBoxWaiting {
+    width: 20rem;
+    font-size: .7rem;
   }
 }
