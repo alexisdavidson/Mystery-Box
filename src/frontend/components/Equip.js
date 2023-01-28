@@ -14,7 +14,17 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
     const clickBox = (itemIndex) => {
         console.log("clickBox", itemIndex)
         setChosenItemIndex(itemIndex)
-        setMenu(5)
+        
+        for(let i = 0; i < 3; i ++) {
+            var element = document.getElementById('equipItem-' + i);
+            if (element != null)
+                element.classList.remove('equipItemSlotSelected');
+        }
+
+        var elementResult = document.getElementById('equipItem-' + itemIndex);
+        if (elementResult != null)
+            elementResult.classList.add('equipItemSlotSelected');
+
     }
 
     const clickAgree = () => {
@@ -25,13 +35,9 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
 
     const equipEgg = async () => {
         console.log("equipEgg", chosenItemIndex)
-        await new Promise(r => setTimeout(r, 2000));
-        setSubMenu(0)
+        // await new Promise(r => setTimeout(r, 2000));
+        setMenu(5)
     }
-
-    useEffect(async () => {
-        setSubMenu(0)
-      }, [])
 
     return (
         <Row className="home">
@@ -60,7 +66,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                             </div>
                                             <Row className="m-0 equipList">
                                                 <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row className="equipItemSlotFilled">
+                                                    <Row id="equipItem-0" className="equipItemSlotFilled">
                                                         <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
                                                     </Row>
                                                     <Row className="equipItemDescDiv">
@@ -73,8 +79,8 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                     </Row>
                                                 </Col>
                                                 <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row className="equipItemSlotFilled">
-                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
+                                                    <Row id="equipItem-1" className="equipItemSlotFilled">
+                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(1)} />
                                                     </Row>
                                                     <Row className="equipItemDescDiv">
                                                         <div className="itemDescTitle">
@@ -86,8 +92,8 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                     </Row>
                                                 </Col>
                                                 <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row className="equipItemSlotFilled">
-                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
+                                                    <Row id="equipItem-2" className="equipItemSlotFilled">
+                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(2)} />
                                                     </Row>
                                                     <Row className="equipItemDescDiv">
                                                         <div className="itemDescTitle">
@@ -110,6 +116,11 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                     <Row className="equipItemSlot">
                                                     </Row>
                                                 </Col>
+                                            </Row>
+                                            <Row>
+                                                <div className="equipButton" onClick={() => equipEgg()} >
+                                                    Equip
+                                                </div>
                                             </Row>
                                         </div>
                                     </Col>
