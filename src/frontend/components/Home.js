@@ -7,6 +7,19 @@ const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }) => {
+    const [quantities, setQuantities] = useState([1, 1])
+    const [forcerender, setForceRender] = useState(0)
+
+    const clickArrow = (direction, selectorId) => {
+        console.log("clickArrow", direction, selectorId)
+        if (quantities[selectorId] + direction > 0) {
+            let tempQuantities = quantities
+            tempQuantities[selectorId] = tempQuantities[selectorId] + direction
+            setQuantities(tempQuantities)
+            setForceRender(forcerender + 1)
+        }
+    }
+
     return (
         <Row className="home">
             <Col className="homeCol">
@@ -25,25 +38,34 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                 ) : (
                     <div className="mintButtonsDiv">
                         <div className="mintButtonDiv">
-                            <Form.Control className="mintQuantitySelector"
-                                type="number"
-                                id="mintQuantitySelector-1"
-                                defaultValue="1"
-                                label={(<>
-                                
-                                </>)}
-                            />
+                            <div className="mintQuantitySelector">
+                                <div id="selector-0" className="mintQuantitySelectorValue">
+                                    {quantities[0]}
+                                </div>
+                                <div className="mintQuantitySelectorArrows">
+                                    <div className="mintQuantitySelectorArrowUp" onClick={() => clickArrow(1,0)} >
+                                    </div>
+                                    <div className="mintQuantitySelectorArrowDown" onClick={() => clickArrow(-1,0)} >
+                                    </div>
+                                </div>
+                            </div>
                             <div className="mintButton" onClick={mintButtonAllRarities}>
                                 <div className="mintButtonText">Buy Origin Box</div>
                                 <div className="mintButtonPrice">$80</div>
                             </div>
                         </div>
                         <div className="mintButtonDiv">
-                            <Form.Control className="mintQuantitySelector"
-                                type="number"
-                                id="mintQuantitySelector-2"
-                                defaultValue="1"
-                            />
+                            <div className="mintQuantitySelector">
+                                <div id="selector-1" className="mintQuantitySelectorValue">
+                                    {quantities[1]}
+                                </div>
+                                <div className="mintQuantitySelectorArrows">
+                                    <div className="mintQuantitySelectorArrowUp" onClick={() => clickArrow(1,1)} >
+                                    </div>
+                                    <div className="mintQuantitySelectorArrowDown" onClick={() => clickArrow(-1,1)} >
+                                    </div>
+                                </div>
+                            </div>
                             <div className="mintButton" onClick={mintButtonIslands}>
                                 <div className="mintButtonText">Buy Origin Box Islands</div>
                                 <div className="mintButtonPrice">$350</div>

@@ -107,14 +107,6 @@ a:link, a:visited, a:hover, a:active {
   color: #faf928;
 }
 
-.mintQuantitySelector, .mintQuantitySelector:focus {
-  color: white;
-  width: 4rem;
-  background-color: #260135;
-  border: solid 2px #b332af;
-  border-radius: 10vh;
-}
-
 .menuMobile {
   display: none;
 }
@@ -445,7 +437,29 @@ a:link, a:visited, a:hover, a:active {
 }
 
 
+.mintQuantitySelector, .mintQuantitySelector:focus {
+  color: white;
+  width: fit-content;
+  background-color: #260135;
+  border: solid 2px #b332af;
+  border-radius: 10vh;
+  display: flex;
+  gap: 1.2rem;
+  padding: 1rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+}
+.mintQuantitySelectorArrowUp, .mintQuantitySelectorArrowDown {
+  background-image: url("./assets/Arrow.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: .7rem;
+  height: .7rem;
+}
 
+.mintQuantitySelectorArrowDown {
+  transform: rotate(180deg);
+}
 
 
 
