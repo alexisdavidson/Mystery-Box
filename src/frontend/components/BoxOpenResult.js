@@ -32,7 +32,7 @@ const BoxOpenResult = ({ transactionFinished, setMenu }) => {
                     </div>
                 </div>
             </Row>
-            <Row className="openingBoxItems">
+            <Row className="openingBoxItems justify-content-center">
                 <Col className="m-0 p-0 col-6 col-lg-3">
                     <Row className="openingBoxItemSlotFilled">
                         <img src={sneakerItem2} className="openingBoxNftListItem" />
