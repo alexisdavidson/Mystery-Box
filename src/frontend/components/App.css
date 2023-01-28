@@ -465,7 +465,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: center;
     margin-top: 1vh;
   }
-  .itemSlot {
+  .itemSlot, .itemSlotFilled {
     width: 40vw;
     height: 40vw;
   }

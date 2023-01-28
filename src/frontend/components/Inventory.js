@@ -75,6 +75,18 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
                         <Row className="itemSlot">
                         </Row>
                     </Col>
+                    <Col className="p-0 col-6 col-lg-3">
+                        <Row className="itemSlot">
+                        </Row>
+                    </Col>
+                    <Col className="p-0 col-6 col-lg-3">
+                        <Row className="itemSlot">
+                        </Row>
+                    </Col>
+                    <Col className="p-0 col-6 col-lg-3">
+                        <Row className="itemSlot">
+                        </Row>
+                    </Col>
                 </Row>
             )}
         </Row>
