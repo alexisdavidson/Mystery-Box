@@ -35,6 +35,7 @@ html, body {
 
 .homeBoxImage {
   width: 70vh;
+  z-index: 20;
 }
 
 .homeCol {
@@ -425,6 +426,23 @@ a:link, a:visited, a:hover, a:active {
   padding: 0;
 }
 
+.homeEffect1, .homeEffect2 {
+  background-image: url("./assets/Effect1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.homeEffect2 {
+  background-image: url("./assets/Effect2.png");
+}
 
 
 
@@ -432,6 +450,11 @@ a:link, a:visited, a:hover, a:active {
 
 
 @media only screen and (max-width: 1199.98px){
+  
+  .homeEffect1, .homeEffect2 {
+    width: 200%;
+    height: 200%;
+  }
   .home {
     margin: 0;
   }

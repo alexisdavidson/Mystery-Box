@@ -70,6 +70,8 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                     )}
                 </div>
             </Col>
+            <div className="homeEffect1"></div>
+            <div className="homeEffect2"></div>
         </Row>
     );
 }
