@@ -82,11 +82,13 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .mintButtonsDiv {
+  margin-left: 15vh;
 }
 .mintButtonDiv {
   display: flex;
   justify-content: baseline;
-  align-items: start;
+  align-items: center;
+  gap: 1rem;
 }
 
 .mintButton {
@@ -96,6 +98,11 @@ a:link, a:visited, a:hover, a:active {
   padding-right: 1rem;
   width: fit-content;
   font-weight: normal;
+  line-height: 1.3rem;
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+  margin: 0;
+  margin-bottom: 1vh;
 }
 
 .mintButtonText {
@@ -446,8 +453,8 @@ a:link, a:visited, a:hover, a:active {
   display: flex;
   gap: 1.2rem;
   padding: 1rem;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
 }
 .mintQuantitySelectorArrowUp, .mintQuantitySelectorArrowDown {
   background-image: url("./assets/Arrow.svg");
@@ -466,8 +473,8 @@ a:link, a:visited, a:hover, a:active {
 @media only screen and (max-width: 1199.98px){
   
   .homeEffect1, .homeEffect2 {
-    width: 200%;
-    height: 200%;
+    /* width: 200%;
+    height: 200%; */
   }
   .home {
     margin: 0;
@@ -567,10 +574,16 @@ a:link, a:visited, a:hover, a:active {
 
   .mintButton {
     font-size: 1rem;
+    gap: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
   }
   
   .openingBoxWaiting {
     width: 20rem;
     font-size: .7rem;
+  }
+  .mintButtonsDiv {
+    margin-left: 0;
   }
 }
