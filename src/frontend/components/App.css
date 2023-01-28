@@ -55,8 +55,7 @@ a:link, a:visited, a:hover, a:active {
 
 .popupButton:hover, .popupButtonClose:hover, .audioDiv:hover, .subNavbarMenuNotSelected:hover,
 .coinDiv:hover, .mintButton:hover, .connectButton:hover, .wideButton:hover ,.wideButtonRed:hover, .navbarLinkElement:hover,
-.scratchyCardScratchable:hover, .logo:hover, .inventoryButton:hover, .itemDescButton:hover, .openingBoxButton:hover,
-.equipListItem:hover {
+.scratchyCardScratchable:hover, .logo:hover, .inventoryButton:hover, .itemDescButton:hover, .openingBoxButton:hover {
   cursor: pointer;
 }
 
@@ -288,7 +287,7 @@ a:link, a:visited, a:hover, a:active {
   font-size: .8rem;
 }
 
-.itemSlot, .openingBoxItemSlot, .equipItemSlot {
+.itemSlot, .openingBoxItemSlot, .equipItemSlot, .itemSlotFilled, .openingBoxItemSlotFilled, .equipItemSlotFilled {
   background-image: url("./assets/ItemSlot.png");
   background-repeat: no-repeat;
   background-size: contain;
@@ -306,7 +305,7 @@ a:link, a:visited, a:hover, a:active {
   padding: 0;
 }
 
-.nftListItem:hover {
+.equipListItem:hover {
   cursor: pointer;
 }
 
@@ -372,6 +371,9 @@ a:link, a:visited, a:hover, a:active {
 .openingBoxItemSlot {
   background-image: url("./assets/OpeningBoxItemSlot.png");
 }
+.openingBoxItemSlotFilled, .itemSlotFilled, .equipItemSlotFilled {
+  background-image: url("./assets/ItemSlotFilled.png");
+}
 
 .openingBoxNftListItem {
 
@@ -390,13 +392,13 @@ a:link, a:visited, a:hover, a:active {
   box-shadow:0 0 2vh #a545b8;
 }
 
-.equipItemSlot {
+.equipItemSlot, .equipItemSlotFilled {
   width: 10vw;
   height: 10vw;
   border-radius: 3vh;
 }
 
-.equipListItem{
+.equipListItem {
   border-radius: 3vh;
 }
 
@@ -422,7 +424,7 @@ a:link, a:visited, a:hover, a:active {
     border-radius: 3vh;
     box-shadow:0 0 2vh #a545b8;
   }
-  .equipItemSlot {
+  .equipItemSlot, .equipItemSlotFilled {
     width: 25vw;
     height: 25vw;
   }
@@ -431,7 +433,7 @@ a:link, a:visited, a:hover, a:active {
     height: 25vw;
   }
 
-  .openingBoxItemSlot {
+  .openingBoxItemSlot, .openingBoxItemSlotFilled {
     width: 40vw;
     height: 40vw;
   }

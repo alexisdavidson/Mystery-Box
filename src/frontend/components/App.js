@@ -76,6 +76,8 @@ function App() {
   }
 
   const web3Handler = async () => {
+    setAccount("123")
+    return
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
     await loadContracts(accounts[0])

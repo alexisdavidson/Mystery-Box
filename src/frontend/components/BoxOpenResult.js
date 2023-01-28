@@ -34,17 +34,17 @@ const BoxOpenResult = ({ transactionFinished, setMenu }) => {
             </Row>
             <Row className="openingBoxItems">
                 <Col className="m-0 p-0 col-6 col-lg-3">
-                    <Row className="openingBoxItemSlot">
+                    <Row className="openingBoxItemSlotFilled">
                         <img src={sneakerItem2} className="openingBoxNftListItem" />
                     </Row>
                 </Col>
                 <Col className="m-0 p-0 col-6 col-lg-3">
-                    <Row className="openingBoxItemSlot">
+                    <Row className="openingBoxItemSlotFilled">
                         <img src={Egg} className="openingBoxNftListItem" />
                     </Row>
                 </Col>
                 <Col className="m-0 p-0 col-6 col-lg-3">
-                    <Row className="openingBoxItemSlot">
+                    <Row className="openingBoxItemSlotFilled">
                         <img src={homeBox} className="openingBoxNftListItem" />
                     </Row>
                 </Col>

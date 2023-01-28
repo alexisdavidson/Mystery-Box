@@ -60,7 +60,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                             </div>
                                             <Row className="m-0 equipList">
                                                 <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row className="equipItemSlot">
+                                                    <Row className="equipItemSlotFilled">
                                                         <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
                                                     </Row>
                                                     <Row className="equipItemDescDiv">
@@ -73,7 +73,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                     </Row>
                                                 </Col>
                                                 <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row className="equipItemSlot">
+                                                    <Row className="equipItemSlotFilled">
                                                         <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
                                                     </Row>
                                                     <Row className="equipItemDescDiv">
@@ -86,7 +86,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                     </Row>
                                                 </Col>
                                                 <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row className="equipItemSlot">
+                                                    <Row className="equipItemSlotFilled">
                                                         <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
                                                     </Row>
                                                     <Row className="equipItemDescDiv">

@@ -24,8 +24,8 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
             ) : (
                 <Row className="nftList">
                     <Col className="m-0 p-0 col-6 col-lg-3">
-                        <Row className="itemSlot">
-                            <img src={homeBox} className="nftListItem" onClick={() => clickOpenBox(0)} />
+                        <Row className="itemSlotFilled">
+                            <img src={homeBox} className="nftListItem" />
                         </Row>
                         <Row className="itemDescDiv">
                             <Col className="col-12 col-lg-6 itemDescDivLeft">
@@ -44,8 +44,8 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
                         </Row>
                     </Col>
                     <Col className="p-0 col-6 col-lg-3">
-                        <Row className="itemSlot">
-                            <img src={sneakerItem} className="nftListItem" onClick={() => clickSneaker(1)} />
+                        <Row className="itemSlotFilled">
+                            <img src={sneakerItem} className="nftListItem" />
                         </Row>
                         <Row className="itemDescDiv">
                             <Col className="col-12 col-lg-6 itemDescDivLeft">
