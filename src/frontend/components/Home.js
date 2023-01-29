@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Image, Row, Col, Button, Form } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
+import cubeVideo from './assets/videos/Cube.webm'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
@@ -23,7 +24,10 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
     return (
         <Row className="home">
             <Col className="homeCol">
-                <img src={homeBox} className="homeBoxImage" />
+                {/* <img src={homeBox} className="homeBoxImage" /> */}
+            <video id="vid" loop controls className="" >
+                <source src='./assets/videos/Cube.webm' type="video/webm"/>
+            </video>
             </Col>
             <Col className="homeCol">
                 <div className="enterTitle topTitleTextEffect">
