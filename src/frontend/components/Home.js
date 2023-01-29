@@ -27,7 +27,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
             <Col className="homeCol">
                 {/* <img src={homeBox} className="homeBoxImage" /> */}
             <video id="vid" loop autoPlay muted className="homeBoxImage" >
-                <source src={cubeVideoW} type="video/webm"/>
+                <source src="/Cube.webm" type="video/webm"/>
             </video>
             </Col>
             <Col className="homeCol">
