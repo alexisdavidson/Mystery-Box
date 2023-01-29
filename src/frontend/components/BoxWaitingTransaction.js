@@ -6,7 +6,21 @@ import homeBox from './assets/homeBox.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const BoxWaitingTransaction = ({ transactionFinished }) => {
+const BoxWaitingTransaction = ({ transactionFinished, transactionObjectId }) => {
+    const transactionObject = [
+        {
+            description: "Welcome to MUSURE world and our Verified Creators! ⛩️",
+            video: "/Cube.webm"
+        },
+        {
+            description: "Welcome to MUSURE world and our Verified Creators! ⛩️",
+            video: "/Cube.webm"
+        },
+        {
+            description: "Welcome to MUSURE world and our Verified Creators! ⛩️",
+            video: "/SneakerPlaceholder.webm"
+        }
+    ]
 
     const checkNumber = () => {
         return transactionFinished ? "1" : "0"
@@ -17,7 +31,7 @@ const BoxWaitingTransaction = ({ transactionFinished }) => {
             {transactionFinished ? (
                 <>
                     <div className="openingBoxCongratulationsTitle">Congratulations!</div>
-                    <div className="openingBoxCongratulationsDesc">Welcome to MUSURE world and our Verified Creators! ⛩️</div>
+                    <div className="openingBoxCongratulationsDesc">{transactionObject[transactionObjectId].description}</div>
                 </>
             ) : (
                 <>
@@ -29,7 +43,7 @@ const BoxWaitingTransaction = ({ transactionFinished }) => {
                     {/* <img src={homeBox} className="homeBoxImage" /> */}
 
                     <video id="vid" loop autoPlay muted className="homeBoxImage" >
-                        <source src="/Cube.webm" type="video/webm"/>
+                        <source src={transactionObject[transactionObjectId].video} type="video/webm"/>
                     </video>
                 </div>
             </div>

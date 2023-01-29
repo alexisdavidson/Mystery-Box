@@ -7,7 +7,7 @@ import eggItemEquip from './assets/eggItemEquip.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu }) => {
+const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, setTransactionFinished, setTransactionObjectId }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [chosenItemIndex, setChosenItemIndex] = useState(0)
 
@@ -35,7 +35,12 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
 
     const equipEgg = async () => {
         console.log("equipEgg", chosenItemIndex)
-        // await new Promise(r => setTimeout(r, 2000));
+    
+        setTransactionFinished(false)
+        setTransactionObjectId(2)
+        setMenu(1)
+    
+        await new Promise(r => setTimeout(r, 2000));
         setMenu(5)
     }
 

@@ -4,10 +4,16 @@ import { Image, Row, Col, Button } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
 import sneakerItem from './assets/sneakerItem.png'
 
-const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
-    const clickOpenBox = (boxIndex) => {
+const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTransactionObjectId, setTransactionFinished }) => {
+    const clickOpenBox = async (boxIndex) => {
         console.log("clickOpenBox", boxIndex)
         setSelectedSneaker(boxIndex)
+    
+        setTransactionFinished(false)
+        setTransactionObjectId(1)
+        setMenu(1)
+    
+        await new Promise(r => setTimeout(r, 2000));
         setMenu(4)
     }
     const clickSneaker = (sneakerIndex) => {

@@ -37,6 +37,7 @@ function App() {
   const [provider, setProvider] = useState({})
   const [items, setItems] = useState(null)
   const [transactionFinished, setTransactionFinished] = useState(false)
+  const [transactionObjectId, setTransactionObjectId] = useState(0)
 
   const providerRef = useRef();
   providerRef.current = provider;
@@ -191,6 +192,7 @@ function App() {
     console.log("mintButtonAllRarities")
 
     setTransactionFinished(false)
+    setTransactionObjectId(0)
     setMenu(1)
 
     await new Promise(r => setTimeout(r, 2000));
@@ -201,6 +203,7 @@ function App() {
     console.log("mintButtonIslands")
     
     setTransactionFinished(false)
+    setTransactionObjectId(0)
     setMenu(1)
 
     await new Promise(r => setTimeout(r, 2000));
@@ -235,10 +238,12 @@ function App() {
               {
               '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
                     mintButtonIslands={mintButtonIslands} />,
-              '1': <BoxWaitingTransaction transactionFinished={transactionFinished} />,
+              '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} />,
               '2': <Inventory web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} 
-                    setSelectedSneaker={setSelectedSneaker}/>,
-              '3': <Equip web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} />,
+                    setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
+                    setTransactionFinished={setTransactionFinished} />,
+              '3': <Equip web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} 
+                    setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} />,
               '4': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               '5': <EquipResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               }[menu]
