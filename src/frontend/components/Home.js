@@ -102,7 +102,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                     ) : (
                         <div className="mt-2" style={{fontSize: "0.7rem"}}>
                             Verified Creators Creations are in all the boxes.
-                            <br/>Islands Box always Opens the rarest Creations.
+                            <br/>Islands Box only Opens the Origin Lands Creations.
                         </div>
                     )}
                 </div>

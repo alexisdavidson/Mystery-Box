@@ -50,7 +50,7 @@ const BoxOpenResult = ({ transactionFinished, setMenu }) => {
                 </Col>
             </Row>
             <Row className="openingBoxButtons">
-                    <div className="openingBoxButton" onClick={() => setMenu(2)}>Open Another Box</div>
+                    <div className="openingBoxButton" onClick={() => setMenu(0)}>Open Another Box</div>
                     <div className="openingBoxButton" onClick={clickInventory}>Go To Your Inventory</div>
             </Row>
         </Row>

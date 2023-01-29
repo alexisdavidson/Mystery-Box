@@ -17,8 +17,8 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker }) => {
     }
     return (
         <Row className="m-0">
-            <div className="openingBoxCongratulationsTitle">OPEN A ORIGIN BOX & EQUIP AN ORIGIN EGG</div>
-            <div className="openingBoxCongratulationsDesc mb-5">We are the future. 🌐</div>
+            <div className="openingBoxCongratulationsTitle">INVENTORY</div>
+            <div className="openingBoxCongratulationsDesc mb-5">Open an ORIGIN Box and equip your BLANK Sneaker with the ORIGIN Egg. We are the future. 🌐</div>
             {!account ? (
                 <div className="mintButton" onClick={web3Handler}>Connect MetaMask</div>
             ) : (
