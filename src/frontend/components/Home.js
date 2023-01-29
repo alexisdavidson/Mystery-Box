@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Image, Row, Col, Button, Form } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
-import cubeVideo from './assets/videos/Cube.mp4'
-import cubeVideoW from './assets/videos/Cube.webm'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
