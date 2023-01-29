@@ -3,6 +3,7 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button, Form } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
 import cubeVideo from './assets/videos/Cube.mp4'
+import cubeVideoW from './assets/videos/Cube.webm'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
@@ -26,7 +27,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
             <Col className="homeCol">
                 {/* <img src={homeBox} className="homeBoxImage" /> */}
             <video id="vid" loop autoPlay muted className="homeBoxImage" >
-                <source src={cubeVideo} type="video/mp4"/>
+                <source src={cubeVideoW} type="video/webm"/>
             </video>
             </Col>
             <Col className="homeCol">
