@@ -78,6 +78,17 @@ function App() {
   const web3Handler = async () => {
     setAccount("123")
     return
+    
+    const providerTemp = new ethers.providers.Web3Provider(window.ethereum)
+    const { chainId } = await providerTemp.getNetwork()
+    console.log("chainId", chainId)
+    if (chainId != 5) { // Goerli Chain ID: 5
+      await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: '0x5' }], // chainId must be in HEX with 0x in front
+      });
+    }
+
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
     await loadContracts(accounts[0])
