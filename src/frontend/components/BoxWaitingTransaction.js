@@ -26,7 +26,11 @@ const BoxWaitingTransaction = ({ transactionFinished }) => {
             <div className="">
                 <div>
                     {/* <img src={homeBox} className="openingBoxBackground" /> */}
-                    <img src={homeBox} className="homeBoxImage" />
+                    {/* <img src={homeBox} className="homeBoxImage" /> */}
+
+                    <video id="vid" loop autoPlay muted className="homeBoxImage" >
+                        <source src="/Cube.webm" type="video/webm"/>
+                    </video>
                 </div>
             </div>
             <div className="openingBoxWaitingDiv">

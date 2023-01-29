@@ -26,9 +26,9 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
         <Row className="home">
             <Col className="homeCol">
                 {/* <img src={homeBox} className="homeBoxImage" /> */}
-            <video id="vid" loop autoPlay muted className="homeBoxImage" >
-                <source src="/Cube.webm" type="video/webm"/>
-            </video>
+                <video id="vid" loop autoPlay muted className="homeBoxImage" >
+                    <source src="/Cube.webm" type="video/webm"/>
+                </video>
             </Col>
             <Col className="homeCol">
                 <div className="enterTitle topTitleTextEffect">
