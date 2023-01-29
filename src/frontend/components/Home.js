@@ -20,6 +20,18 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
         }
     }
 
+    const clickConnect = () => {
+        console.log("clickConnect")
+        var element = document.getElementById('default-checkbox');
+        console.log(element.checked)
+
+        if (element.checked)
+            web3Handler()
+        else {
+            element.classList.add('checkboxRed');
+        }
+    }
+
     return (
         <Row className="home">
             <Col className="homeCol">
@@ -37,7 +49,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                     <div className="topDescriptionSecond">ORIGIN</div>
                 </div>
                 {!account ? (
-                    <div className="connectButton" onClick={web3Handler}>Connect Metamask</div>
+                    <div className="connectButton" onClick={clickConnect}>Connect Metamask</div>
                 ) : (
                     <div className="mintButtonsDiv">
                         <div className="mintButtonDiv">
