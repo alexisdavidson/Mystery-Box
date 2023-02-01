@@ -4,6 +4,8 @@ pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 
 // Box QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n 1-2
@@ -11,8 +13,12 @@ import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 // Egg QmYVmkGssbGo9ZbM2HDQh3TjEyorgZjyjfqaFj365LQMQQ 1-31
 
 contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
+    using SafeERC20 for IERC20;
+
     string public uriPrefix = '';
     string public uriSuffix = '.json';
+
+    address public USDCAddress;
 
     struct BoxData {
         string name;
@@ -29,21 +35,26 @@ contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
 
     event MintSuccessful(address user);
 
-    constructor() ERC721A("Mystery Box", "MB") {
-        boxes.push(BoxData("Mystery Box 1", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 100, 100, true));
-        boxes.push(BoxData("Mystery Box 2", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 100, 100, true));
+    constructor(address _usdcAddress) ERC721A("Mystery Box", "MB") {
+        require(_usdcAddress != address(0), "Invalid USDC address");
+        USDCAddress = _usdcAddress;
+
+        boxes.push(BoxData("Mystery Box 1", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50, 50, true));
+        boxes.push(BoxData("Mystery Box 2", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50, 50, true));
     }
 
-    function mint(uint256 _boxId, uint256 _quantity) external payable {
+    function mint(uint256 _boxId, uint256 _quantity) external {
         require(_boxId < boxes.length, "boxId out of range");
         require(boxes[_boxId].mintEnabled, 'Minting is not enabled');
         require(boxes[_boxId].remainingSupply >= _quantity, 'Cannot mint more than max supply');
-        require(msg.value >= getPrice(_boxId) * _quantity, "Not enough ETH sent; check price!");
 
         for(uint256 i = 0; i < _quantity;) {
             idToBoxId[_startTokenId() + _totalMinted() + i] = _boxId;
             unchecked { ++i; }
         }
+
+        IERC20(USDCAddress).safeTransferFrom(msg.sender, address(this), getPrice(_boxId) * _quantity);
+
         _mint(msg.sender, _quantity);
         boxes[_boxId].remainingSupply --;
 
