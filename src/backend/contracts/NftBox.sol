@@ -43,6 +43,15 @@ contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
         boxes.push(BoxData("Mystery Box 2", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50, 50, true));
     }
 
+    function openBox(uint256 _tokenId) external {
+        require(ownerOf(_tokenId) == msg.sender, "You do not own this Box");
+        uint256 _boxId = idToBoxId[_tokenId];
+
+        // Pick random index from array which contains remaining stuff
+        
+        _burn(_tokenId);
+    }
+
     function mint(uint256 _boxId, uint256 _quantity) external {
         require(_boxId < boxes.length, "boxId out of range");
         require(boxes[_boxId].mintEnabled, 'Minting is not enabled');

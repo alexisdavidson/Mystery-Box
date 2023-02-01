@@ -16,16 +16,21 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     bool public mintEnabled;
     uint256 public price = 0 ether;
 
+    mapping (uint256 => uint256) idToMetadata;
+
     event MintSuccessful(address user);
 
     constructor(address _equipAddress) ERC721A("Sneaker X", "SX") {
         equipAddress = _equipAddress;
     }
 
-    function mintFromEquip(address _user) external {
+    function mintFromEquip(address _user, uint256 _metadataId) external {
         require(msg.sender == equipAddress, "Only the Box smart contract can mint");
-        require(totalSupply() + 1 < max_supply, 'Cannot mint more than max supply');
+        require(totalSupply() + 1 <= max_supply, 'Cannot mint more than max supply');
+
         _mint(_user, 1);
+
+        idToMetadata[totalSupply()] = _metadataId;
         
         emit MintSuccessful(msg.sender);
     }
@@ -41,13 +46,12 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
-        return _baseURI();
-        // require(_exists(_tokenId), 'ERC721Metadata: URI query for nonexistent token');
+        require(_exists(_tokenId), 'ERC721Metadata: URI query for nonexistent token');
 
-        // string memory currentBaseURI = _baseURI();
-        // return bytes(currentBaseURI).length > 0
-        //     ? string(abi.encodePacked(currentBaseURI, Strings.toString(_tokenId), uriSuffix))
-        //     : '';
+        string memory currentBaseURI = _baseURI();
+        return bytes(currentBaseURI).length > 0
+            ? string(abi.encodePacked(currentBaseURI, Strings.toString(idToMetadata[_tokenId]), uriSuffix))
+            : '';
     }
 
     function _baseURI() internal pure override returns (string memory) {

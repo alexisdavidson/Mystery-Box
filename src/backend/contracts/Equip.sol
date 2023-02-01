@@ -9,8 +9,8 @@ import "erc721a/contracts/ERC721A.sol";
 
 contract Equip is Ownable {
     NftSneakerX nftSneakerXAddress;
-    address nftAddress1;
-    address nftAddress2;
+    address nftAddress1; // Blank Sneaker
+    address nftAddress2; // Egg
 
     event EquipSuccessful(address user);
 
@@ -28,7 +28,7 @@ contract Equip is Ownable {
         IBoxLoot(nftAddress1).burnFromEquip(_tokenId1);
         IBoxLoot(nftAddress2).burnFromEquip(_tokenId2);
 
-        nftSneakerXAddress.mintFromEquip(msg.sender);
+        nftSneakerXAddress.mintFromEquip(msg.sender, IBoxLoot(nftAddress2).idToMetadata(_tokenId2));
 
         emit EquipSuccessful(msg.sender);
     }
