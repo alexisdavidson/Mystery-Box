@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
+import './IBoxLoot.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
@@ -19,6 +20,8 @@ contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
     string public uriSuffix = '.json';
 
     address public USDCAddress;
+    address public sneakerAddress;
+    address public eggAddress;
 
     struct BoxData {
         string name;
@@ -35,9 +38,11 @@ contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
 
     event MintSuccessful(address user);
 
-    constructor(address _usdcAddress) ERC721A("Mystery Box", "MB") {
+    constructor(address _usdcAddress, address _sneakerAddress, address _eggAddress) ERC721A("Mystery Box", "MB") {
         require(_usdcAddress != address(0), "Invalid USDC address");
         USDCAddress = _usdcAddress;
+        sneakerAddress = _sneakerAddress;
+        eggAddress = _eggAddress;
 
         boxes.push(BoxData("Mystery Box 1", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50, 50, true));
         boxes.push(BoxData("Mystery Box 2", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50, 50, true));
@@ -45,9 +50,11 @@ contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
 
     function openBox(uint256 _tokenId) external {
         require(ownerOf(_tokenId) == msg.sender, "You do not own this Box");
+        require(_msgSender() == tx.origin, "opener cannot be smart contract");
         uint256 _boxId = idToBoxId[_tokenId];
 
-        // Pick random index from array which contains remaining stuff
+        IBoxLoot(sneakerAddress).mintFromBox(msg.sender, _boxId);
+        IBoxLoot(eggAddress).mintFromBox(msg.sender, _boxId);
         
         _burn(_tokenId);
     }
