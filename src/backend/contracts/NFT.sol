@@ -6,6 +6,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
 import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 
+// Box QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n 1-2
+// Snaker QmY8ascXNak6Asqm6SSCe3p3zkiCWfTaGH5F7N1spmtj8x 1-31
+// Egg QmYVmkGssbGo9ZbM2HDQh3TjEyorgZjyjfqaFj365LQMQQ 1-31
+
 contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
     string public uriPrefix = '';
     string public uriSuffix = '.json';
@@ -26,8 +30,8 @@ contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
     event MintSuccessful(address user);
 
     constructor() ERC721A("Mystery Box", "MB") {
-        boxes.push(BoxData("Mystery Box 1", 0, 0, "QmYLpp6TaXjHPENgbDWRWzBQoJuc4zRE5z3sXjXhdYALp3", 100, 100, true));
-        boxes.push(BoxData("Mystery Box 2", 0, 0, "QmZnXGbXgpBNjAJaaaoWsH5VYoTNkVgpVmbpgFXnTUyQ5d", 100, 100, true));
+        boxes.push(BoxData("Mystery Box 1", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 100, 100, true));
+        boxes.push(BoxData("Mystery Box 2", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 100, 100, true));
     }
 
     function mint(uint256 _boxId, uint256 _quantity) external payable {
