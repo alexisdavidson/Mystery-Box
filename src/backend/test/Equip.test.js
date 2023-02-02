@@ -140,6 +140,17 @@ describe("Equip", async function() {
             expect(eggMetadata).to.lessThanOrEqual(31);
         })
 
+        it("Should not mint Box Islands if no more 1% loot available", async function() {
+            await usdc.connect(deployer).transfer(addr1.address, toWei(100_000));
+            await usdc.connect(addr1).approve(nftBox.address, toWei(100_000))
+            await nftBox.connect(addr1).mint(1, 50);
+
+            for(let i = 1; i <= 7; i++) { // There are a total of 7 items with 1% rarity
+                await nftBox.connect(addr1).openBox(i);
+            }
+            await expect(nftBox.connect(addr1).openBox(8)).to.be.revertedWith('No more one percent rarities available');
+        })
+
         it("Should equip a sneaker and an egg to receive a Sneaker X with correct metadata", async function() {
             const price0 = await nftBox.getMysteryBoxPrice(0);
             const price1 = await nftBox.getMysteryBoxPrice(1);
