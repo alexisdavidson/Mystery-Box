@@ -91,7 +91,7 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     // }
 
     function contractURI() public pure returns (string memory) {
-        return "ipfs://QmZn7J1NDdFgJm5Q7pxmivZFKVDjcBcpU9sN1kezBUZpLn/";
+        return "ipfs://QmZ7rzn8vqna7D54N5UnacoarPHB6cYZsRfwVfymcL8E23/";
     }
 
     function getPrice(uint256 _boxId) view public returns(uint) {

@@ -138,17 +138,16 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
-        return _baseURI();
-        // require(_exists(_tokenId), 'ERC721Metadata: URI query for nonexistent token');
+        require(_exists(_tokenId), 'ERC721Metadata: URI query for nonexistent token');
 
-        // string memory currentBaseURI = _baseURI();
-        // return bytes(currentBaseURI).length > 0
-        //     ? string(abi.encodePacked(currentBaseURI, Strings.toString(_tokenId), uriSuffix))
-        //     : '';
+        string memory currentBaseURI = _baseURI();
+        return bytes(currentBaseURI).length > 0
+            ? string(abi.encodePacked(currentBaseURI, Strings.toString(idToMetadataMapping[_tokenId]), uriSuffix))
+            : '';
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmYLpp6TaXjHPENgbDWRWzBQoJuc4zRE5z3sXjXhdYALp3/";
+        return "ipfs://QmYVmkGssbGo9ZbM2HDQh3TjEyorgZjyjfqaFj365LQMQQ/";
     }
     
     function baseTokenURI() public pure returns (string memory) {
@@ -156,7 +155,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function contractURI() public pure returns (string memory) {
-        return "ipfs://QmZn7J1NDdFgJm5Q7pxmivZFKVDjcBcpU9sN1kezBUZpLn/";
+        return "ipfs://QmaVcTLbmmY1CUswFBCBcpvgA8iYd7YEmaAraeF79bf8gZ/";
     }
 
     function getPrice() view public returns(uint) {

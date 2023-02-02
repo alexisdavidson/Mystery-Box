@@ -24,7 +24,7 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function mintFromEquip(address _user, uint256 _metadataId) external {
-        require(msg.sender == equipAddress, "Only the Box smart contract can mint");
+        require(msg.sender == equipAddress, "Only the Equip smart contract can mint");
         require(totalSupply() + 1 <= max_supply, 'Cannot mint more than max supply');
 
         _mint(_user, 1);
@@ -54,7 +54,7 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmYLpp6TaXjHPENgbDWRWzBQoJuc4zRE5z3sXjXhdYALp3/";
+        return "ipfs://QmY8ascXNak6Asqm6SSCe3p3zkiCWfTaGH5F7N1spmtj8x/";
     }
     
     function baseTokenURI() public pure returns (string memory) {
@@ -62,7 +62,7 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function contractURI() public pure returns (string memory) {
-        return "ipfs://QmZn7J1NDdFgJm5Q7pxmivZFKVDjcBcpU9sN1kezBUZpLn/";
+        return "ipfs://QmWCFqvGXWYS7uQSusgRzNtf2Druoh7YjtEknXESPZVVAr/";
     }
 
     function getPrice() view public returns(uint) {
