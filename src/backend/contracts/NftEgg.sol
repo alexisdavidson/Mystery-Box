@@ -14,6 +14,9 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     string public uriSuffix = '.json';
     uint256 public burnAmount;
 
+    uint256 public rareFirstId = 25;
+    uint256 public rareLastId = 31;
+
     bool public mintEnabled;
     uint256 public price = 0 ether;
 
@@ -23,7 +26,37 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     event MintSuccessful(address user);
 
     constructor() ERC721A("Egg", "EGG") {
-        remainingEggs = [13, 10, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1];
+        remainingEggs = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+            3, 3, 3, 3, 3, 
+            4, 4, 4, 4, 4, 
+            5, 5, 5, 
+            6, 6, 6, 
+            7, 7, 7, 
+            8, 8, 8, 
+            9, 9, 9, 
+            10, 10, 10, 
+            11, 11, 11,
+            12, 12, 12, 
+            13, 13, 13,
+            14, 14, 14, 
+            15, 15, 15, 
+            16, 16, 16, 
+            17, 17, 17, 
+            18, 18, 18, 
+            19, 19, 19, 
+            20, 20, 20, 
+            21, 21, 21, 
+            22, 22, 22, 
+            23, 23, 23, 
+            24, 24, 24, 
+            25, 
+            26, 
+            27, 
+            28, 
+            29, 
+            30, 
+            31];
     }
 
     function setRemainingEggs(uint256[] memory _remainingEggs) onlyOwner public {
@@ -39,7 +72,25 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
 
         // Pick random index from array which contains remaining stuff
         uint256 _random = uint256(keccak256(abi.encodePacked(_msgSender(), blockhash(block.number - 1), block.difficulty)));
-        _random = _random % remainingEggs.length;
+
+        uint256 _remainingEggsLength = remainingEggs.length;
+        if (_boxId == 1) { // 1% rarities only
+            uint256 _idFirstRare = 0;
+
+            for (uint256 i = 0; i < _remainingEggsLength;) {
+                if (isOnePercentRarity(remainingEggs[i])) {
+                    _idFirstRare = i;
+                    break;
+                }
+                unchecked { ++i; }
+            }
+
+            _random = _idFirstRare + _random % (_remainingEggsLength - _idFirstRare);
+        } else { // Any rarity
+            _random = _random % _remainingEggsLength;
+        }
+
+
         uint256 _metadata = remainingEggs[_random];
 
         _mint(_user, 1);
@@ -63,8 +114,8 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
         return false;
     }
 
-    function isOnePercentRarity(uint256 _metadata) public pure returns(bool) {
-        return _metadata >= 25 && _metadata <= 31;
+    function isOnePercentRarity(uint256 _metadata) public view returns(bool) {
+        return _metadata >= rareFirstId && _metadata <= rareLastId;
     }
 
     function burnFromEquip(uint256 _tokenId) external {

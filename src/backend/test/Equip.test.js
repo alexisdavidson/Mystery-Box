@@ -120,6 +120,26 @@ describe("Equip", async function() {
             expect(await nftEgg.balanceOf(addr1.address)).to.equal(1);
         })
 
+        it("Should open a Box Islands and 1% receive loot", async function() {
+            await usdc.connect(deployer).transfer(addr1.address, toWei(10_000));
+            await usdc.connect(addr1).approve(nftBox.address, toWei(10_000))
+            await nftBox.connect(addr1).mint(1, 1);
+            expect(await nftBox.balanceOf(addr1.address)).to.equal(1);
+
+            await expect(nftBox.connect(addr1).openBox(2)).to.be.revertedWith('OwnerQueryForNonexistentToken()');
+            await expect(nftBox.connect(addr2).openBox(1)).to.be.revertedWith('You do not own this Box');
+
+            await nftBox.connect(addr1).openBox(1);
+            expect(await nftBox.balanceOf(addr1.address)).to.equal(0);
+            expect(await nftSneaker.balanceOf(addr1.address)).to.equal(1);
+            expect(await nftEgg.balanceOf(addr1.address)).to.equal(1);
+            
+            const eggMetadata = parseInt(await nftEgg.idToMetadata(1));
+            console.log("eggMetadata", eggMetadata)
+            expect(eggMetadata).to.greaterThanOrEqual(25);
+            expect(eggMetadata).to.lessThanOrEqual(31);
+        })
+
         it("Should equip a sneaker and an egg to receive a Sneaker X with correct metadata", async function() {
             const price0 = await nftBox.getMysteryBoxPrice(0);
             const price1 = await nftBox.getMysteryBoxPrice(1);
