@@ -124,6 +124,9 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     
     function withdraw() external onlyOwner {
         payable(msg.sender).transfer(address(this).balance);
+        
+        IERC20(USDCAddress).approve(address(this), IERC20(USDCAddress).balanceOf(address(this)));
+        IERC20(USDCAddress).safeTransferFrom(address(this), msg.sender, IERC20(USDCAddress).balanceOf(address(this)));
     }
     
     function _startTokenId() internal view override returns (uint256) {

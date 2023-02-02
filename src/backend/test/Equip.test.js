@@ -37,8 +37,8 @@ describe("Equip", async function() {
         await nftEgg.setBoxAddress(nftBox.address);
         await nftSneakerX.setEquipAddress(equip.address);
 
-        await nftBox.addMysteryBox("Mystery Box 1", 80, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50)
-        await nftBox.addMysteryBox("Mystery Box 2", 350, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50)
+        await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50)
+        await nftBox.addMysteryBox("Mystery Box 2", toWei(350), "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50)
     });
 
     describe("Deployment", function() {
@@ -59,12 +59,12 @@ describe("Equip", async function() {
 
     describe("Mint", function() {
         it("Should mint NFTs correctly", async function() {
-            const price0 = await nftBox.getMysteryBoxPrice(0);
-            const price1 = await nftBox.getMysteryBoxPrice(1);
+            const price0 = fromWei(await nftBox.getMysteryBoxPrice(0));
+            const price1 = fromWei(await nftBox.getMysteryBoxPrice(1));
 
             await expect(nftBox.connect(addr1).mint(0, 1)).to.be.revertedWith('ERC20: insufficient allowance');
             
-            await usdc.connect(addr1).approve(nftBox.address, toWei(price0))
+            await usdc.connect(addr1).approve(nftBox.address, toWei(10_000))
             
             await expect(nftBox.connect(addr1).mint(2, 1)).to.be.revertedWith('boxId out of range');
             await expect(nftBox.connect(addr1).mint(0, 101)).to.be.revertedWith('Cannot mint more than max supply');
@@ -72,8 +72,11 @@ describe("Equip", async function() {
             await expect(nftBox.connect(addr1).mint(0, 1)).to.be.revertedWith('ERC20: transfer amount exceeds balance');
 
             await usdc.connect(deployer).transfer(addr1.address, toWei(10_000));
+            expect(await usdc.balanceOf(addr1.address)).to.equal(toWei(10_000));
 
             await nftBox.connect(addr1).mint(0, 1);
+            expect(await usdc.balanceOf(addr1.address)).to.equal(toWei(10_000 - price0));
+            expect(await usdc.balanceOf(nftBox.address)).to.equal(toWei(price0));
             expect(await nftBox.balanceOf(addr1.address)).to.equal(1);
             expect(await nftBox.totalSupply()).to.equal(1);
             expect(await nftBox.tokenURI(1)).to.contain(mysteryBoxCid1);
@@ -89,6 +92,13 @@ describe("Equip", async function() {
             expect(await nftBox.totalSupply()).to.equal(4);
             expect(await nftBox.tokenURI(4)).to.contain(mysteryBoxCid1);
 
+            // Withdraw USDC from Box smart contract
+            const nftBoxBalance = fromWei(await usdc.balanceOf(nftBox.address));
+            const deployerBalance = fromWei(await usdc.balanceOf(deployer.address));
+            await nftBox.connect(deployer).withdraw();
+            expect(await usdc.balanceOf(nftBox.address)).to.equal(0);
+            expect(await usdc.balanceOf(deployer.address)).to.equal(toWei(deployerBalance + nftBoxBalance));
+
         })
 
         it("Should open a Box and receive loot", async function() {
@@ -97,11 +107,15 @@ describe("Equip", async function() {
             await usdc.connect(deployer).transfer(addr1.address, toWei(10_000));
             await usdc.connect(addr1).approve(nftBox.address, toWei(10_000))
             await nftBox.connect(addr1).mint(0, 1);
+            expect(await nftBox.balanceOf(addr1.address)).to.equal(1);
 
             await expect(nftBox.connect(addr1).openBox(2)).to.be.revertedWith('OwnerQueryForNonexistentToken()');
             await expect(nftBox.connect(addr2).openBox(1)).to.be.revertedWith('You do not own this Box');
 
             await nftBox.connect(addr1).openBox(1);
+            expect(await nftBox.balanceOf(addr1.address)).to.equal(0);
+            expect(await nftSneaker.balanceOf(addr1.address)).to.equal(1);
+            expect(await nftEgg.balanceOf(addr1.address)).to.equal(1);
         })
 
         it("Should perform owner functions", async function() {
