@@ -6,7 +6,6 @@ const fromWei = (num) => parseInt(ethers.utils.formatEther(num))
 
 describe("Equip", async function() {
     let deployer, addr1, addr2, nftBox, nftEgg, nftSneaker, nftSneakerX, equip, udsc
-    let price = 0
     let mysteryBoxCid1 = "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1"
     let mysteryBoxCid2 = "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2"
 
@@ -37,6 +36,9 @@ describe("Equip", async function() {
         await nftSneaker.setBoxAddress(nftBox.address);
         await nftEgg.setBoxAddress(nftBox.address);
         await nftSneakerX.setEquipAddress(equip.address);
+
+        await nftBox.addMysteryBox("Mystery Box 1", 80, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50)
+        await nftBox.addMysteryBox("Mystery Box 2", 350, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50)
     });
 
     describe("Deployment", function() {
@@ -57,21 +59,32 @@ describe("Equip", async function() {
 
     describe("Mint", function() {
         it("Should mint NFTs correctly", async function() {
-            await expect(nftBox.connect(addr1).mint(2, 1, { value: toWei(price)})).to.be.revertedWith('boxId out of range');
-            await expect(nftBox.connect(addr1).mint(0, 101, { value: toWei(price)})).to.be.revertedWith('Cannot mint more than max supply');
+            const price0 = await nftBox.getMysteryBoxPrice(0);
+            const price1 = await nftBox.getMysteryBoxPrice(1);
 
-            await nftBox.connect(addr1).mint(0, 1, { value: toWei(price)});
+            await expect(nftBox.connect(addr1).mint(0, 1)).to.be.revertedWith('ERC20: insufficient allowance');
+            
+            await usdc.connect(addr1).approve(nftBox.address, toWei(price0))
+            
+            await expect(nftBox.connect(addr1).mint(2, 1)).to.be.revertedWith('boxId out of range');
+            await expect(nftBox.connect(addr1).mint(0, 101)).to.be.revertedWith('Cannot mint more than max supply');
+
+            await expect(nftBox.connect(addr1).mint(0, 1)).to.be.revertedWith('ERC20: transfer amount exceeds balance');
+
+            await usdc.connect(deployer).transfer(addr1.address, toWei(10_000));
+
+            await nftBox.connect(addr1).mint(0, 1);
             expect(await nftBox.balanceOf(addr1.address)).to.equal(1);
             expect(await nftBox.totalSupply()).to.equal(1);
             expect(await nftBox.tokenURI(1)).to.contain(mysteryBoxCid1);
 
-            await nftBox.connect(addr1).mint(1, 2, { value: toWei(price)});
+            await nftBox.connect(addr1).mint(1, 2);
             expect(await nftBox.balanceOf(addr1.address)).to.equal(3);
             expect(await nftBox.totalSupply()).to.equal(3);
             expect(await nftBox.tokenURI(2)).to.contain(mysteryBoxCid2);
             expect(await nftBox.tokenURI(3)).to.contain(mysteryBoxCid2);
 
-            await nftBox.connect(addr1).mint(0, 1, { value: toWei(price)});
+            await nftBox.connect(addr1).mint(0, 1);
             expect(await nftBox.balanceOf(addr1.address)).to.equal(4);
             expect(await nftBox.totalSupply()).to.equal(4);
             expect(await nftBox.tokenURI(4)).to.contain(mysteryBoxCid1);
@@ -87,7 +100,7 @@ describe("Equip", async function() {
             await nftBox.connect(deployer).setPrice(0, newPrice);
             expect(await nftBox.getPrice(0)).to.equal(newPrice);
             await nftBox.connect(deployer).setMintEnabled(0, false);
-            await expect(nftBox.connect(addr1).mint(0, 1, { value: toWei(price)})).to.be.revertedWith('Minting is not enabled');
+            await expect(nftBox.connect(addr1).mint(0, 1)).to.be.revertedWith('Minting is not enabled');
         })
     })
     

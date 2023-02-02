@@ -43,9 +43,6 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         USDCAddress = _usdcAddress;
         sneakerAddress = _sneakerAddress;
         eggAddress = _eggAddress;
-
-        boxes.push(BoxData("Mystery Box 1", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50, 50, true));
-        boxes.push(BoxData("Mystery Box 2", 0, 0, "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50, 50, true));
     }
 
     function openBox(uint256 _tokenId) external {
@@ -144,6 +141,11 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     //     boxes[_boxId] = boxes[boxes.length - 1];
     //     boxes.pop();
     // }
+
+    function getMysteryBoxPrice(uint256 _boxId) public view returns (uint256) {
+        require(_boxId < boxes.length, "boxId out of range");
+        return boxes[_boxId].price;
+    }
 
     function getMysteryBoxName(uint256 _boxId) public view returns (string memory) {
         require(_boxId < boxes.length, "boxId out of range");
