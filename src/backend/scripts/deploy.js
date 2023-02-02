@@ -46,6 +46,8 @@ async function main() {
   await nftSneaker.setEquipAddress(equip.address);
   await nftEgg.setEquipAddress(equip.address);
   await nftSneakerX.setEquipAddress(equip.address);
+  
+  console.log("Setters functions called")
 
   // For testing
   await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50)
