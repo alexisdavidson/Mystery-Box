@@ -35,6 +35,8 @@ describe("Equip", async function() {
 
         await nftSneaker.setBoxAddress(nftBox.address);
         await nftEgg.setBoxAddress(nftBox.address);
+        await nftSneaker.setEquipAddress(equip.address);
+        await nftEgg.setEquipAddress(equip.address);
         await nftSneakerX.setEquipAddress(equip.address);
 
         await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50)
@@ -116,6 +118,25 @@ describe("Equip", async function() {
             expect(await nftBox.balanceOf(addr1.address)).to.equal(0);
             expect(await nftSneaker.balanceOf(addr1.address)).to.equal(1);
             expect(await nftEgg.balanceOf(addr1.address)).to.equal(1);
+        })
+
+        it("Should equip a sneaker and an egg to receive a Sneaker X with correct metadata", async function() {
+            const price0 = await nftBox.getMysteryBoxPrice(0);
+            const price1 = await nftBox.getMysteryBoxPrice(1);
+            await usdc.connect(deployer).transfer(addr1.address, toWei(10_000));
+            await usdc.connect(addr1).approve(nftBox.address, toWei(10_000))
+            await nftBox.connect(addr1).mint(0, 1);
+            await nftBox.connect(addr1).openBox(1);
+
+            expect(await nftSneaker.balanceOf(addr1.address)).to.equal(1);
+            expect(await nftEgg.balanceOf(addr1.address)).to.equal(1);
+
+            await expect(equip.connect(addr2).equip(1, 1)).to.be.revertedWith('Caller does not own the NFT');
+            await equip.connect(addr1).equip(1, 1);
+
+            expect(await nftSneaker.balanceOf(addr1.address)).to.equal(0);
+            expect(await nftEgg.balanceOf(addr1.address)).to.equal(0);
+            expect(await nftSneakerX.balanceOf(addr1.address)).to.equal(1);
         })
 
         it("Should perform owner functions", async function() {

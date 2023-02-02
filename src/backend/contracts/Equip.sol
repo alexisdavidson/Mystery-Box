@@ -23,7 +23,6 @@ contract Equip is Ownable {
     function equip(uint256 _tokenId1, uint256 _tokenId2) public {
         require(ERC721A(nftAddress1).ownerOf(_tokenId1) == msg.sender, "Caller does not own the NFT");
         require(ERC721A(nftAddress2).ownerOf(_tokenId2) == msg.sender, "Caller does not own the NFT");
-        require(nftSneakerXAddress.totalSupply() > 0, "No more Sneaker X supply");
 
         IBoxLoot(nftAddress1).burnFromEquip(_tokenId1);
         IBoxLoot(nftAddress2).burnFromEquip(_tokenId2);

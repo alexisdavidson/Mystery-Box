@@ -9,6 +9,7 @@ import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 
 contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     address boxAddress;
+    address equipAddress;
     string public uriPrefix = '';
     string public uriSuffix = '.json';
     uint256 public max_supply = 100;
@@ -31,7 +32,7 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function burnFromEquip(uint256 _tokenId) external {
-        require(msg.sender == boxAddress, "Only the Box smart contract can burn from equip");
+        require(msg.sender == equipAddress, "Only the Equip smart contract can burn from equip");
         _burn(_tokenId);
     }
 
@@ -89,6 +90,10 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
 
     function setBoxAddress(address _address) public onlyOwner {
         boxAddress = _address;
+    }
+
+    function setEquipAddress(address _address) public onlyOwner {
+        equipAddress = _address;
     }
 
     function transferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {
