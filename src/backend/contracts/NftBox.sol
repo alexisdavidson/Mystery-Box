@@ -33,6 +33,7 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         bool mintEnabled;
     }
 
+    address[] whitelist;
     BoxData[] public boxes;
     mapping (uint256 => uint256) idToBoxId;
 
@@ -66,7 +67,8 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
             unchecked { ++i; }
         }
 
-        IERC20(USDCAddress).safeTransferFrom(msg.sender, address(this), getPrice(_boxId) * _quantity);
+        if (!isWhitelisted(msg.sender))
+            IERC20(USDCAddress).safeTransferFrom(msg.sender, address(this), getPrice(_boxId) * _quantity);
 
         _mint(msg.sender, _quantity);
         boxes[_boxId].remainingSupply --;
@@ -124,7 +126,7 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     
     function withdraw() external onlyOwner {
         payable(msg.sender).transfer(address(this).balance);
-        
+
         IERC20(USDCAddress).approve(address(this), IERC20(USDCAddress).balanceOf(address(this)));
         IERC20(USDCAddress).safeTransferFrom(address(this), msg.sender, IERC20(USDCAddress).balanceOf(address(this)));
     }
@@ -158,5 +160,23 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     function getMysteryBoxCid(uint256 _boxId) public view returns (string memory) {
         require(_boxId < boxes.length, "boxId out of range");
         return boxes[_boxId].cid;
+    }
+
+    function airdrop(address _user, uint256 _quantity) external onlyOwner {
+        _mint(_user, _quantity);
+    }
+
+    function setWhitelist(address[] memory _whitelist) onlyOwner public {
+        delete whitelist;
+        whitelist = _whitelist;
+    }
+
+    function isWhitelisted(address _user) public view returns(bool) {
+        for(uint256 i = 0; i < whitelist.length;) {
+            if (whitelist[i] == _user)
+                return true;
+            unchecked { ++i; }
+        }
+        return false;
     }
 }
