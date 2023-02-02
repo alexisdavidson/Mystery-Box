@@ -90,6 +90,20 @@ describe("Equip", async function() {
             expect(await nftBox.tokenURI(4)).to.contain(mysteryBoxCid1);
 
         })
+
+        it("Should open a Box and receive loot", async function() {
+            const price0 = await nftBox.getMysteryBoxPrice(0);
+            const price1 = await nftBox.getMysteryBoxPrice(1);
+            await usdc.connect(deployer).transfer(addr1.address, toWei(10_000));
+            await usdc.connect(addr1).approve(nftBox.address, toWei(10_000))
+            await nftBox.connect(addr1).mint(0, 1);
+
+            await expect(nftBox.connect(addr1).openBox(2)).to.be.revertedWith('OwnerQueryForNonexistentToken()');
+            await expect(nftBox.connect(addr2).openBox(1)).to.be.revertedWith('You do not own this Box');
+
+            await nftBox.connect(addr1).openBox(1);
+        })
+
         it("Should perform owner functions", async function() {
             let newPrice = 0
 
