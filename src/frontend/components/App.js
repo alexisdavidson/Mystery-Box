@@ -45,6 +45,7 @@ function App() {
   const [amountMinted, setAmountMinted] = useState(0)
   const [provider, setProvider] = useState({})
   const [items, setItems] = useState(null)
+  const [itemsEggs, setItemsEggs] = useState(null)
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
   
@@ -114,7 +115,34 @@ function App() {
     await loadContracts(accounts[0])
     
     setAccount(accounts[0])
-    loadOpenSeaItems(accounts[0], nftBoxRef.current)
+    loadAllItems(accounts[0])
+  }
+
+  const loadAllItems = async (acc) => {
+    const boxes = await loadOpenSeaItems(acc, nftBoxRef.current)
+    const sneakers = await loadOpenSeaItems(acc, nftSneakerRef.current)
+    const eggs = await loadOpenSeaItems(acc, nftEggRef.current)
+    let itemsTemp = []
+    itemsTemp = [...itemsTemp, ...compactOpenSeaList(boxes)]
+    itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakers)]
+    itemsTemp = [...itemsTemp, ...compactOpenSeaList(eggs)]
+
+    console.log(itemsTemp)
+    setItems(itemsTemp)
+    setItemsEggs(compactOpenSeaList(eggs))
+  }
+
+  const compactOpenSeaList = (list) => {
+    let compactList = []
+    for(let i = 0; i < list.length; i++) {
+      compactList.push({
+        contract: list[i].asset_contract.address,
+        name: list[i].name,
+        token_id: list[i].token_id,
+        image_url: list[i].image_url
+      })
+    }
+    return compactList
   }
 
   const loadOpenSeaItems = async (acc, nft) => {
@@ -129,6 +157,9 @@ function App() {
       console.error('Could not talk to OpenSea')
       return null
     })
+    console.log("itemsOpenSea", itemsOpenSea)
+    await new Promise(r => setTimeout(r, 1000));
+    return itemsOpenSea
 
     let itemsScratched = await nft.getScratched(acc)
     let items = []
@@ -203,26 +234,6 @@ function App() {
     console.log("nftBox address: " + nftBox.address)
     console.log("equip address: " + equip.address)
     console.log("usdc address: " + usdc.address)
-    // const amountMintedTemp = parseInt(await nft.totalSupply())/* + parseInt(await nft.burnAmount())*/
-    // setAmountMinted(amountMintedTemp)
-    // const supplyLeftTemp = totalSupply - amountMintedTemp
-    // console.log("tickets left: " + supplyLeftTemp)
-    // setSupplyLeft(supplyLeftTemp)
-    // setPrice(fromWei(await nft.getPrice(0)))
-    // const balanceTemp = parseInt(await nft.balanceOf(acc))
-    // console.log("balance", balanceTemp)
-    // setBalance(balanceTemp)
-    // setNFT(nft)
-    // nft.on("MintSuccessful", (user) => {
-    //     console.log("MintSuccessful");
-    //     console.log(user);
-    //     console.log(acc);
-    //     if (user.toLowerCase() == acc.toLowerCase()) {
-    //       mintFinished(nft);
-    //     }
-    // });
-
-    // console.log("nft address: " + nft.address)
   }
   
   const mintButtonAllRarities = async (quantity) => {
