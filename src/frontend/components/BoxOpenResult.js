@@ -3,16 +3,12 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
 import Egg from './assets/egg.png'
-import sneakerItem2 from './assets/sneakerItem2.png'
+import sneakerItem2 from './assets/sneakerItem.png'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const BoxOpenResult = ({ transactionFinished, setMenu }) => {
-
-    const checkNumber = () => {
-        return transactionFinished ? "1" : "0"
-    }
+const BoxOpenResult = ({ setMenu }) => {
 
     const clickInventory = () => {
         console.log("clickInventory")
@@ -28,7 +24,9 @@ const BoxOpenResult = ({ transactionFinished, setMenu }) => {
             <Row className="m-0 p-0">
                 <div className="openingBoxUnlockedDiv m-0 p-0">
                     <div className="openingBoxUnlocked">
-                        You unlocked <span className="unlockedItemText">+1 Blank Sneaker</span>, <span className="unlockedItemText">+1 Origin Egg</span> and <span className="unlockedItemText">+1 Origin Box</span>
+                        You unlocked <span className="unlockedItemText">+1 Blank Sneaker</span> 
+                        and <span className="unlockedItemText">+1 Origin Egg</span>
+                         {/* and <span className="unlockedItemText">+1 Origin Box</span> */}
                     </div>
                 </div>
             </Row>
@@ -43,15 +41,15 @@ const BoxOpenResult = ({ transactionFinished, setMenu }) => {
                         <img src={Egg} className="openingBoxNftListItem" />
                     </Row>
                 </Col>
-                <Col className="m-0 p-0 col-6 col-lg-3">
+                {/* <Col className="m-0 p-0 col-6 col-lg-3">
                     <Row className="openingBoxItemSlotFilled">
                         <img src={homeBox} className="openingBoxNftListItem" />
                     </Row>
-                </Col>
+                </Col> */}
             </Row>
             <Row className="openingBoxButtons">
-                    <div className="openingBoxButton" onClick={() => setMenu(0)}>Open Another Box</div>
-                    <div className="openingBoxButton" onClick={clickInventory}>Go To Your Inventory</div>
+                <div className="openingBoxButton" onClick={() => setMenu(0)}>Open Another Box</div>
+                <div className="openingBoxButton" onClick={clickInventory}>Go To Your Inventory</div>
             </Row>
         </Row>
     );

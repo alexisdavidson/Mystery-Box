@@ -23,7 +23,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     uint256[] remainingEggs;
     mapping (uint256 => uint256) idToMetadataMapping;
 
-    event MintSuccessful(address user);
+    event MintSuccessful(address user, uint256 metadata);
 
     constructor() ERC721A("Egg", "EGG") {
         remainingEggs = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
@@ -100,7 +100,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
         remainingEggs[_random] = remainingEggs[remainingEggs.length - 1];
         remainingEggs.pop();
         
-        emit MintSuccessful(msg.sender);
+        emit MintSuccessful(msg.sender, _metadata);
     }
 
     function onePercentRarityAvailable() public view returns(bool) {
@@ -127,14 +127,14 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
         return idToMetadataMapping[_tokenId];
     }
 
-    function mint(uint256 quantity) external payable {
+    function mint(uint256 quantity, uint256 _metadataId) external payable {
         require(mintEnabled, 'Minting is not enabled');
         require(remainingEggs.length > 0, 'No remaining Eggs');
         require(msg.value >= getPrice() * quantity, "Not enough ETH sent; check price!");
 
         _mint(msg.sender, quantity);
 
-        emit MintSuccessful(msg.sender);
+        emit MintSuccessful(msg.sender, _metadataId);
     }
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {

@@ -49,6 +49,7 @@ function App() {
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
   const [selectedSneaker, setSelectedSneaker] = useState(0)
+  const [metadata, setMetadata] = useState(0)
   
   const [nftEgg, setNftEgg] = useState({})
   const [nftSneaker, setNftSneaker] = useState({})
@@ -77,6 +78,8 @@ function App() {
   nftSneakerXRef.current = nftSneakerX;
   const accountRef = useRef();
   accountRef.current = account;
+  const metadataRef = useRef();
+  metadataRef.current = metadata;
 
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -197,6 +200,23 @@ function App() {
     console.log("nftBox address: " + nftBox.address)
     console.log("equip address: " + equip.address)
     console.log("usdc address: " + usdc.address)
+    
+    nftEgg.on("MintSuccessful", (user, metadata) => {
+      console.log("Egg MintSuccessful", metadata, user, acc);
+      if (user.toLowerCase() == acc.toLowerCase()) {
+        setMetadata(metadata);
+        metadataRef.current = metadata
+        setMenu(4)
+      }
+    });
+    nftSneakerX.on("MintSuccessful", (user, metadata) => {
+      console.log("SneakerX MintSuccessful", metadata, user, acc);
+      if (user.toLowerCase() == acc.toLowerCase()) {
+        setMetadata(metadata);
+        metadataRef.current = metadata
+        setMenu(5)
+      }
+    });
   }
   
   const mintButtonAllRarities = async (quantity) => {
@@ -248,12 +268,14 @@ function App() {
               '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} />,
               '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
-                    setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} />,
+                    setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} 
+                    setMetadata={setMetadata} />,
               '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} 
-                    itemsEggs={itemsEggs} items={items} equip={equip} selectedSneaker={selectedSneaker} />,
-              '4': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
-              '5': <EquipResult setMenu={setMenu} transactionFinished={transactionFinished} />,
+                    itemsEggs={itemsEggs} items={items} equip={equip} selectedSneaker={selectedSneaker} 
+                    setMetadata={setMetadata} />,
+              '4': <BoxOpenResult setMenu={setMenu} />,
+              '5': <EquipResult metadataRef={metadataRef} />,
               }[menu]
             }
         </div>

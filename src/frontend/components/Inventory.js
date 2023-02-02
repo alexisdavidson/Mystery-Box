@@ -8,7 +8,7 @@ import NftEggAddress from '../contractsData/NftEgg-address.json'
 import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
 
 const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTransactionObjectId, setTransactionFinished,
-                        items, nftBox }) => {
+                        items, nftBox, setMetadata }) => {
     
     const clickOpenBox = async (boxIndex) => {
         console.log("clickOpenBox", boxIndex)
@@ -18,9 +18,8 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
         setTransactionObjectId(1)
         setMenu(1)
     
-        // await(await nft.setApprovalForAll(nftstakeraddress, true)).wait()
+        setMetadata(0);
         await(await nftBox.openBox(items[boxIndex].token_id)).wait()
-
         setMenu(4)
     }
     const clickSneaker = (sneakerIndex) => {

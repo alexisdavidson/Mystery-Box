@@ -8,7 +8,8 @@ const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, 
-        setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker }) => {
+        setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker,
+        setMetadata }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [chosenItemIndex, setChosenItemIndex] = useState(0)
 
@@ -41,8 +42,8 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
         setTransactionObjectId(2)
         setMenu(1)
     
+        setMetadata(0)
         await(await equip.equip(items[selectedSneaker].token_id, itemsEggs[chosenItemIndex].token_id)).wait()
-        await new Promise(r => setTimeout(r, 2000));
         setMenu(5)
     }
 
@@ -75,7 +76,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                 {itemsEggs.map((item, idx) => (
                                                     <Col key={idx} className="m-0 p-0 col-6 col-lg-4">
                                                         <Row id={"equipItem-" + idx} className="equipItemSlotFilled">
-                                                            <img src={eggItemEquip} className="equipListItem" onClick={() => clickEquip(idx)} />
+                                                            <img src={item.image_url} className="equipListItem" onClick={() => clickEquip(idx)} />
                                                         </Row>
                                                         <Row className="equipItemDescDiv">
                                                                 <div className="itemDescTitle">

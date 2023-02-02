@@ -3,7 +3,7 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
 import videoPlaceholder from './assets/videoPlaceholder.png'
 
-const EquipResult = ({ transactionFinished, setMenu }) => {
+const EquipResult = ({ metadataRef }) => {
 
     return (
         <Row className="m-0 p-0">
@@ -19,6 +19,10 @@ const EquipResult = ({ transactionFinished, setMenu }) => {
             </Row>
             <Row className="m-0 p-0">
                 <div className="mt-5">
+                    {/* <video id="vid" loop autoPlay muted className="equipImage" >
+                        <source src={"https://ipfs.io/ipfs/QmY8ascXNak6Asqm6SSCe3p3zkiCWfTaGH5F7N1spmtj8x/" + metadataRef.current}
+                        type="video/mp4"/>
+                    </video> */}
                     <img src={videoPlaceholder} className="equipImage" />
                 </div>
             </Row>

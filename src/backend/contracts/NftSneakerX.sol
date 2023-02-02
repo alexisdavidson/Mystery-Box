@@ -18,7 +18,7 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
 
     mapping (uint256 => uint256) public idToMetadata;
 
-    event MintSuccessful(address user);
+    event MintSuccessful(address user, uint256 metadata);
 
     constructor() ERC721A("Sneaker X", "SX") {
     }
@@ -31,17 +31,17 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
 
         idToMetadata[_totalMinted()] = _metadataId;
         
-        emit MintSuccessful(msg.sender);
+        emit MintSuccessful(msg.sender, _metadataId);
     }
 
-    function mint(uint256 quantity) external payable {
+    function mint(uint256 quantity, uint256 _metadataId) external payable {
         require(mintEnabled, 'Minting is not enabled');
         require(_totalMinted() + quantity < max_supply, 'Cannot mint more than max supply');
         require(msg.value >= getPrice() * quantity, "Not enough ETH sent; check price!");
 
         _mint(msg.sender, quantity);
 
-        emit MintSuccessful(msg.sender);
+        emit MintSuccessful(msg.sender, _metadataId);
     }
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
