@@ -13,7 +13,7 @@ import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 // Snaker QmY8ascXNak6Asqm6SSCe3p3zkiCWfTaGH5F7N1spmtj8x 1-31
 // Egg QmYVmkGssbGo9ZbM2HDQh3TjEyorgZjyjfqaFj365LQMQQ 1-31
 
-contract NFT is Ownable, ERC721A, DefaultOperatorFilterer {
+contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     using SafeERC20 for IERC20;
 
     string public uriPrefix = '';

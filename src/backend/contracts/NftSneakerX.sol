@@ -20,8 +20,7 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
 
     event MintSuccessful(address user);
 
-    constructor(address _equipAddress) ERC721A("Sneaker X", "SX") {
-        equipAddress = _equipAddress;
+    constructor() ERC721A("Sneaker X", "SX") {
     }
 
     function mintFromEquip(address _user, uint256 _metadataId) external {

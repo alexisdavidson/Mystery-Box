@@ -21,8 +21,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
 
     event MintSuccessful(address user);
 
-    constructor(address _boxAddress) ERC721A("Blank Sneaker", "BS") {
-        boxAddress = _boxAddress;
+    constructor() ERC721A("Egg", "EGG") {
         remainingEggs = [13, 10, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1];
     }
 

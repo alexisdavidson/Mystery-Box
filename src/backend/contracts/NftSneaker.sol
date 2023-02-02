@@ -19,8 +19,7 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
 
     event MintSuccessful(address user);
 
-    constructor(address _boxAddress) ERC721A("Blank Sneaker", "BS") {
-        boxAddress = _boxAddress;
+    constructor() ERC721A("Blank Sneaker", "BS") {
     }
 
     function mintFromBox(address _user, uint256 _boxId) external {
