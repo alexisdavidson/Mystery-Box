@@ -7,12 +7,13 @@ import eggItemEquip from './assets/eggItemEquip.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, setTransactionFinished, setTransactionObjectId }) => {
+const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, 
+        setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [chosenItemIndex, setChosenItemIndex] = useState(0)
 
-    const clickBox = (itemIndex) => {
-        console.log("clickBox", itemIndex)
+    const clickEquip = (itemIndex) => {
+        console.log("clickEquip", itemIndex)
         setChosenItemIndex(itemIndex)
         
         for(let i = 0; i < 3; i ++) {
@@ -40,6 +41,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
         setTransactionObjectId(2)
         setMenu(1)
     
+        await(await equip.equip(items[selectedSneaker].token_id, itemsEggs[chosenItemIndex].token_id)).wait()
         await new Promise(r => setTimeout(r, 2000));
         setMenu(5)
     }
@@ -70,45 +72,21 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                 EQUIP ORIGIN EGG
                                             </div>
                                             <Row className="m-0 equipList">
-                                                <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row id="equipItem-0" className="equipItemSlotFilled">
-                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(0)} />
-                                                    </Row>
-                                                    <Row className="equipItemDescDiv">
-                                                            <div className="itemDescTitle">
-                                                                CREATORS NAME
-                                                            </div>
-                                                            <div className="itemDescDesc">
-                                                                ORIGIN EGG
-                                                            </div>
-                                                    </Row>
-                                                </Col>
-                                                <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row id="equipItem-1" className="equipItemSlotFilled">
-                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(1)} />
-                                                    </Row>
-                                                    <Row className="equipItemDescDiv">
-                                                        <div className="itemDescTitle">
-                                                            CREATORS NAME
-                                                        </div>
-                                                        <div className="itemDescDesc">
-                                                            ORIGIN EGG
-                                                        </div>
-                                                    </Row>
-                                                </Col>
-                                                <Col className="m-0 p-0 col-6 col-lg-4">
-                                                    <Row id="equipItem-2" className="equipItemSlotFilled">
-                                                        <img src={eggItemEquip} className="equipListItem" onClick={() => clickBox(2)} />
-                                                    </Row>
-                                                    <Row className="equipItemDescDiv">
-                                                        <div className="itemDescTitle">
-                                                            CREATORS NAME
-                                                        </div>
-                                                        <div className="itemDescDesc">
-                                                            ORIGIN EGG
-                                                        </div>
-                                                    </Row>
-                                                </Col>
+                                                {itemsEggs.map((item, idx) => (
+                                                    <Col key={idx} className="m-0 p-0 col-6 col-lg-4">
+                                                        <Row id={"equipItem-" + idx} className="equipItemSlotFilled">
+                                                            <img src={eggItemEquip} className="equipListItem" onClick={() => clickEquip(idx)} />
+                                                        </Row>
+                                                        <Row className="equipItemDescDiv">
+                                                                <div className="itemDescTitle">
+                                                                    {item.creator}
+                                                                </div>
+                                                                <div className="itemDescDesc">
+                                                                    ORIGIN EGG
+                                                                </div>
+                                                        </Row>
+                                                    </Col>
+                                                ))}
                                                 <Col className="m-0 p-0 col-6 col-lg-4">
                                                     <Row className="equipItemSlot">
                                                     </Row>

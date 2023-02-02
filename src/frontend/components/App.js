@@ -48,6 +48,7 @@ function App() {
   const [itemsEggs, setItemsEggs] = useState([])
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
+  const [selectedSneaker, setSelectedSneaker] = useState(0)
   
   const [nftEgg, setNftEgg] = useState({})
   const [nftSneaker, setNftSneaker] = useState({})
@@ -127,7 +128,7 @@ function App() {
     let itemsTemp = []
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(boxes)]
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakers)]
-    itemsTemp = [...itemsTemp, ...compactOpenSeaList(eggs)]
+    // itemsTemp = [...itemsTemp, ...compactOpenSeaList(eggs)]
 
     console.log(itemsTemp)
     setItems(itemsTemp)
@@ -141,7 +142,8 @@ function App() {
         contract: list[i].asset_contract.address.toUpperCase(),
         name: list[i].name,
         token_id: list[i].token_id,
-        image_url: list[i].image_url
+        image_url: list[i].image_url,
+        creator: "CREATORS NAME"
       })
     }
     return compactList
@@ -221,12 +223,6 @@ function App() {
     setTransactionFinished(true)
   }
 
-  const setSelectedSneaker = async (selectedSneaker) => {
-    console.log("setSelectedSneaker", selectedSneaker)
-    
-    // setMenu(1)
-  }
-
   useEffect(async () => {
     return () => {
       // nft?.removeAllListeners("MintSuccessful");
@@ -255,7 +251,7 @@ function App() {
                     setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} />,
               '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} 
-                    itemsEggs={itemsEggs}/>,
+                    itemsEggs={itemsEggs} items={items} equip={equip} selectedSneaker={selectedSneaker} />,
               '4': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               '5': <EquipResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               }[menu]
