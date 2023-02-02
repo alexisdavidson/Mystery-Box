@@ -131,12 +131,19 @@ describe("Equip", async function() {
             expect(await nftSneaker.balanceOf(addr1.address)).to.equal(1);
             expect(await nftEgg.balanceOf(addr1.address)).to.equal(1);
 
+            const eggMetadata = await nftEgg.idToMetadata(1);
+
             await expect(equip.connect(addr2).equip(1, 1)).to.be.revertedWith('Caller does not own the NFT');
             await equip.connect(addr1).equip(1, 1);
 
             expect(await nftSneaker.balanceOf(addr1.address)).to.equal(0);
             expect(await nftEgg.balanceOf(addr1.address)).to.equal(0);
             expect(await nftSneakerX.balanceOf(addr1.address)).to.equal(1);
+
+            const sneakerXMetadata = await nftSneakerX.idToMetadata(1);
+            expect(eggMetadata).to.equal(sneakerXMetadata);
+
+            console.log("Metadata: " + eggMetadata)
         })
 
         it("Should perform owner functions", async function() {

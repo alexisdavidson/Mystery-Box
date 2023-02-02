@@ -16,7 +16,7 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     bool public mintEnabled;
     uint256 public price = 0 ether;
 
-    mapping (uint256 => uint256) idToMetadata;
+    mapping (uint256 => uint256) public idToMetadata;
 
     event MintSuccessful(address user);
 
