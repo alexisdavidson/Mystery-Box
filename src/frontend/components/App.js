@@ -44,8 +44,8 @@ function App() {
   const [quantity, setQuantity] = useState(1)
   const [amountMinted, setAmountMinted] = useState(0)
   const [provider, setProvider] = useState({})
-  const [items, setItems] = useState(null)
-  const [itemsEggs, setItemsEggs] = useState(null)
+  const [items, setItems] = useState([])
+  const [itemsEggs, setItemsEggs] = useState([])
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
   
@@ -120,7 +120,9 @@ function App() {
 
   const loadAllItems = async (acc) => {
     const boxes = await loadOpenSeaItems(acc, nftBoxRef.current)
+    await new Promise(r => setTimeout(r, 1000));
     const sneakers = await loadOpenSeaItems(acc, nftSneakerRef.current)
+    await new Promise(r => setTimeout(r, 1000));
     const eggs = await loadOpenSeaItems(acc, nftEggRef.current)
     let itemsTemp = []
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(boxes)]
@@ -136,7 +138,7 @@ function App() {
     let compactList = []
     for(let i = 0; i < list.length; i++) {
       compactList.push({
-        contract: list[i].asset_contract.address,
+        contract: list[i].asset_contract.address.toUpperCase(),
         name: list[i].name,
         token_id: list[i].token_id,
         image_url: list[i].image_url
@@ -158,48 +160,7 @@ function App() {
       return null
     })
     console.log("itemsOpenSea", itemsOpenSea)
-    await new Promise(r => setTimeout(r, 1000));
     return itemsOpenSea
-
-    let itemsScratched = await nft.getScratched(acc)
-    let items = []
-    for(let i = 0; i < itemsScratched.length; i ++) {
-      items.push({})
-      items[i].name = "GENESIS SCRATCHY CARD #" + zeroPad(parseInt(itemsScratched[i]), 4);
-      items[i].token_id = parseInt(itemsScratched[i]);
-      items[i].isScratched = true;
-    }
-
-    for(let i = 0; i < itemsOpenSea?.length; i ++) {
-      let alreadyInList = false
-      for(let j = 0; j < itemsScratched.length; j ++) {
-        if (parseInt(itemsOpenSea[i].token_id) == parseInt(itemsScratched[j]))
-          alreadyInList = true
-      }
-
-      if (!alreadyInList) {
-        items.push({
-          name: itemsOpenSea[i].name,
-          token_id: itemsOpenSea[i].token_id,
-          isScratched: false
-        })
-      }
-    }
-    
-
-    function compare( a, b ) {
-      if ( a.token_id < b.token_id ){
-        return -1;
-      }
-      if ( a.token_id > b.token_id ){
-        return 1;
-      }
-      return 0;
-    }
-
-    items.sort(compare)
-    console.log(items)
-    setItems(items)
   }
 
   const mintFinished = async (nft) => {
@@ -291,9 +252,10 @@ function App() {
               '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} />,
               '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
-                    setTransactionFinished={setTransactionFinished} />,
+                    setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} />,
               '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
-                    setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} />,
+                    setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} 
+                    itemsEggs={itemsEggs}/>,
               '4': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               '5': <EquipResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               }[menu]

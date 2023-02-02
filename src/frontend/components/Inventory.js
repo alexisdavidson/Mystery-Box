@@ -3,8 +3,13 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
 import sneakerItem from './assets/sneakerItem.png'
+import NftBoxAddress from '../contractsData/NftBox-address.json'
+import NftEggAddress from '../contractsData/NftEgg-address.json'
+import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
 
-const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTransactionObjectId, setTransactionFinished }) => {
+const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTransactionObjectId, setTransactionFinished,
+                        items, nftBox }) => {
+    
     const clickOpenBox = async (boxIndex) => {
         console.log("clickOpenBox", boxIndex)
         setSelectedSneaker(boxIndex)
@@ -13,10 +18,14 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
         setTransactionObjectId(1)
         setMenu(1)
     
-        await new Promise(r => setTimeout(r, 2000));
+        // await(await nft.setApprovalForAll(nftstakeraddress, true)).wait()
+        await(await nftBox.openBox(items[boxIndex].token_id)).wait()
+
         setMenu(4)
     }
     const clickSneaker = (sneakerIndex) => {
+        console.log("NftBoxAddress.address", NftBoxAddress.address)
+        console.log("item.contract", items[sneakerIndex].contract)
         console.log("clickSneaker", sneakerIndex)
         setSelectedSneaker(sneakerIndex)
         setMenu(3)
@@ -29,54 +38,43 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                 <div className="mintButton" onClick={web3Handler}>Connect MetaMask</div>
             ) : (
                 <Row className="nftList">
-                    <Col className="m-0 p-0 col-6 col-lg-3">
-                        <Row className="itemSlotFilled">
-                            <img src={homeBox} className="nftListItem" />
-                        </Row>
-                        <Row className="itemDescDiv">
-                            <Col className="col-12 col-lg-6 itemDescDivLeft">
-                                <div className="itemDescTitle">
-                                    ORIGIN BOX
-                                </div>
-                                <div className="itemDescDesc">
-                                    What’s inside? 👀
-                                </div>
-                            </Col>
-                            <Col className="col-12 col-lg-6">
-                                <div className="itemDescButton" onClick={() => clickOpenBox(0)} >
-                                    Open
-                                </div>
-                            </Col>
-                        </Row>
-                    </Col>
-                    <Col className="p-0 col-6 col-lg-3">
-                        <Row className="itemSlotFilled">
-                            <img src={sneakerItem} className="nftListItem" />
-                        </Row>
-                        <Row className="itemDescDiv">
-                            <Col className="col-12 col-lg-6 itemDescDivLeft">
-                                <div className="itemDescTitle">
-                                    BLANK Sneaker
-                                </div>
-                                <div className="itemDescDesc">
-                                    Ready to SWAG. ⛩️
-                                </div>
-                            </Col>
-                            <Col className="col-12 col-lg-6">
-                                <div className="itemDescButton" onClick={() => clickSneaker(1)} >
-                                    Equip
-                                </div>
-                            </Col>
-                        </Row>
-                    </Col>
-                    <Col className="p-0 col-6 col-lg-3">
-                        <Row className="itemSlot">
-                        </Row>
-                    </Col>
-                    <Col className="p-0 col-6 col-lg-3">
-                        <Row className="itemSlot">
-                        </Row>
-                    </Col>
+                    {items.map((item, idx) => (
+                        <Col key={idx} className="m-0 p-0 col-6 col-lg-3">
+                            <Row className="itemSlotFilled">
+                                <img src={item.image_url} className="nftListItem" />
+                            </Row>
+                            <Row className="itemDescDiv">
+                                <Col className="col-12 col-lg-6 itemDescDivLeft">
+                                    <div className="itemDescTitle">
+                                        item.name {item.name}
+                                    </div>
+                                    <div className="itemDescDesc">
+                                        {item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (
+                                            <>
+                                                What’s inside? 👀
+                                            </>
+                                        ) : (
+                                            <>
+                                                Ready to SWAG. ⛩️
+                                            </>
+                                        )}
+                                        
+                                    </div>
+                                </Col>
+                                <Col className="col-12 col-lg-6">
+                                    {item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (
+                                        <div className="itemDescButton" onClick={() => clickOpenBox(idx)} >
+                                            Open
+                                        </div>
+                                    ) : (
+                                        <div className="itemDescButton" onClick={() => clickSneaker(idx)} >
+                                            Equip
+                                        </div>
+                                    )}
+                                </Col>
+                            </Row>
+                        </Col>
+                    ))}
                     <Col className="p-0 col-6 col-lg-3">
                         <Row className="itemSlot">
                         </Row>
