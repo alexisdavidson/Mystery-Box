@@ -8,7 +8,7 @@ import NftEggAddress from '../contractsData/NftEgg-address.json'
 import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
 
 const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTransactionObjectId, setTransactionFinished,
-                        items, nftBox, setMetadata }) => {
+                        items, nftBox, setMetadata, reveal}) => {
     
     const clickOpenBox = async (boxIndex) => {
         console.log("clickOpenBox", boxIndex)
@@ -29,8 +29,12 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
         setSelectedSneaker(sneakerIndex)
         setMenu(3)
     }
+    
+    useEffect(() => {
+        reveal()
+    }, [])
     return (
-        <Row className="m-0">
+        <Row className="m-0 reveal">
             <div className="openingBoxCongratulationsTitle">INVENTORY</div>
             <div className="openingBoxCongratulationsDesc mb-5">Open an ORIGIN Box and equip your BLANK Sneaker with the ORIGIN Egg. We are the future. 🌐</div>
             {!account ? (

@@ -6,7 +6,7 @@ import homeBox from './assets/homeBox.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const BoxWaitingTransaction = ({ transactionFinished, transactionObjectId }) => {
+const BoxWaitingTransaction = ({ transactionFinished, transactionObjectId, reveal }) => {
     const transactionObject = [
         {
             description: "Welcome to MUSURE world and our Verified Creators! ⛩️",
@@ -26,8 +26,11 @@ const BoxWaitingTransaction = ({ transactionFinished, transactionObjectId }) => 
         return transactionFinished ? "1" : "0"
     }
 
+    useEffect(() => {
+        reveal()
+    }, [])
     return (
-        <Row className="m-0 p-0">
+        <Row className="m-0 p-0 reveal">
             {transactionFinished ? (
                 <>
                     <div className="openingBoxCongratulationsTitle">Congratulations!</div>

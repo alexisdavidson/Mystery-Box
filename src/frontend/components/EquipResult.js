@@ -3,10 +3,13 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
 import videoPlaceholder from './assets/videoPlaceholder.png'
 
-const EquipResult = ({ metadataRef }) => {
+const EquipResult = ({ metadataRef, reveal }) => {
 
+    useEffect(() => {
+        reveal()
+    }, [])
     return (
-        <Row className="m-0 p-0">
+        <Row className="m-0 p-0 reveal">
             <Row className="openingBoxCongratulationsTitle">
                 <div>
                     Congratulations!

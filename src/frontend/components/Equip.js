@@ -9,7 +9,7 @@ const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, 
         setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker,
-        setMetadata }) => {
+        setMetadata, reveal }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [chosenItemIndex, setChosenItemIndex] = useState(0)
 
@@ -47,8 +47,11 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
         setMenu(5)
     }
 
+    useEffect(() => {
+        reveal()
+    }, [])
     return (
-        <Row className="home">
+        <Row className="home reveal">
                 {!account ? (
                     <>
                         <Col className="homeCol">
@@ -76,6 +79,10 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                 {itemsEggs.map((item, idx) => (
                                                     <Col key={idx} className="m-0 p-0 col-6 col-lg-4">
                                                         <Row id={"equipItem-" + idx} className="equipItemSlotFilled">
+                                                            {/* <video id="vid" loop autoPlay muted className="equipImage" >
+                                                                <source src={"https://ipfs.io/ipfs/QmY8ascXNak6Asqm6SSCe3p3zkiCWfTaGH5F7N1spmtj8x/" + metadataRef.current}
+                                                                type="video/mp4"/>
+                                                            </video> */}
                                                             <img src={item.image_url} className="equipListItem" onClick={() => clickEquip(idx)} />
                                                         </Row>
                                                         <Row className="equipItemDescDiv">

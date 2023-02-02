@@ -83,6 +83,21 @@ function App() {
 
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
+  function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+    for (var i = 0; i < reveals.length; i++) {
+      reveals[i].classList.add("active");
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      var elementVisible = 0;
+      if (elementTop < windowHeight - elementVisible || true) {
+        reveals[i].classList.add("active");
+      } else {
+        reveals[i].classList.remove("active");
+      }
+    }
+  }
+
   const buttonLinkOnClick = async (elementId) => {
     console.log("buttonLinkOnClick: " + elementId)
     var ex = document.getElementById(elementId);
@@ -245,7 +260,8 @@ function App() {
 
   useEffect(async () => {
     return () => {
-      // nft?.removeAllListeners("MintSuccessful");
+      nftEgg?.removeAllListeners("MintSuccessful");
+      nftSneakerX?.removeAllListeners("MintSuccessful");
     };
   }, [])
 
@@ -264,18 +280,19 @@ function App() {
             {
               {
               '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
-                    mintButtonIslands={mintButtonIslands} />,
-              '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} />,
+                    mintButtonIslands={mintButtonIslands} reveal={reveal} />,
+              '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} 
+              reveal={reveal} />,
               '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
-                    setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} 
+                    setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} reveal={reveal}
                     setMetadata={setMetadata} />,
               '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} 
                     itemsEggs={itemsEggs} items={items} equip={equip} selectedSneaker={selectedSneaker} 
-                    setMetadata={setMetadata} />,
-              '4': <BoxOpenResult setMenu={setMenu} />,
-              '5': <EquipResult metadataRef={metadataRef} />,
+                    setMetadata={setMetadata}  reveal={reveal} />,
+              '4': <BoxOpenResult setMenu={setMenu}  reveal={reveal} />,
+              '5': <EquipResult metadataRef={metadataRef}  reveal={reveal} />,
               }[menu]
             }
         </div>

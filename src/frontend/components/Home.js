@@ -6,7 +6,7 @@ import homeBox from './assets/homeBox.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }) => {
+const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, reveal }) => {
     const [quantities, setQuantities] = useState([1, 1])
     const [forcerender, setForceRender] = useState(0)
 
@@ -32,8 +32,11 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
         }
     }
 
+    useEffect(() => {
+        reveal()
+    }, [])
     return (
-        <Row className="home">
+        <Row className="home reveal">
             <Col className="homeCol">
                 {/* <img src={homeBox} className="homeBoxImage" /> */}
                 <video id="vid" loop autoPlay muted className="homeBoxImage" >

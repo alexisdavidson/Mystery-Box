@@ -8,14 +8,17 @@ import sneakerItem2 from './assets/sneakerItem.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const BoxOpenResult = ({ setMenu }) => {
+const BoxOpenResult = ({ setMenu, reveal }) => {
 
     const clickInventory = () => {
         console.log("clickInventory")
         setMenu(2)
     }
+    useEffect(() => {
+        reveal()
+    }, [])
     return (
-        <Row className="m-0 p-0">
+        <Row className="m-0 p-0 reveal">
             <Row className="openingBoxCongratulationsTitle">
                 <div>
                     Congratulations!

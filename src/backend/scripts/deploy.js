@@ -50,9 +50,9 @@ async function main() {
   console.log("Setters functions called")
 
   // For testing
-  await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50)
+  await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmR33RsTwEjoyxCM2x5Gggs6FNWFs3cHUHaGUTaFRWN6eF/1.json", 50)
   console.log("1")
-  await nftBox.addMysteryBox("Mystery Box 2", toWei(350), "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50)
+  await nftBox.addMysteryBox("Mystery Box 2", toWei(350), "QmR33RsTwEjoyxCM2x5Gggs6FNWFs3cHUHaGUTaFRWN6eF/2.json", 50)
   console.log("2")
   
   await usdc.approve(nftBox.address, toWei(10_000))
@@ -62,12 +62,12 @@ async function main() {
   console.log("3")
   await nftBox.mint(1, 1);
   console.log("4")
-  await nftBox.openBox(1);
-  console.log("5")
-  await nftBox.openBox(2);
-  console.log("6")
-  await equip.equip(1, 1);
-  console.log("7")
+  // await nftBox.openBox(1);
+  // console.log("5")
+  // await nftBox.openBox(2);
+  // console.log("6")
+  // await equip.equip(1, 1);
+  // console.log("7")
 
   console.log("Goerli test functions called")
 }

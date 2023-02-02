@@ -24,6 +24,17 @@ html, body {
   background-color: #090212;
 }
 
+.reveal{
+  /* position: relative; */
+  /* transform: translateX(-150px); */
+  opacity: 0;
+  transition: 1s all ease;
+}
+.reveal.active{
+  /* transform: translateX(0); */
+  opacity: 1;
+}
+
 .App {
   background-image: linear-gradient(#54096c, #37085d, #090212);
 }
