@@ -1,4 +1,5 @@
 const fromWei = (num) => ethers.utils.formatEther(num)
+const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 async function main() {
   const [deployer] = await ethers.getSigners();
@@ -16,7 +17,7 @@ async function main() {
   // Deploy Usdc ERC20 Only for tests
   usdc = await Usdc.deploy();
   console.log("Usdc contract address", usdc.address)
-  saveFrontendFiles(usdc, "Usdc");
+  saveFrontendFiles(usdc, "Erc20Usdc");
   const usdcAddress = usdc.address
 
   // Deploy contracts
@@ -49,6 +50,11 @@ async function main() {
   // For testing
   await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1", 50)
   await nftBox.addMysteryBox("Mystery Box 2", toWei(350), "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2", 50)
+  await nftBox.mint(0, 1);
+  await nftBox.mint(1, 1);
+  await nftBox.openBox(1);
+  await nftBox.openBox(2);
+  await equip.equip(1, 1);
 
   console.log("Goerli test functions called")
 }
