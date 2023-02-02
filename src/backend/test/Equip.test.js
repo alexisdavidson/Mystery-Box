@@ -7,8 +7,8 @@ const fromWei = (num) => parseInt(ethers.utils.formatEther(num))
 describe("Equip", async function() {
     let deployer, addr1, addr2, nftBox, nftEgg, nftSneaker, nftSneakerX, equip, udsc
     let price = 0
-    let mysteryBoxCid1 = "QmYLpp6TaXjHPENgbDWRWzBQoJuc4zRE5z3sXjXhdYALp3"
-    let mysteryBoxCid2 = "QmZnXGbXgpBNjAJaaaoWsH5VYoTNkVgpVmbpgFXnTUyQ5d"
+    let mysteryBoxCid1 = "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1"
+    let mysteryBoxCid2 = "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2"
 
     beforeEach(async function() {
         // Get contract factories
@@ -80,14 +80,14 @@ describe("Equip", async function() {
         it("Should perform owner functions", async function() {
             let newPrice = 0
 
-            await expect(nft.connect(addr1).setMintEnabled(0, true)).to.be.revertedWith('Ownable: caller is not the owner');
-            await expect(nft.connect(addr1).setPrice(0, newPrice)).to.be.revertedWith('Ownable: caller is not the owner');
-            await expect(nft.connect(addr1).withdraw()).to.be.revertedWith('Ownable: caller is not the owner');
+            await expect(nftBox.connect(addr1).setMintEnabled(0, true)).to.be.revertedWith('Ownable: caller is not the owner');
+            await expect(nftBox.connect(addr1).setPrice(0, newPrice)).to.be.revertedWith('Ownable: caller is not the owner');
+            await expect(nftBox.connect(addr1).withdraw()).to.be.revertedWith('Ownable: caller is not the owner');
             
-            await nft.connect(deployer).setPrice(0, newPrice);
-            expect(await nft.getPrice(0)).to.equal(newPrice);
-            await nft.connect(deployer).setMintEnabled(0, false);
-            await expect(nft.connect(addr1).mint(0, 1, { value: toWei(price)})).to.be.revertedWith('Minting is not enabled');
+            await nftBox.connect(deployer).setPrice(0, newPrice);
+            expect(await nftBox.getPrice(0)).to.equal(newPrice);
+            await nftBox.connect(deployer).setMintEnabled(0, false);
+            await expect(nftBox.connect(addr1).mint(0, 1, { value: toWei(price)})).to.be.revertedWith('Minting is not enabled');
         })
     })
     
