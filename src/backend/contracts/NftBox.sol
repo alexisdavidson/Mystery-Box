@@ -141,11 +141,11 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         boxes.push(BoxData(_name, _price, 0, _cid, _maxSupply, _maxSupply, true));
     }
 
-    // function removeMysteryBox(uint256 _boxId) public onlyOwner {
-    //     require(_boxId < boxes.length, "boxId out of range");
-    //     boxes[_boxId] = boxes[boxes.length - 1];
-    //     boxes.pop();
-    // }
+    function removeMysteryBox(uint256 _boxId) public onlyOwner {
+        require(_boxId < boxes.length, "boxId out of range");
+        boxes[_boxId] = boxes[boxes.length - 1];
+        boxes.pop();
+    }
 
     function getMysteryBoxPrice(uint256 _boxId) public view returns (uint256) {
         require(_boxId < boxes.length, "boxId out of range");
