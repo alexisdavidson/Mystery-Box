@@ -64,7 +64,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                                     </div>
                                 </div>
                             </div>
-                            <div className="mintButton" onClick={mintButtonAllRarities}>
+                            <div className="mintButton" onClick={() => mintButtonAllRarities(quantities[0])}>
                                 <div className="mintButtonText">Buy Origin Box</div>
                                 <div className="mintButtonPrice">$80</div>
                             </div>
@@ -81,7 +81,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands }
                                     </div>
                                 </div>
                             </div>
-                            <div className="mintButton" onClick={mintButtonIslands}>
+                            <div className="mintButton" onClick={() => mintButtonIslands(quantities[1])}>
                                 <div className="mintButtonText">Buy Origin Box Islands</div>
                                 <div className="mintButtonPrice">$350</div>
                             </div>

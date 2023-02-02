@@ -15,8 +15,18 @@ import EquipResult from './EquipResult'
 import { useState, useEffect, useRef } from 'react'
 import { ethers } from 'ethers'
 
-import NFTAbi from '../contractsData/NFT.json'
-import NFTAddress from '../contractsData/NFT-address.json'
+import NftBoxAbi from '../contractsData/NftBox.json'
+import NftBoxAddress from '../contractsData/NftBox-address.json'
+import NftEggAbi from '../contractsData/NftEgg.json'
+import NftEggAddress from '../contractsData/NftEgg-address.json'
+import NftSneakerAbi from '../contractsData/NftSneaker.json'
+import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
+import NftSneakerXAbi from '../contractsData/NftSneakerX.json'
+import NftSneakerXAddress from '../contractsData/NftSneakerX-address.json'
+import EquipAbi from '../contractsData/Equip.json'
+import EquipAddress from '../contractsData/Equip-address.json'
+import Erc20UsdcAbi from '../contractsData/Erc20Usdc.json'
+import Erc20UsdcAddress from '../contractsData/Erc20Usdc-address.json'
 import configContract from "./configContract.json";
 
 const fromWei = (num) => ethers.utils.formatEther(num)
@@ -29,7 +39,6 @@ function App() {
   const [balance, setBalance] = useState(0)
   const [supplyLeft, setSupplyLeft] = useState(totalSupply)
   const [price, setPrice] = useState(0.01)
-  const [nft, setNFT] = useState({})
   const [mobileMenu, setMobileMenu] = useState(false)
   const [menu, setMenu] = useState(0)
   const [quantity, setQuantity] = useState(1)
@@ -38,6 +47,13 @@ function App() {
   const [items, setItems] = useState(null)
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
+  
+  const [nftEgg, setNftEgg] = useState({})
+  const [nftSneaker, setNftSneaker] = useState({})
+  const [nftSneakerX, setNftSneakerX] = useState({})
+  const [nftBox, setNftBox] = useState({})
+  const [equip, setEquip] = useState({})
+  const [usdc, setUsdc] = useState({})
 
   const providerRef = useRef();
   providerRef.current = provider;
@@ -49,8 +65,14 @@ function App() {
   supplyLeftRef.current = supplyLeft;
   const amountMintedRef = useRef();
   amountMintedRef.current = amountMinted;
-  const nftRef = useRef();
-  nftRef.current = nft;
+  const nftBoxRef = useRef();
+  nftBoxRef.current = nftBox;
+  const nftEggRef = useRef();
+  nftEggRef.current = nftEgg;
+  const nftSneakerRef = useRef();
+  nftSneakerRef.current = nftSneaker;
+  const nftSneakerXRef = useRef();
+  nftSneakerXRef.current = nftSneakerX;
   const accountRef = useRef();
   accountRef.current = account;
 
@@ -77,9 +99,6 @@ function App() {
   }
 
   const web3Handler = async () => {
-    setAccount("123")
-    return
-    
     const providerTemp = new ethers.providers.Web3Provider(window.ethereum)
     const { chainId } = await providerTemp.getNetwork()
     console.log("chainId", chainId)
@@ -95,7 +114,7 @@ function App() {
     await loadContracts(accounts[0])
     
     setAccount(accounts[0])
-    loadOpenSeaItems(accounts[0], nftRef.current)
+    loadOpenSeaItems(accounts[0], nftBoxRef.current)
   }
 
   const loadOpenSeaItems = async (acc, nft) => {
@@ -165,48 +184,68 @@ function App() {
     setProvider(providerTemp)
     const signer = providerTemp.getSigner()
 
-    const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer)
-    const amountMintedTemp = parseInt(await nft.totalSupply())/* + parseInt(await nft.burnAmount())*/
-    setAmountMinted(amountMintedTemp)
-    const supplyLeftTemp = totalSupply - amountMintedTemp
-    console.log("tickets left: " + supplyLeftTemp)
-    setSupplyLeft(supplyLeftTemp)
-    setPrice(fromWei(await nft.getPrice(0)))
-    const balanceTemp = parseInt(await nft.balanceOf(acc))
-    console.log("balance", balanceTemp)
-    setBalance(balanceTemp)
-    setNFT(nft)
-    nft.on("MintSuccessful", (user) => {
-        console.log("MintSuccessful");
-        console.log(user);
-        console.log(acc);
-        if (user.toLowerCase() == acc.toLowerCase()) {
-          mintFinished(nft);
-        }
-    });
+    const nftBox = new ethers.Contract(NftBoxAddress.address, NftBoxAbi.abi, signer)
+    const nftEgg = new ethers.Contract(NftEggAddress.address, NftEggAbi.abi, signer)
+    const nftSneaker = new ethers.Contract(NftSneakerAddress.address, NftSneakerAbi.abi, signer)
+    const nftSneakerX = new ethers.Contract(NftSneakerXAddress.address, NftSneakerXAbi.abi, signer)
+    const equip = new ethers.Contract(EquipAddress.address, EquipAbi.abi, signer)
+    const usdc = new ethers.Contract(Erc20UsdcAddress.address, Erc20UsdcAbi.abi, signer)
 
-    console.log("nft address: " + nft.address)
+    setNftEgg(nftEgg)
+    setNftSneaker(nftSneaker)
+    setNftSneakerX(nftSneakerX)
+    setNftBox(nftBox)
+    setEquip(equip)
+    setUsdc(usdc)
+    console.log("nftEgg address: " + nftEgg.address)
+    console.log("nftSneaker address: " + nftSneaker.address)
+    console.log("nftSneakerX address: " + nftSneakerX.address)
+    console.log("nftBox address: " + nftBox.address)
+    console.log("equip address: " + equip.address)
+    console.log("usdc address: " + usdc.address)
+    // const amountMintedTemp = parseInt(await nft.totalSupply())/* + parseInt(await nft.burnAmount())*/
+    // setAmountMinted(amountMintedTemp)
+    // const supplyLeftTemp = totalSupply - amountMintedTemp
+    // console.log("tickets left: " + supplyLeftTemp)
+    // setSupplyLeft(supplyLeftTemp)
+    // setPrice(fromWei(await nft.getPrice(0)))
+    // const balanceTemp = parseInt(await nft.balanceOf(acc))
+    // console.log("balance", balanceTemp)
+    // setBalance(balanceTemp)
+    // setNFT(nft)
+    // nft.on("MintSuccessful", (user) => {
+    //     console.log("MintSuccessful");
+    //     console.log(user);
+    //     console.log(acc);
+    //     if (user.toLowerCase() == acc.toLowerCase()) {
+    //       mintFinished(nft);
+    //     }
+    // });
+
+    // console.log("nft address: " + nft.address)
   }
   
-  const mintButtonAllRarities = async () => {
-    console.log("mintButtonAllRarities")
+  const mintButtonAllRarities = async (quantity) => {
+    console.log("mintButtonAllRarities", quantity)
 
     setTransactionFinished(false)
     setTransactionObjectId(0)
     setMenu(1)
 
-    await new Promise(r => setTimeout(r, 2000));
+    await(await nftBox.mint(0, quantity)).wait()
+    
     setTransactionFinished(true)
   }
   
-  const mintButtonIslands = async () => {
-    console.log("mintButtonIslands")
+  const mintButtonIslands = async (quantity) => {
+    console.log("mintButtonIslands", quantity)
     
     setTransactionFinished(false)
     setTransactionObjectId(0)
     setMenu(1)
 
-    await new Promise(r => setTimeout(r, 2000));
+    await(await nftBox.mint(1, quantity)).wait()
+
     setTransactionFinished(true)
   }
 
@@ -218,7 +257,7 @@ function App() {
 
   useEffect(async () => {
     return () => {
-      nft?.removeAllListeners("MintSuccessful");
+      // nft?.removeAllListeners("MintSuccessful");
     };
   }, [])
 
@@ -239,10 +278,10 @@ function App() {
               '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
                     mintButtonIslands={mintButtonIslands} />,
               '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} />,
-              '2': <Inventory web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} 
+              '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
                     setTransactionFinished={setTransactionFinished} />,
-              '3': <Equip web3Handler={web3Handler} account={account} nft={nft} balance={balance} setMenu={setMenu} 
+              '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} />,
               '4': <BoxOpenResult setMenu={setMenu} transactionFinished={transactionFinished} />,
               '5': <EquipResult setMenu={setMenu} transactionFinished={transactionFinished} />,
