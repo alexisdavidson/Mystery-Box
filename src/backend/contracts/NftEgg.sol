@@ -95,7 +95,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
 
         _mint(_user, 1);
 
-        idToMetadataMapping[totalSupply()] = _metadata;
+        idToMetadataMapping[_totalMinted()] = _metadata;
 
         remainingEggs[_random] = remainingEggs[remainingEggs.length - 1];
         remainingEggs.pop();

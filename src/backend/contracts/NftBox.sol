@@ -79,7 +79,7 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
         require(_exists(_tokenId), 'ERC721Metadata: URI query for nonexistent token');
         require(idToBoxId[_tokenId] < boxes.length, "boxId out of range");
-        return string(abi.encodePacked("ipfs://", boxes[idToBoxId[_tokenId]].cid, "/", Strings.toString(_tokenId), uriSuffix));
+        return string(abi.encodePacked("ipfs://", boxes[idToBoxId[_tokenId]].cid, uriSuffix));
     }
 
     // function _baseURI() internal pure override returns (string memory) {

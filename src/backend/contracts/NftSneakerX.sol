@@ -25,18 +25,18 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
 
     function mintFromEquip(address _user, uint256 _metadataId) external {
         require(msg.sender == equipAddress, "Only the Equip smart contract can mint");
-        require(totalSupply() + 1 <= max_supply, 'Cannot mint more than max supply');
+        require(_totalMinted() + 1 <= max_supply, 'Cannot mint more than max supply');
 
         _mint(_user, 1);
 
-        idToMetadata[totalSupply()] = _metadataId;
+        idToMetadata[_totalMinted()] = _metadataId;
         
         emit MintSuccessful(msg.sender);
     }
 
     function mint(uint256 quantity) external payable {
         require(mintEnabled, 'Minting is not enabled');
-        require(totalSupply() + quantity < max_supply, 'Cannot mint more than max supply');
+        require(_totalMinted() + quantity < max_supply, 'Cannot mint more than max supply');
         require(msg.value >= getPrice() * quantity, "Not enough ETH sent; check price!");
 
         _mint(msg.sender, quantity);
