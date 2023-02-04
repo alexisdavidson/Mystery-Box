@@ -54,7 +54,7 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmSFE3rXb5WoAk1rnz9r6YjCRwodYeBVvwPZjiQC4XtL6M/";
+        return "ipfs://QmVSYdjHF8ja4Se14cJSqtB6JWYt9se5FZc9FS3BnMqXSK/";
     }
     
     function baseTokenURI() public pure returns (string memory) {
