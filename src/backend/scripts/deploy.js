@@ -72,7 +72,7 @@ async function main() {
   console.log("4")
   await nftBox.openBox(1);
   console.log("5")
-  await nftBox.openBox(2);
+  await nftBox.openBox(3);
   console.log("6")
   await equip.equip(1, 1);
   console.log("7")

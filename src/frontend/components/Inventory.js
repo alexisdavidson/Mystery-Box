@@ -11,8 +11,8 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                         items, nftBox, setMetadata, reveal}) => {
     
     const clickOpenBox = async (boxIndex) => {
-        console.log("clickOpenBox", boxIndex)
-        setSelectedSneaker(boxIndex)
+        console.log("clickOpenBox", items[boxIndex].token_id)
+        // setSelectedSneaker(items[boxIndex].token_id)
     
         setTransactionFinished(false)
         setTransactionObjectId(1)

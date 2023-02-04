@@ -147,7 +147,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmNbWQRVrtrH55UeTagnaQHutsf9FrBhEfBuEojiWP3EUo/";
+        return "ipfs://QmVsUxZYHZH6ULHXT8gno7UQC9qznaWnui6Ps8wCRwndH4/";
     }
     
     function baseTokenURI() public pure returns (string memory) {
