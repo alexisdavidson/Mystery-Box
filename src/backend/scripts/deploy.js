@@ -24,56 +24,58 @@ async function main() {
   const usdcAddress = usdc.address
 
   // Deploy contracts
-  // nftEgg = await NftEgg.deploy();
-  // console.log("NftEgg contract address", nftEgg.address)
-  // saveFrontendFiles(nftEgg, "NftEgg");
+  nftEgg = await NftEgg.deploy();
+  console.log("NftEgg contract address", nftEgg.address)
+  saveFrontendFiles(nftEgg, "NftEgg");
 
-  // nftSneaker = await NftSneaker.deploy();
-  // console.log("NftSneaker contract address", nftSneaker.address)
-  // saveFrontendFiles(nftSneaker, "NftSneaker");
+  nftSneaker = await NftSneaker.deploy();
+  console.log("NftSneaker contract address", nftSneaker.address)
+  saveFrontendFiles(nftSneaker, "NftSneaker");
 
-  // nftSneakerX = await NftSneakerX.deploy();
-  // console.log("NftSneakerX contract address", nftSneakerX.address)
-  // saveFrontendFiles(nftSneakerX, "NftSneakerX");
+  nftSneakerX = await NftSneakerX.deploy();
+  console.log("NftSneakerX contract address", nftSneakerX.address)
+  saveFrontendFiles(nftSneakerX, "NftSneakerX");
 
-  const nftSneakerAddress = "0x3B1247143217e1f0f052939Ad759B880C946925f"
-  const nftEggAddress = "0xe33793485FB554ba57a38558C5B83f275ad4Bb1c"
+  // const nftSneakerAddress = "0x3B1247143217e1f0f052939Ad759B880C946925f"
+  // const nftEggAddress = "0xe33793485FB554ba57a38558C5B83f275ad4Bb1c"
+  const nftSneakerAddress = nftSneaker.address
+  const nftEggAddress = nftEgg.address
   nftBox = await NftBox.deploy(usdcAddress, nftSneakerAddress, nftEggAddress);
   console.log("NftBox contract address", nftBox.address)
   saveFrontendFiles(nftBox, "NftBox");
 
-  // equip = await Equip.deploy(nftSneakerX.address, nftSneaker.address, nftEgg.address);
-  // console.log("Equip contract address", equip.address)
-  // saveFrontendFiles(equip, "Equip");
+  equip = await Equip.deploy(nftSneakerX.address, nftSneaker.address, nftEgg.address);
+  console.log("Equip contract address", equip.address)
+  saveFrontendFiles(equip, "Equip");
 
-  // await nftSneaker.setBoxAddress(nftBox.address);
-  // await nftEgg.setBoxAddress(nftBox.address);
-  // await nftSneaker.setEquipAddress(equip.address);
-  // await nftEgg.setEquipAddress(equip.address);
-  // await nftSneakerX.setEquipAddress(equip.address);
+  await nftSneaker.setBoxAddress(nftBox.address);
+  await nftEgg.setBoxAddress(nftBox.address);
+  await nftSneaker.setEquipAddress(equip.address);
+  await nftEgg.setEquipAddress(equip.address);
+  await nftSneakerX.setEquipAddress(equip.address);
   
   console.log("Setters functions called")
 
   // For testing
   // const nftBox = new ethers.Contract(NftBoxAddress.address, NftBoxAbi.abi, signer)
-  await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmSCTbvdFk9YrTNBvdHQM5Jkb8ynr6zHfPXbf2zkHXmodR/1", 50)
+  await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmU2nBBPvZ2Hrg18oD36NKCv567EiFk8kq1yckMDoWuoCw/1", 50)
   console.log("1")
-  await nftBox.addMysteryBox("Mystery Box 2", toWei(350), "QmSCTbvdFk9YrTNBvdHQM5Jkb8ynr6zHfPXbf2zkHXmodR/2", 50)
+  await nftBox.addMysteryBox("Mystery Box 2", toWei(350), "QmU2nBBPvZ2Hrg18oD36NKCv567EiFk8kq1yckMDoWuoCw/2", 50)
   console.log("2")
   
   await usdc.approve(nftBox.address, toWei(10_000))
   console.log("2.5")
 
-  await nftBox.mint(0, 1);
+  await nftBox.mint(0, 2);
   console.log("3")
-  await nftBox.mint(1, 1);
+  await nftBox.mint(1, 2);
   console.log("4")
-  // await nftBox.openBox(1);
-  // console.log("5")
-  // await nftBox.openBox(2);
-  // console.log("6")
-  // await equip.equip(1, 1);
-  // console.log("7")
+  await nftBox.openBox(1);
+  console.log("5")
+  await nftBox.openBox(2);
+  console.log("6")
+  await equip.equip(1, 1);
+  console.log("7")
 
   console.log("Goerli test functions called")
 }
