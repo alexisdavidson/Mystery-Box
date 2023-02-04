@@ -241,6 +241,7 @@ function App() {
     setTransactionObjectId(0)
     setMenu(1)
 
+    await(await usdc.approve(nftBox.address, toWei(80))).wait()
     await(await nftBox.mint(0, quantity)).wait()
     
     setTransactionFinished(true)
@@ -253,6 +254,7 @@ function App() {
     setTransactionObjectId(0)
     setMenu(1)
 
+    await(await usdc.approve(nftBox.address, toWei(350))).wait()
     await(await nftBox.mint(1, quantity)).wait()
 
     setTransactionFinished(true)
