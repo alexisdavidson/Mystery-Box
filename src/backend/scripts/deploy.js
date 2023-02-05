@@ -31,17 +31,14 @@ async function main() {
   nftEgg = await NftEgg.deploy();
   console.log("NftEgg contract address", nftEgg.address)
   saveFrontendFiles(nftEgg, "NftEgg");
-  await nftEgg.transferOwnership(teamWallet)
 
   nftSneaker = await NftSneaker.deploy();
   console.log("NftSneaker contract address", nftSneaker.address)
   saveFrontendFiles(nftSneaker, "NftSneaker");
-  await nftSneaker.transferOwnership(teamWallet)
 
   nftSneakerX = await NftSneakerX.deploy();
   console.log("NftSneakerX contract address", nftSneakerX.address)
   saveFrontendFiles(nftSneakerX, "NftSneakerX");
-  await nftSneakerX.transferOwnership(teamWallet)
 
   // const nftSneakerAddress = "0x3B1247143217e1f0f052939Ad759B880C946925f"
   // const nftEggAddress = "0xe33793485FB554ba57a38558C5B83f275ad4Bb1c"
@@ -54,7 +51,6 @@ async function main() {
   equip = await Equip.deploy(nftSneakerX.address, nftSneaker.address, nftEgg.address);
   console.log("Equip contract address", equip.address)
   saveFrontendFiles(equip, "Equip");
-  await equip.transferOwnership(teamWallet)
 
   await nftSneaker.setBoxAddress(nftBox.address);
   await nftEgg.setBoxAddress(nftBox.address);
@@ -62,6 +58,10 @@ async function main() {
   await nftEgg.setEquipAddress(equip.address);
   await nftSneakerX.setEquipAddress(equip.address);
   
+  await nftEgg.transferOwnership(teamWallet)
+  await nftSneaker.transferOwnership(teamWallet)
+  await nftSneakerX.transferOwnership(teamWallet)
+  await equip.transferOwnership(teamWallet)
   console.log("Setters functions called")
 
   // For testing
