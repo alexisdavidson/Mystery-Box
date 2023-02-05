@@ -33,6 +33,7 @@ const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 const totalSupply = 5000
+const refreshRate = 60000
 
 function App() {
   const [account, setAccount] = useState(null)
@@ -57,6 +58,7 @@ function App() {
   const [nftBox, setNftBox] = useState({})
   const [equip, setEquip] = useState({})
   const [usdc, setUsdc] = useState({})
+  const [intervalVariable, setIntervalVariable] = useState(null)
 
   const providerRef = useRef();
   providerRef.current = provider;
@@ -80,6 +82,8 @@ function App() {
   accountRef.current = account;
   const metadataRef = useRef();
   metadataRef.current = metadata;
+  const intervalRef = useRef();
+  intervalRef.current = intervalVariable;
 
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -135,6 +139,10 @@ function App() {
     
     setAccount(accounts[0])
     loadAllItems(accounts[0])
+
+    setIntervalVariable(setInterval(() => {
+      loadAllItems(accounts[0])
+    }, refreshRate))
   }
 
   const loadAllItems = async (acc) => {
@@ -267,6 +275,7 @@ function App() {
     return () => {
       nftEgg?.removeAllListeners("MintSuccessful");
       nftSneakerX?.removeAllListeners("MintSuccessful");
+      clearInterval(intervalRef.current);
     };
   }, [])
 
