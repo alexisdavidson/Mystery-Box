@@ -27,8 +27,7 @@ const BoxOpenResult = ({ setMenu, reveal }) => {
             <Row className="m-0 p-0">
                 <div className="openingBoxUnlockedDiv m-0 p-0">
                     <div className="openingBoxUnlocked">
-                        You unlocked <span className="unlockedItemText">+1 Blank Sneaker</span> 
-                        and <span className="unlockedItemText">+1 Origin Egg</span>
+                        You unlocked <span className="unlockedItemText">+1 Blank Sneaker</span> and <span className="unlockedItemText">+1 Origin Egg</span>
                          {/* and <span className="unlockedItemText">+1 Origin Box</span> */}
                     </div>
                 </div>
@@ -51,7 +50,7 @@ const BoxOpenResult = ({ setMenu, reveal }) => {
                 </Col> */}
             </Row>
             <Row className="openingBoxButtons">
-                <div className="openingBoxButton" onClick={() => setMenu(0)}>Open Another Box</div>
+                <div className="openingBoxButton" onClick={() => setMenu(0)}>Buy Another Box</div>
                 <div className="openingBoxButton" onClick={clickInventory}>Go To Your Inventory</div>
             </Row>
         </Row>

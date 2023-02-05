@@ -98,7 +98,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, 
                             <Form.Check className="checkboxForm"
                                 type="checkbox"
                                 id="default-checkbox"
-                                label={(<>I have read and accept the <a href="#">Terms & Conditions.</a></>)}
+                                label={(<>I have read and accept the <a href="https://www.musure.world/en/terms-and-conditions">Terms & Conditions.</a></>)}
                             />
                             
                         </div>
