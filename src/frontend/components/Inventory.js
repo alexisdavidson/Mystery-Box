@@ -49,7 +49,7 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                             <Row className="itemDescDiv">
                                 <Col className="col-12 col-lg-6 itemDescDivLeft">
                                     <div className="itemDescTitle">
-                                        item.name {item.name}
+                                        {item.name}
                                     </div>
                                     <div className="itemDescDesc">
                                         {item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (
