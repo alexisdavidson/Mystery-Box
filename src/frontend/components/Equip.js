@@ -3,6 +3,7 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
 import videoPlaceholder from './assets/videoPlaceholder.png'
 import eggItemEquip from './assets/eggItemEquip.png'
+import sneakerItem from './assets/sneakerItem.png'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
@@ -11,11 +12,15 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
         setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker,
         setMetadata, reveal }) => {
     const [subMenu, setSubMenu] = useState(0)
-    const [chosenItemIndex, setChosenItemIndex] = useState(0)
+    const [chosenEggIndex, setChosenEggIndex] = useState(0)
+    const [eggClicked, setEggClicked] = useState(false)
 
     const clickEquip = (itemIndex) => {
         console.log("clickEquip", itemIndex)
-        setChosenItemIndex(itemIndex)
+        setChosenEggIndex(itemIndex)
+        setEggClicked(true)
+
+        console.log("metadata egg", itemsEggs[itemIndex].metadata)
         
         for(let i = 0; i < 3; i ++) {
             var element = document.getElementById('equipItem-' + i);
@@ -36,14 +41,14 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
     }
 
     const equipEgg = async () => {
-        console.log("equipEgg", chosenItemIndex)
+        console.log("equipEgg", chosenEggIndex)
     
         setTransactionFinished(false)
         setTransactionObjectId(2)
         setMenu(1)
     
         setMetadata(0)
-        await(await equip.equip(items[selectedSneaker].token_id, itemsEggs[chosenItemIndex].token_id)).wait()
+        await(await equip.equip(items[selectedSneaker].token_id, itemsEggs[chosenEggIndex].token_id)).wait()
         setMenu(5)
     }
 
@@ -55,7 +60,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                 {!account ? (
                     <>
                         <Col className="homeCol">
-                            <img src={videoPlaceholder} className="homeBoxImage" />
+                            <img src={sneakerItem} className="equipImage" />
                         </Col>
                         <Col className="homeCol">
                             <Row className="mintButton" onClick={web3Handler}>Connect MetaMask</Row>
@@ -68,7 +73,15 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                             '0': 
                                 <>
                                     <Col className="col-12 col-lg-6 homeCol">
-                                        <img src={videoPlaceholder} className="equipImage" />
+                                        {!eggClicked ? (
+                                            <img src={sneakerItem} className="equipImage" />
+                                        ) : (
+                                            <>
+                                            <video id="vid" loop autoPlay muted className="equipImage" >
+                                                <source src={"Sneaker/"+ itemsEggs[chosenEggIndex].metadata + ".mp4"} type="video/mp4"/>
+                                            </video>
+                                            </>
+                                        )}
                                     </Col>
                                     <Col className="col-12 col-lg-6 homeCol">
                                         <div className="m-0 equipPanel">

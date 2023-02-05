@@ -164,6 +164,10 @@ function App() {
     setItemsEggs(compactOpenSeaList(eggs))
   }
 
+  function getFilename (url) {
+    return url.split('/').pop().replace('.json', '');
+  }
+
   const compactOpenSeaList = (list) => {
     let compactList = []
     for(let i = 0; i < list.length; i++) {
@@ -172,8 +176,10 @@ function App() {
         name: list[i].name,
         token_id: list[i].token_id,
         image_url: list[i].image_url,
-        creator: list[i].traits.filter(e => e.trait_type == "CREATOR")[0]?.value ?? ""
+        creator: list[i].traits.filter(e => e.trait_type == "CREATOR")[0]?.value ?? "",
+        metadata: getFilename(list[i].token_metadata)
       })
+      console.log("getFilename", getFilename(list[i].token_metadata))
     }
     return compactList
   }
