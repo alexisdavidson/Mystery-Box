@@ -50,7 +50,7 @@ function App() {
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
   const [selectedSneaker, setSelectedSneaker] = useState(0)
-  const [metadata, setMetadata] = useState(0)
+  const [eggLootMetadata, setEggLootMetadata] = useState(1)
   const [chosenEggIndex, setChosenEggIndex] = useState(0)
   
   const [nftEgg, setNftEgg] = useState({})
@@ -82,9 +82,11 @@ function App() {
   const accountRef = useRef();
   accountRef.current = account;
   const metadataRef = useRef();
-  metadataRef.current = metadata;
+  metadataRef.current = eggLootMetadata;
   const intervalRef = useRef();
   intervalRef.current = intervalVariable;
+  const menuRef = useRef();
+  menuRef.current = menu;
 
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -166,7 +168,7 @@ function App() {
   }
 
   function getFilename (url) {
-    return url.split('/').pop().replace('.json', '');
+    return url?.split('/')?.pop()?.replace('.json', '') ?? "1";
   }
 
   const compactOpenSeaList = (list) => {
@@ -235,19 +237,12 @@ function App() {
     console.log("usdc address: " + usdc.address)
     
     nftEgg.on("MintSuccessful", (user, metadata) => {
-      console.log("Egg MintSuccessful", metadata, user, acc);
+      console.log("Egg MintSuccessful", parseInt(metadata), user, acc);
       if (user.toLowerCase() == acc.toLowerCase()) {
-        setMetadata(metadata);
-        metadataRef.current = metadata
+        setEggLootMetadata(parseInt(metadata))
+        metadataRef.current = parseInt(metadata)
         setMenu(4)
-      }
-    });
-    nftSneakerX.on("MintSuccessful", (user, metadata) => {
-      console.log("SneakerX MintSuccessful", metadata, user, acc);
-      if (user.toLowerCase() == acc.toLowerCase()) {
-        setMetadata(metadata);
-        metadataRef.current = metadata
-        setMenu(5)
+        menuRef.current = 4
       }
     });
   }
@@ -259,7 +254,7 @@ function App() {
     setTransactionObjectId(0)
     setMenu(1)
 
-    await(await usdc.approve(nftBox.address, toWei(80))).wait()
+    await(await usdc.approve(nftBox.address, toWei(80 * quantity))).wait()
     await(await nftBox.mint(0, quantity)).wait()
     
     setTransactionFinished(true)
@@ -272,7 +267,7 @@ function App() {
     setTransactionObjectId(0)
     setMenu(1)
 
-    await(await usdc.approve(nftBox.address, toWei(350))).wait()
+    await(await usdc.approve(nftBox.address, toWei(350 * quantity))).wait()
     await(await nftBox.mint(1, quantity)).wait()
 
     setTransactionFinished(true)
@@ -307,14 +302,14 @@ function App() {
               '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
                     setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} reveal={reveal}
-                    setMetadata={setMetadata} />,
+                    setEggLootMetadata={setEggLootMetadata} />,
               '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} 
                     itemsEggs={itemsEggs} items={items} equip={equip} selectedSneaker={selectedSneaker} 
-                    setMetadata={setMetadata}  reveal={reveal} chosenEggIndex={chosenEggIndex} 
+                    reveal={reveal} chosenEggIndex={chosenEggIndex} 
                     setChosenEggIndex={setChosenEggIndex}/>,
-              '4': <BoxOpenResult setMenu={setMenu}  reveal={reveal} />,
-              '5': <EquipResult metadataRef={metadataRef}  reveal={reveal} chosenEggIndex={chosenEggIndex} 
+              '4': <BoxOpenResult setMenu={setMenu}  reveal={reveal} itemsEggs={itemsEggs} eggLootMetadata={eggLootMetadata} />,
+              '5': <EquipResult reveal={reveal} chosenEggIndex={chosenEggIndex} 
                     itemsEggs={itemsEggs}/>,
               }[menu]
             }

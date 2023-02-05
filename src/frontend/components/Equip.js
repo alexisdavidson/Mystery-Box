@@ -10,7 +10,7 @@ const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, 
         setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker,
-        setMetadata, reveal, chosenEggIndex, setChosenEggIndex }) => {
+        reveal, chosenEggIndex, setChosenEggIndex }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [eggClicked, setEggClicked] = useState(false)
 
@@ -46,7 +46,6 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
         setTransactionObjectId(2)
         setMenu(1)
     
-        setMetadata(0)
         await(await equip.equip(items[selectedSneaker].token_id, itemsEggs[chosenEggIndex].token_id)).wait()
         setMenu(5)
     }

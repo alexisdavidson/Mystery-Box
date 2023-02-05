@@ -8,7 +8,7 @@ import sneakerItem2 from './assets/sneakerItem.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const BoxOpenResult = ({ setMenu, reveal }) => {
+const BoxOpenResult = ({ setMenu, reveal, eggLootMetadata, itemsEggs }) => {
 
     const clickInventory = () => {
         console.log("clickInventory")
@@ -40,7 +40,10 @@ const BoxOpenResult = ({ setMenu, reveal }) => {
                 </Col>
                 <Col className="m-0 p-0 col-6 col-lg-3">
                     <Row className="openingBoxItemSlotFilled">
-                        <img src={Egg} className="openingBoxNftListItem" />
+                        {/* <img src={Egg} className="openingBoxNftListItem" /> */}
+                        <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                            <source src={"Egg/"+ eggLootMetadata + ".mp4"} type="video/mp4"/>
+                        </video>
                     </Row>
                 </Col>
                 {/* <Col className="m-0 p-0 col-6 col-lg-3">

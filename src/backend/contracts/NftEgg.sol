@@ -100,7 +100,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
         remainingEggs[_random] = remainingEggs[remainingEggs.length - 1];
         remainingEggs.pop();
         
-        emit MintSuccessful(msg.sender, _metadata);
+        emit MintSuccessful(_user, _metadata);
     }
 
     function onePercentRarityAvailable() public view returns(bool) {
