@@ -61,7 +61,7 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmbUUVnzvUEWYaPHUZRs1JXW2NZLD8ohnVx1nzNVpzEXwp/";
+        return "ipfs://QmeJAF5yMs8futHY3iAnTiih3oHWGSFTkcFAKVyBVBnr4X/";
     }
     
     function baseTokenURI() public pure returns (string memory) {
