@@ -20,6 +20,8 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
         setEggClicked(true)
 
         console.log("metadata egg", itemsEggs[itemIndex].metadata)
+        var video = document.getElementById('vid');
+        video?.load();
         
         for(let i = 0; i < 3; i ++) {
             var element = document.getElementById('equipItem-' + i);
