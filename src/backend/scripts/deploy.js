@@ -17,6 +17,9 @@ async function main() {
   const Equip = await ethers.getContractFactory("Equip");
   const Usdc = await ethers.getContractFactory("Erc20Usdc");
 
+  const teamWallet = "0x40494EC8eCb8Ddb80fBCBd5D45048Fdb0664688E" // goerli
+  // const teamWallet = "" // polygon mainnet
+
   // Deploy Usdc ERC20 Only for tests
   usdc = await Usdc.deploy();
   console.log("Usdc contract address", usdc.address)
@@ -27,14 +30,17 @@ async function main() {
   nftEgg = await NftEgg.deploy();
   console.log("NftEgg contract address", nftEgg.address)
   saveFrontendFiles(nftEgg, "NftEgg");
+  await nftEgg.transferOwnership(teamWallet)
 
   nftSneaker = await NftSneaker.deploy();
   console.log("NftSneaker contract address", nftSneaker.address)
   saveFrontendFiles(nftSneaker, "NftSneaker");
+  await nftSneaker.transferOwnership(teamWallet)
 
   nftSneakerX = await NftSneakerX.deploy();
   console.log("NftSneakerX contract address", nftSneakerX.address)
   saveFrontendFiles(nftSneakerX, "NftSneakerX");
+  await nftSneakerX.transferOwnership(teamWallet)
 
   // const nftSneakerAddress = "0x3B1247143217e1f0f052939Ad759B880C946925f"
   // const nftEggAddress = "0xe33793485FB554ba57a38558C5B83f275ad4Bb1c"
@@ -43,10 +49,12 @@ async function main() {
   nftBox = await NftBox.deploy(usdcAddress, nftSneakerAddress, nftEggAddress);
   console.log("NftBox contract address", nftBox.address)
   saveFrontendFiles(nftBox, "NftBox");
+  await nftBox.transferOwnership(teamWallet)
 
   equip = await Equip.deploy(nftSneakerX.address, nftSneaker.address, nftEgg.address);
   console.log("Equip contract address", equip.address)
   saveFrontendFiles(equip, "Equip");
+  await equip.transferOwnership(teamWallet)
 
   await nftSneaker.setBoxAddress(nftBox.address);
   await nftEgg.setBoxAddress(nftBox.address);
