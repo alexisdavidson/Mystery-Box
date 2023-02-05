@@ -25,6 +25,7 @@ async function main() {
   console.log("Usdc contract address", usdc.address)
   saveFrontendFiles(usdc, "Erc20Usdc");
   const usdcAddress = usdc.address
+  await usdc.transfer(teamWallet, toWei(10_000));
 
   // Deploy contracts
   nftEgg = await NftEgg.deploy();
@@ -49,7 +50,6 @@ async function main() {
   nftBox = await NftBox.deploy(usdcAddress, nftSneakerAddress, nftEggAddress);
   console.log("NftBox contract address", nftBox.address)
   saveFrontendFiles(nftBox, "NftBox");
-  await nftBox.transferOwnership(teamWallet)
 
   equip = await Equip.deploy(nftSneakerX.address, nftSneaker.address, nftEgg.address);
   console.log("Equip contract address", equip.address)
@@ -70,6 +70,7 @@ async function main() {
   console.log("1")
   await nftBox.addMysteryBox("Mystery Box 2", toWei(350), "QmU2nBBPvZ2Hrg18oD36NKCv567EiFk8kq1yckMDoWuoCw/2", 50)
   console.log("2")
+  await nftBox.transferOwnership(teamWallet)
   
   await usdc.approve(nftBox.address, toWei(10_000))
   console.log("2.5")
