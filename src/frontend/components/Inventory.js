@@ -58,7 +58,14 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                                             </>
                                         ) : (
                                             <>
-                                                Ready to SWAG. ⛩️
+                                                {item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
+                                                    <>
+                                                        Ready to SWAG. ⛩️
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                    </>
+                                                )}
                                             </>
                                         )}
                                         
@@ -70,9 +77,13 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                                             Open
                                         </div>
                                     ) : (
-                                        <div className="itemDescButton" onClick={() => clickSneaker(idx)} >
-                                            Equip
-                                        </div>
+                                        item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
+                                            <div className="itemDescButton" onClick={() => clickSneaker(idx)} >
+                                                Equip
+                                            </div>
+                                        ) : (
+                                            <></>
+                                        )
                                     )}
                                 </Col>
                             </Row>

@@ -143,10 +143,13 @@ function App() {
     const sneakers = await loadOpenSeaItems(acc, nftSneakerRef.current)
     await new Promise(r => setTimeout(r, 1000));
     const eggs = await loadOpenSeaItems(acc, nftEggRef.current)
+    await new Promise(r => setTimeout(r, 1000));
+    const sneakerXs = await loadOpenSeaItems(acc, nftSneakerXRef.current)
     let itemsTemp = []
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(boxes)]
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakers)]
-    // itemsTemp = [...itemsTemp, ...compactOpenSeaList(eggs)]
+    itemsTemp = [...itemsTemp, ...compactOpenSeaList(eggs)]
+    itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakerXs)]
 
     console.log(itemsTemp)
     setItems(itemsTemp)
