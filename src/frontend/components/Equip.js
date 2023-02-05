@@ -10,9 +10,8 @@ const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, 
         setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker,
-        setMetadata, reveal }) => {
+        setMetadata, reveal, chosenEggIndex, setChosenEggIndex }) => {
     const [subMenu, setSubMenu] = useState(0)
-    const [chosenEggIndex, setChosenEggIndex] = useState(0)
     const [eggClicked, setEggClicked] = useState(false)
 
     const clickEquip = (itemIndex) => {
@@ -76,11 +75,9 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                         {!eggClicked ? (
                                             <img src={sneakerItem} className="equipImage" />
                                         ) : (
-                                            <>
                                             <video id="vid" loop autoPlay muted className="equipImage" >
                                                 <source src={"Sneaker/"+ itemsEggs[chosenEggIndex].metadata + ".mp4"} type="video/mp4"/>
                                             </video>
-                                            </>
                                         )}
                                     </Col>
                                     <Col className="col-12 col-lg-6 homeCol">

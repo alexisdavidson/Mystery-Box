@@ -51,6 +51,7 @@ function App() {
   const [transactionObjectId, setTransactionObjectId] = useState(0)
   const [selectedSneaker, setSelectedSneaker] = useState(0)
   const [metadata, setMetadata] = useState(0)
+  const [chosenEggIndex, setChosenEggIndex] = useState(0)
   
   const [nftEgg, setNftEgg] = useState({})
   const [nftSneaker, setNftSneaker] = useState({})
@@ -310,9 +311,11 @@ function App() {
               '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} 
                     itemsEggs={itemsEggs} items={items} equip={equip} selectedSneaker={selectedSneaker} 
-                    setMetadata={setMetadata}  reveal={reveal} />,
+                    setMetadata={setMetadata}  reveal={reveal} chosenEggIndex={chosenEggIndex} 
+                    setChosenEggIndex={setChosenEggIndex}/>,
               '4': <BoxOpenResult setMenu={setMenu}  reveal={reveal} />,
-              '5': <EquipResult metadataRef={metadataRef}  reveal={reveal} />,
+              '5': <EquipResult metadataRef={metadataRef}  reveal={reveal} chosenEggIndex={chosenEggIndex} 
+                    itemsEggs={itemsEggs}/>,
               }[menu]
             }
         </div>

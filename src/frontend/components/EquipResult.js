@@ -3,7 +3,7 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
 import videoPlaceholder from './assets/videoPlaceholder.png'
 
-const EquipResult = ({ metadataRef, reveal }) => {
+const EquipResult = ({ metadataRef, reveal, chosenEggIndex, itemsEggs }) => {
 
     useEffect(() => {
         reveal()
@@ -26,7 +26,10 @@ const EquipResult = ({ metadataRef, reveal }) => {
                         <source src={"https://ipfs.io/ipfs/QmY8ascXNak6Asqm6SSCe3p3zkiCWfTaGH5F7N1spmtj8x/" + metadataRef.current}
                         type="video/mp4"/>
                     </video> */}
-                    <img src={videoPlaceholder} className="equipImage" />
+                    {/* <img src={videoPlaceholder} className="equipImage" /> */}
+                    <video id="vid" loop autoPlay muted className="equipImage" >
+                        <source src={"Sneaker/"+ itemsEggs[chosenEggIndex].metadata + ".mp4"} type="video/mp4"/>
+                    </video>
                 </div>
             </Row>
         </Row>
