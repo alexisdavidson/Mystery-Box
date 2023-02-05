@@ -161,7 +161,7 @@ function App() {
         name: list[i].name,
         token_id: list[i].token_id,
         image_url: list[i].image_url,
-        creator: "CREATORS NAME"
+        creator: list[i].traits.filter(e => e.trait_type == "CREATOR")[0]?.value ?? ""
       })
     }
     return compactList
