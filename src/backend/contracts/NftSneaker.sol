@@ -25,7 +25,7 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     constructor() ERC721A("Blank Sneaker", "BS") {
     }
 
-    function mintFromBox(address _user, uint256 _boxId) external {
+    function mintFromBox(address _user, bool _rareOnly) external {
         require(msg.sender == boxAddress, "Only the Box smart contract can mint");
         require(totalSupply() + 1 <= max_supply, 'Cannot mint more than max supply');
         _mint(_user, 1);

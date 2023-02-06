@@ -66,17 +66,17 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
         remainingEggs = _remainingEggs;
     }
 
-    function mintFromBox(address _user, uint256 _boxId) external {
+    function mintFromBox(address _user, bool _rareOnly) external {
         require(msg.sender == boxAddress, "Only the Box smart contract can mint");
         require(remainingEggs.length > 0, 'No remaining Eggs');
         require(_user == tx.origin, "opener cannot be smart contract");
-        require(!(_boxId == 1 && !onePercentRarityAvailable()), "No more one percent rarities available");
+        require(!(_rareOnly && !onePercentRarityAvailable()), "No more one percent rarities available");
 
         // Pick random index from array which contains remaining stuff
         uint256 _random = uint256(keccak256(abi.encodePacked(_msgSender(), blockhash(block.number - 1), block.difficulty)));
 
         uint256 _remainingEggsLength = remainingEggs.length;
-        if (_boxId == 1) { // 1% rarities only
+        if (_rareOnly) { // 1% rarities only
             uint256 _idFirstRare = 0;
 
             for (uint256 i = 0; i < _remainingEggsLength;) {
@@ -174,6 +174,13 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
 
     function setPrice(uint _price) public onlyOwner {
         price = _price;
+    }
+    
+    function setRareFirstId(uint _rareFirstId) public onlyOwner {
+        rareFirstId = _rareFirstId;
+    }
+    function setRareLastId(uint _rareLastId) public onlyOwner {
+        rareLastId = _rareLastId;
     }
 
     function setMintEnabled(bool _state) public onlyOwner {

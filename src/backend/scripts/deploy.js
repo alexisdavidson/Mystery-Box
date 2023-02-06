@@ -66,9 +66,9 @@ async function main() {
 
   // For testing
   // const nftBox = new ethers.Contract(NftBoxAddress.address, NftBoxAbi.abi, signer)
-  await nftBox.addMysteryBox("Mystery Box 1", toWei(80), 50)
+  await nftBox.addMysteryBox("Mystery Box 1", toWei(80), 50, false)
   console.log("1")
-  await nftBox.addMysteryBox("Mystery Box 2", toWei(350), 50)
+  await nftBox.addMysteryBox("Mystery Box 2", toWei(350), 50, true)
   console.log("2")
   await nftBox.transferOwnership(teamWallet)
   

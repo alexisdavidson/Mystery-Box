@@ -28,6 +28,7 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         uint256 maxSupply;
         uint256 remainingSupply;
         bool mintEnabled;
+        bool rareOnly;
     }
 
     address[] whitelist;
@@ -48,8 +49,8 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         require(_msgSender() == tx.origin, "opener cannot be smart contract");
         uint256 _boxId = idToBoxId[_tokenId];
 
-        IBoxLoot(sneakerAddress).mintFromBox(msg.sender, _boxId);
-        IBoxLoot(eggAddress).mintFromBox(msg.sender, _boxId);
+        IBoxLoot(sneakerAddress).mintFromBox(msg.sender, boxes[_boxId].rareOnly);
+        IBoxLoot(eggAddress).mintFromBox(msg.sender, boxes[_boxId].rareOnly);
         
         _burn(_tokenId);
     }
@@ -141,8 +142,8 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
 
     // Mystery Box functions
 
-    function addMysteryBox(string memory _name, uint256 _price, uint256 _maxSupply) public onlyOwner {
-        boxes.push(BoxData(_name, _price, 0, _maxSupply, _maxSupply, true));
+    function addMysteryBox(string memory _name, uint256 _price, uint256 _maxSupply, bool _rareOnly) public onlyOwner {
+        boxes.push(BoxData(_name, _price, 0, _maxSupply, _maxSupply, true, _rareOnly));
     }
 
     function removeMysteryBox(uint256 _boxId) public onlyOwner {

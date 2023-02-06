@@ -39,8 +39,8 @@ describe("Equip", async function() {
         await nftEgg.setEquipAddress(equip.address);
         await nftSneakerX.setEquipAddress(equip.address);
 
-        await nftBox.addMysteryBox("Mystery Box 1", toWei(80), 50)
-        await nftBox.addMysteryBox("Mystery Box 2", toWei(350), 50)
+        await nftBox.addMysteryBox("Mystery Box 1", toWei(80), 50, false)
+        await nftBox.addMysteryBox("Mystery Box 2", toWei(350), 50, true)
     });
 
     describe("Deployment", function() {
