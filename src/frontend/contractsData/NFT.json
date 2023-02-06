@@ -241,7 +241,7 @@
         },
         {
           "internalType": "string",
-          "name": "_cid",
+          "name": "_uri",
           "type": "string"
         },
         {
@@ -319,7 +319,7 @@
         },
         {
           "internalType": "string",
-          "name": "cid",
+          "name": "uri",
           "type": "string"
         },
         {

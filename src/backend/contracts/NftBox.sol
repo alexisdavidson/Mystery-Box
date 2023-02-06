@@ -9,15 +9,13 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 
-// Box QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n 1-2
-// Snaker QmY8ascXNak6Asqm6SSCe3p3zkiCWfTaGH5F7N1spmtj8x 1-31
-// Egg QmYVmkGssbGo9ZbM2HDQh3TjEyorgZjyjfqaFj365LQMQQ 1-31
-
 contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     using SafeERC20 for IERC20;
 
     string public uriPrefix = '';
     string public uriSuffix = '.json';
+    string public uri = "ipfs://QmU2nBBPvZ2Hrg18oD36NKCv567EiFk8kq1yckMDoWuoCw/";
+    string public contractUri = "ipfs://QmZ7rzn8vqna7D54N5UnacoarPHB6cYZsRfwVfymcL8E23/";
 
     address public USDCAddress;
     address public sneakerAddress;
@@ -27,7 +25,6 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         string name;
         uint256 price;
         uint256 burnAmount;
-        string cid;
         uint256 maxSupply;
         uint256 remainingSupply;
         bool mintEnabled;
@@ -79,28 +76,35 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
         require(_exists(_tokenId), 'ERC721Metadata: URI query for nonexistent token');
         require(idToBoxId[_tokenId] < boxes.length, "boxId out of range");
-        return string(abi.encodePacked("ipfs://", boxes[idToBoxId[_tokenId]].cid, uriSuffix));
+
+        string memory currentBaseURI = _baseURI();
+        return bytes(currentBaseURI).length > 0
+            ? string(abi.encodePacked(currentBaseURI, Strings.toString(idToBoxId[_tokenId] + 1), uriSuffix))
+            : '';
     }
 
-    // function _baseURI() internal pure override returns (string memory) {
-    //     return "QmYLpp6TaXjHPENgbDWRWzBQoJuc4zRE5z3sXjXhdYALp3";
-    // }
+    function _baseURI() internal view override returns (string memory) {
+        return uri;
+    }
     
-    // function baseTokenURI() public pure returns (string memory) {
-    //     return _baseURI();
-    // }
+    function baseTokenURI() public view returns (string memory) {
+        return _baseURI();
+    }
 
-    function contractURI() public pure returns (string memory) {
-        return "ipfs://QmZ7rzn8vqna7D54N5UnacoarPHB6cYZsRfwVfymcL8E23/";
+    function setMetadata(string memory _uri) public onlyOwner {
+        uri = _uri;
+    }
+
+    function setContractMetadata(string memory _uri) public onlyOwner {
+        contractUri = _uri;
+    }
+
+    function contractURI() public view returns (string memory) {
+        return contractUri;
     }
 
     function getPrice(uint256 _boxId) view public returns(uint) {
         return boxes[_boxId].price;
-    }
-
-    function setPrice(uint256 _boxId, uint _price) public onlyOwner {
-        require(_boxId < boxes.length, "boxId out of range");
-        boxes[_boxId].price = _price;
     }
 
     function setMintEnabled(uint256 _boxId, bool _state) public onlyOwner {
@@ -137,14 +141,25 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
 
     // Mystery Box functions
 
-    function addMysteryBox(string memory _name, uint256 _price, string memory _cid, uint256 _maxSupply) public onlyOwner {
-        boxes.push(BoxData(_name, _price, 0, _cid, _maxSupply, _maxSupply, true));
+    function addMysteryBox(string memory _name, uint256 _price, uint256 _maxSupply) public onlyOwner {
+        boxes.push(BoxData(_name, _price, 0, _maxSupply, _maxSupply, true));
     }
 
     function removeMysteryBox(uint256 _boxId) public onlyOwner {
         require(_boxId < boxes.length, "boxId out of range");
         boxes[_boxId] = boxes[boxes.length - 1];
         boxes.pop();
+    }
+
+    function addSupply(uint256 _boxId, uint256 _supply) public onlyOwner {
+        require(_boxId < boxes.length, "boxId out of range");
+        boxes[_boxId].maxSupply += _supply;
+        boxes[_boxId].remainingSupply += _supply;
+    }
+
+    function setPrice(uint256 _boxId, uint256 _price) public onlyOwner {
+        require(_boxId < boxes.length, "boxId out of range");
+        boxes[_boxId].price = _price;
     }
 
     function getMysteryBoxPrice(uint256 _boxId) public view returns (uint256) {
@@ -155,11 +170,6 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     function getMysteryBoxName(uint256 _boxId) public view returns (string memory) {
         require(_boxId < boxes.length, "boxId out of range");
         return boxes[_boxId].name;
-    }
-
-    function getMysteryBoxCid(uint256 _boxId) public view returns (string memory) {
-        require(_boxId < boxes.length, "boxId out of range");
-        return boxes[_boxId].cid;
     }
 
     function airdrop(address _user, uint256 _quantity) external onlyOwner {

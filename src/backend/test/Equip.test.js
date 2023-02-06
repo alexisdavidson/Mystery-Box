@@ -6,8 +6,8 @@ const fromWei = (num) => parseInt(ethers.utils.formatEther(num))
 
 describe("Equip", async function() {
     let deployer, addr1, addr2, nftBox, nftEgg, nftSneaker, nftSneakerX, equip, udsc
-    let mysteryBoxCid1 = "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/1"
-    let mysteryBoxCid2 = "QmSABpZp4i6HFoY4AcmKhPG5nujQXmVv8TosqNkvkY6t5n/2"
+    let mysteryBoxCid1 = "ipfs://QmU2nBBPvZ2Hrg18oD36NKCv567EiFk8kq1yckMDoWuoCw/1.json"
+    let mysteryBoxCid2 = "ipfs://QmU2nBBPvZ2Hrg18oD36NKCv567EiFk8kq1yckMDoWuoCw/2.json"
 
     beforeEach(async function() {
         // Get contract factories
@@ -39,8 +39,8 @@ describe("Equip", async function() {
         await nftEgg.setEquipAddress(equip.address);
         await nftSneakerX.setEquipAddress(equip.address);
 
-        await nftBox.addMysteryBox("Mystery Box 1", toWei(80), "QmR33RsTwEjoyxCM2x5Gggs6FNWFs3cHUHaGUTaFRWN6eF/1", 50)
-        await nftBox.addMysteryBox("Mystery Box 2", toWei(350), "QmR33RsTwEjoyxCM2x5Gggs6FNWFs3cHUHaGUTaFRWN6eF/2", 50)
+        await nftBox.addMysteryBox("Mystery Box 1", toWei(80), 50)
+        await nftBox.addMysteryBox("Mystery Box 2", toWei(350), 50)
     });
 
     describe("Deployment", function() {

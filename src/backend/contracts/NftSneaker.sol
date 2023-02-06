@@ -12,6 +12,8 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     address equipAddress;
     string public uriPrefix = '';
     string public uriSuffix = '.json';
+    string public uri = "ipfs://QmeJAF5yMs8futHY3iAnTiih3oHWGSFTkcFAKVyBVBnr4X/";
+    string public contractUri = "ipfs://QmdojfyM51r7Lkji4dZ97HkXEHhTNHikogrhXw61SXYbM8/";
     uint256 public max_supply = 100;
     uint256 public burnAmount;
 
@@ -60,16 +62,24 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
         //     : '';
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmeJAF5yMs8futHY3iAnTiih3oHWGSFTkcFAKVyBVBnr4X/";
+    function _baseURI() internal view override returns (string memory) {
+        return uri;
+    }
+
+    function setMetadata(string memory _uri) public onlyOwner {
+        uri = _uri;
     }
     
-    function baseTokenURI() public pure returns (string memory) {
+    function baseTokenURI() public view returns (string memory) {
         return _baseURI();
     }
 
-    function contractURI() public pure returns (string memory) {
-        return "ipfs://QmdojfyM51r7Lkji4dZ97HkXEHhTNHikogrhXw61SXYbM8/";
+    function setContractMetadata(string memory _uri) public onlyOwner {
+        contractUri = _uri;
+    }
+
+    function contractURI() public view returns (string memory) {
+        return contractUri;
     }
 
     function getPrice() view public returns(uint) {

@@ -12,6 +12,8 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     string public uriSuffix = '.json';
     uint256 public max_supply = 100;
     uint256 public burnAmount;
+    string public uri = "ipfs://QmbUUVnzvUEWYaPHUZRs1JXW2NZLD8ohnVx1nzNVpzEXwp/";
+    string public contractUri = "ipfs://QmWCFqvGXWYS7uQSusgRzNtf2Druoh7YjtEknXESPZVVAr/";
 
     bool public mintEnabled;
     uint256 public price = 0 ether;
@@ -53,16 +55,24 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
             : '';
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmbUUVnzvUEWYaPHUZRs1JXW2NZLD8ohnVx1nzNVpzEXwp/";
+    function _baseURI() internal view override returns (string memory) {
+        return uri;
+    }
+
+    function setMetadata(string memory _uri) public onlyOwner {
+        uri = _uri;
     }
     
-    function baseTokenURI() public pure returns (string memory) {
+    function baseTokenURI() public view returns (string memory) {
         return _baseURI();
     }
 
-    function contractURI() public pure returns (string memory) {
-        return "ipfs://QmWCFqvGXWYS7uQSusgRzNtf2Druoh7YjtEknXESPZVVAr/";
+    function setContractMetadata(string memory _uri) public onlyOwner {
+        contractUri = _uri;
+    }
+
+    function contractURI() public view returns (string memory) {
+        return contractUri;
     }
 
     function getPrice() view public returns(uint) {
@@ -71,6 +81,10 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
 
     function setPrice(uint _price) public onlyOwner {
         price = _price;
+    }
+
+    function setMaxSupply(uint256 _supply) public onlyOwner {
+        max_supply = _supply;
     }
 
     function setMintEnabled(bool _state) public onlyOwner {

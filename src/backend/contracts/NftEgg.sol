@@ -12,6 +12,8 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     address equipAddress;
     string public uriPrefix = '';
     string public uriSuffix = '.json';
+    string public uri = "ipfs://QmVD8o6muqEyE6AAfS7azx8FLWUBcMrgQGUiPYG5SpYzJc/";
+    string public contractUri = "ipfs://QmaVcTLbmmY1CUswFBCBcpvgA8iYd7YEmaAraeF79bf8gZ/";
     uint256 public burnAmount;
 
     uint256 public rareFirstId = 25;
@@ -20,7 +22,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     bool public mintEnabled;
     uint256 public price = 0 ether;
 
-    uint256[] remainingEggs;
+    uint256[] public remainingEggs;
     mapping (uint256 => uint256) idToMetadataMapping;
 
     event MintSuccessful(address user, uint256 metadata);
@@ -146,16 +148,24 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
             : '';
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmVD8o6muqEyE6AAfS7azx8FLWUBcMrgQGUiPYG5SpYzJc/";
+    function _baseURI() internal view override returns (string memory) {
+        return uri;
+    }
+
+    function setMetadata(string memory _uri) public onlyOwner {
+        uri = _uri;
     }
     
-    function baseTokenURI() public pure returns (string memory) {
+    function baseTokenURI() public view returns (string memory) {
         return _baseURI();
     }
 
-    function contractURI() public pure returns (string memory) {
-        return "ipfs://QmaVcTLbmmY1CUswFBCBcpvgA8iYd7YEmaAraeF79bf8gZ/";
+    function setContractMetadata(string memory _uri) public onlyOwner {
+        contractUri = _uri;
+    }
+
+    function contractURI() public view returns (string memory) {
+        return contractUri;
     }
 
     function getPrice() view public returns(uint) {
