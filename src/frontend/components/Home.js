@@ -6,7 +6,7 @@ import homeBox from './assets/homeBox.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, reveal }) => {
+const Home = ({ web3Handler, account, mintButton, reveal }) => {
     const [quantities, setQuantities] = useState([1, 1])
     const [forcerender, setForceRender] = useState(0)
 
@@ -67,7 +67,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, 
                                     </div>
                                 </div>
                             </div>
-                            <div className="mintButton" onClick={() => mintButtonAllRarities(quantities[0])}>
+                            <div className="mintButton" onClick={() => mintButton(quantities[0], 0, 80)}>
                                 <div className="mintButtonText">Buy Origin Box</div>
                                 <div className="mintButtonPrice">$80</div>
                             </div>
@@ -84,7 +84,7 @@ const Home = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, 
                                     </div>
                                 </div>
                             </div>
-                            <div className="mintButton" onClick={() => mintButtonIslands(quantities[1])}>
+                            <div className="mintButton" onClick={() => mintButton(quantities[1], 1, 350)}>
                                 <div className="mintButtonText">Buy Origin Box Islands</div>
                                 <div className="mintButtonPrice">$350</div>
                             </div>

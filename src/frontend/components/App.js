@@ -247,29 +247,16 @@ function App() {
     });
   }
   
-  const mintButtonAllRarities = async (quantity) => {
-    console.log("mintButtonAllRarities", quantity)
+  const mintButton = async (quantity, boxId, price) => {
+    console.log("mintButton", quantity, boxId, price)
 
     setTransactionFinished(false)
     setTransactionObjectId(0)
     setMenu(1)
 
-    await(await usdc.approve(nftBox.address, toWei(80 * quantity))).wait()
-    await(await nftBox.mint(0, quantity)).wait()
+    await(await usdc.approve(nftBox.address, toWei(price * quantity))).wait()
+    await(await nftBox.mint(boxId, quantity)).wait()
     
-    setTransactionFinished(true)
-  }
-  
-  const mintButtonIslands = async (quantity) => {
-    console.log("mintButtonIslands", quantity)
-    
-    setTransactionFinished(false)
-    setTransactionObjectId(0)
-    setMenu(1)
-
-    await(await usdc.approve(nftBox.address, toWei(350 * quantity))).wait()
-    await(await nftBox.mint(1, quantity)).wait()
-
     setTransactionFinished(true)
   }
 
@@ -295,8 +282,7 @@ function App() {
             )}
             {
               {
-              '0': <Home web3Handler={web3Handler} account={account} mintButtonAllRarities={mintButtonAllRarities}
-                    mintButtonIslands={mintButtonIslands} reveal={reveal} />,
+              '0': <Home web3Handler={web3Handler} account={account} mintButton={mintButton} reveal={reveal} />,
               '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} 
               reveal={reveal} />,
               '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
