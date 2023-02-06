@@ -335,6 +335,7 @@ a:link, a:visited, a:hover, a:active {
   width: 20vw;
   margin: 0;
   padding: 0;
+  border-radius: 3vh;
 }
 
 .equipListItem:hover {
