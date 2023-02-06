@@ -58,10 +58,10 @@ async function main() {
   await nftEgg.setEquipAddress(equip.address);
   await nftSneakerX.setEquipAddress(equip.address);
   
-  await nftEgg.transferOwnership(teamWallet)
-  await nftSneaker.transferOwnership(teamWallet)
-  await nftSneakerX.transferOwnership(teamWallet)
-  await equip.transferOwnership(teamWallet)
+  // await nftEgg.transferOwnership(teamWallet)
+  // await nftSneaker.transferOwnership(teamWallet)
+  // await nftSneakerX.transferOwnership(teamWallet)
+  // await equip.transferOwnership(teamWallet)
   console.log("Setters functions called")
 
   // For testing

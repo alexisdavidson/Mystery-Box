@@ -12,7 +12,7 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     address equipAddress;
     string public uriPrefix = '';
     string public uriSuffix = '.json';
-    string public uri = "ipfs://QmWfog9YehQZ4YeWKeh4VuBe2S6Coo7mDGVS5ADLZcVFU9/";
+    string public uri = "ipfs://Qmd1EFNxrVzATLjKAkSDdtufaCG1TEDgSgb4i3USobiKTj/";
     string public contractUri = "ipfs://QmdojfyM51r7Lkji4dZ97HkXEHhTNHikogrhXw61SXYbM8/";
     uint256 public max_supply = 100;
     uint256 public burnAmount;

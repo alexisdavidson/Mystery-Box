@@ -44,7 +44,18 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                     {items.map((item, idx) => (
                         <Col key={idx} className="m-0 p-0 col-6 col-lg-3">
                             <Row className="itemSlotFilled">
-                                <img src={item.image_url} className="nftListItem" />
+                                {item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
+                                    <img src={item.image_url} className="nftListItem" />
+                                ) : (
+                                    item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
+                                        <img src={item.image_url} className="nftListItem" />
+                                    ) : (
+                                        // <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                                        //     <source src={"Egg/"+ item.metadata + ".mp4"} type="video/mp4"/>
+                                        // </video>
+                                        <img src={item.image_url} className="nftListItem" />
+                                    )
+                                )}
                             </Row>
                             <Row className="itemDescDiv">
                                 <Col className="col-12 col-lg-6 itemDescDivLeft">
