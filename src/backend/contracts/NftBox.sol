@@ -158,6 +158,10 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         boxes[_boxId].remainingSupply += _supply;
     }
 
+    function setUSDCAddress(address _address) public onlyOwner {
+        USDCAddress = _address;
+    }
+
     function setPrice(uint256 _boxId, uint256 _price) public onlyOwner {
         require(_boxId < boxes.length, "boxId out of range");
         boxes[_boxId].price = _price;

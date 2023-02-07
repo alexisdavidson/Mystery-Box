@@ -6,6 +6,7 @@ import sneakerItem from './assets/sneakerItem.png'
 import NftBoxAddress from '../contractsData/NftBox-address.json'
 import NftEggAddress from '../contractsData/NftEgg-address.json'
 import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
+import NftSneakerXAddress from '../contractsData/NftSneakerX-address.json'
 
 const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTransactionObjectId, setTransactionFinished,
                         items, nftBox, setEggLootMetadata, reveal}) => {
@@ -47,13 +48,24 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                                 {item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
                                     <img src={item.image_url} className="nftListItem" />
                                 ) : (
-                                    item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
-                                        <img src={item.image_url} className="nftListItem" />
+                                    item.contract.includes(NftSneakerXAddress.address.toUpperCase()) ? (
+                                        <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                                            <source src={"Sneaker/"+ item.metadata + ".mp4"} type="video/mp4"/>
+                                        </video>
                                     ) : (
-                                        // <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
-                                        //     <source src={"Egg/"+ item.metadata + ".mp4"} type="video/mp4"/>
-                                        // </video>
-                                        <img src={item.image_url} className="nftListItem" />
+                                        item.contract.includes(NftEggAddress.address.toUpperCase()) ? (
+                                            <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                                                <source src={"Egg/"+ item.metadata + ".mp4"} type="video/mp4"/>
+                                            </video>
+                                        ) : (
+                                            item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (
+                                                <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                                                    <source src={"Box/"+ item.metadata + ".mp4"} type="video/mp4"/>
+                                                </video>
+                                            ) : (
+                                                <img src={item.image_url} className="nftListItem" />
+                                            )
+                                        )
                                     )
                                 )}
                             </Row>

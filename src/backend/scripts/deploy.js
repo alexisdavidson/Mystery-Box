@@ -65,12 +65,11 @@ async function main() {
   console.log("Setters functions called")
 
   // For testing
-  // const nftBox = new ethers.Contract(NftBoxAddress.address, NftBoxAbi.abi, signer)
   await nftBox.addMysteryBox("Mystery Box 1", toWei(80), 50, false)
   console.log("1")
   await nftBox.addMysteryBox("Mystery Box 2", toWei(350), 50, true)
   console.log("2")
-  await nftBox.transferOwnership(teamWallet)
+  // await nftBox.transferOwnership(teamWallet)
   
   await usdc.approve(nftBox.address, toWei(10_000))
   console.log("2.5")
