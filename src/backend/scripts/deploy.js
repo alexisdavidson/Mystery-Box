@@ -25,7 +25,7 @@ async function main() {
   console.log("Usdc contract address", usdc.address)
   saveFrontendFiles(usdc, "Erc20Usdc");
   const usdcAddress = usdc.address
-  await usdc.transfer(teamWallet, toWei(10_000));
+  await usdc.transfer(teamWallet, toWei(100_000));
 
   // Deploy contracts
   nftEgg = await NftEgg.deploy();
