@@ -21,6 +21,10 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     address public sneakerAddress;
     address public eggAddress;
 
+    bool public publicMintEnabled = true;
+    bool public whitelistMintEnabled = true;
+    uint256 public whitelistDiscount = 20; // 20% discount
+
     struct BoxData {
         string name;
         uint256 price;
@@ -60,13 +64,19 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         require(boxes[_boxId].mintEnabled, 'Minting is not enabled');
         require(boxes[_boxId].remainingSupply >= _quantity, 'Cannot mint more than max supply');
 
+        bool _isWhitelisted = isWhitelisted(msg.sender);
+        require(publicMintEnabled || (_isWhitelisted && whitelistMintEnabled), "Mint disabled");
+
         for(uint256 i = 0; i < _quantity;) {
             idToBoxId[_startTokenId() + _totalMinted() + i] = _boxId;
             unchecked { ++i; }
         }
 
-        if (!isWhitelisted(msg.sender))
-            IERC20(USDCAddress).safeTransferFrom(msg.sender, address(this), getPrice(_boxId) * _quantity);
+        uint256 _price = getPrice(_boxId) * _quantity;
+        if (_isWhitelisted)
+            _price = _price * (100 - whitelistDiscount) / 100;
+
+        IERC20(USDCAddress).safeTransferFrom(msg.sender, address(this), _price);
 
         _mint(msg.sender, _quantity);
         boxes[_boxId].remainingSupply --;
@@ -156,6 +166,18 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
         require(_boxId < boxes.length, "boxId out of range");
         boxes[_boxId].maxSupply += _supply;
         boxes[_boxId].remainingSupply += _supply;
+    }
+
+    function setPublicMintEnabled(bool _enabled) public onlyOwner {
+        publicMintEnabled = _enabled;
+    }
+
+    function setWhitelistMintEnabled(bool _enabled) public onlyOwner {
+        whitelistMintEnabled = _enabled;
+    }
+
+    function setWhitelistDiscount(uint256 _discount) public onlyOwner {
+        whitelistDiscount = _discount;
     }
 
     function setUSDCAddress(address _address) public onlyOwner {
