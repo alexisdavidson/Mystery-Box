@@ -92,6 +92,8 @@ function App() {
   menuRef.current = menu;
   const itemsRef = useRef();
   itemsRef.current = items;
+  const itemsWeb2Ref = useRef();
+  itemsWeb2Ref.current = itemsWeb2;
 
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -154,7 +156,7 @@ function App() {
   }
 
   const loadAllItems = async (acc) => {
-    let lastItemsLength = items.length
+    let lastItemsLength = itemsRef.current.length - itemsWeb2Ref.current.length
 
     const boxes = await loadOpenSeaItems(acc, nftBoxRef.current)
     await new Promise(r => setTimeout(r, 1000));
@@ -168,6 +170,14 @@ function App() {
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakers)]
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(eggs)]
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakerXs)]
+
+    // If we got new items coming in, remove all web2 items
+    if (itemsTemp.length > lastItemsLength) {
+      setItemsWeb2([])
+      setWaitingForBlockchain(false)
+    } else { // Otherwise keep them and append them
+      itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
+    }
 
     console.log(itemsTemp)
     setItems(itemsTemp)
