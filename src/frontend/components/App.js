@@ -61,6 +61,7 @@ function App() {
   const [usdc, setUsdc] = useState({})
   const [intervalVariable, setIntervalVariable] = useState(null)
   const [didntAccept, setDidntAcccept] = useState(false)
+  const [waitingForBlockchain, setWaitingForBlockchain] = useState(true)
 
   const providerRef = useRef();
   providerRef.current = provider;
@@ -278,6 +279,9 @@ function App() {
             {account ? (
               <div className="menuMobile">
                 <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
+                {waitingForBlockchain ? (
+                    <div className="waitingBlockchain">Waiting Blockchain</div>
+                ) : ( <></> )}
               </div>
             ) : (
               <></>

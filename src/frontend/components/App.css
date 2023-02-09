@@ -303,7 +303,7 @@ a:link, a:visited, a:hover, a:active {
   color: white;
 }
 
-.acceptTCAlert, .acceptTCAlertMobile {
+.acceptTCAlert, .acceptTCAlertMobile, .waitingBlockchain {
   background-image: linear-gradient(rgba(255, 255, 255, .2), rgba(100, 100, 100, .2));
   font-weight: normal;
   border-radius: 10vh;
@@ -314,7 +314,7 @@ a:link, a:visited, a:hover, a:active {
   width: 12rem;
   border-radius: 10vh;
   font-size: 1.0rem;
-  line-height: 2.2rem;
+  line-height: 2.7rem;
   margin-bottom: 2vh;
 }
 .acceptTCAlertMobile {
@@ -323,6 +323,12 @@ a:link, a:visited, a:hover, a:active {
 
 .acceptTCAlert { 
   width: 10rem;
+  margin: 0;
+  margin-right: 4vh;
+}
+
+.waitingBlockchain{
+  width: 14rem;
   margin: 0;
   margin-right: 4vh;
 }
@@ -574,8 +580,11 @@ a:link, a:visited, a:hover, a:active {
     width: 40vw;
   }
 
-  .inventoryButton {
+  .inventoryButton, .waitingBlockchain {
     margin: auto;
+  }
+  .waitingBlockchain {
+    margin-top: 1rem;
   }
   .menuMobile {
     display: block;
