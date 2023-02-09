@@ -200,11 +200,6 @@ a:link, a:visited, a:hover, a:active {
   padding: 3vh;
   margin-top: 10vh;
 }
-.openingBoxWaiting {
-  position: fixed;
-  bottom: 10%;
-  z-index: 2;
-}
 
 .openingBoxResult {
   margin: 0;
@@ -287,9 +282,15 @@ a:link, a:visited, a:hover, a:active {
   -webkit-text-fill-color: transparent;
 }
 
+.openingBoxWaitingDivFlex {
+  position: fixed;
+  bottom: 6%;
+  z-index: 2;
+}
 .openingBoxWaitingDiv {
   display: flex;
   justify-content: center;
+  gap: 2rem;
 }
 
 .openingBoxWaiting {
@@ -368,6 +369,10 @@ a:link, a:visited, a:hover, a:active {
   padding: 0.2rem;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.openBoxButtonTransaction{
+  margin-top: 1rem;
 }
 
 .equipButton {

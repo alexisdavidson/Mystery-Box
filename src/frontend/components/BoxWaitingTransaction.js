@@ -51,14 +51,16 @@ const BoxWaitingTransaction = ({ transactionFinished, transactionObjectId, revea
                 </div>
             </div>
             <div className="openingBoxWaitingDiv">
-                <div className="openingBoxWaiting">{checkNumber()}/1 Waiting for MetaMask transaction</div>
-                {checkNumber() == 1 ? (
-                    <div className="openBoxButtonTransaction" onClick={() => setMenu(2)} >
-                        Open Box
-                    </div>
-                ) : (
-                    <></>
-                )}
+                <div className="openingBoxWaitingDivFlex">
+                    <div className="openingBoxWaiting">{checkNumber()}/1 Waiting for MetaMask transaction</div>
+                    {checkNumber() == 1 ? (
+                        <div className="openBoxButtonTransaction" onClick={() => setMenu(2)} >
+                            Open Box
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+                </div>
             </div>
         </Row>
     );
