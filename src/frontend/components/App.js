@@ -47,6 +47,7 @@ function App() {
   const [provider, setProvider] = useState({})
   const [items, setItems] = useState([])
   const [itemsEggs, setItemsEggs] = useState([])
+  const [itemsWeb2, setItemsWeb2] = useState([])
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
   const [selectedSneaker, setSelectedSneaker] = useState(0)
@@ -61,7 +62,7 @@ function App() {
   const [usdc, setUsdc] = useState({})
   const [intervalVariable, setIntervalVariable] = useState(null)
   const [didntAccept, setDidntAcccept] = useState(false)
-  const [waitingForBlockchain, setWaitingForBlockchain] = useState(true)
+  const [waitingForBlockchain, setWaitingForBlockchain] = useState(false)
 
   const providerRef = useRef();
   providerRef.current = provider;
@@ -151,6 +152,8 @@ function App() {
   }
 
   const loadAllItems = async (acc) => {
+    let lastItemsLength = items.length
+
     const boxes = await loadOpenSeaItems(acc, nftBoxRef.current)
     await new Promise(r => setTimeout(r, 1000));
     const sneakers = await loadOpenSeaItems(acc, nftSneakerRef.current)
@@ -182,7 +185,8 @@ function App() {
         token_id: list[i].token_id,
         image_url: list[i].image_url,
         creator: list[i].traits.filter(e => e.trait_type == "CREATOR")[0]?.value ?? "",
-        metadata: getFilename(list[i].token_metadata)
+        metadata: getFilename(list[i].token_metadata),
+        web2: false
       })
       console.log("getFilename", getFilename(list[i].token_metadata))
     }
@@ -248,6 +252,10 @@ function App() {
       }
     });
   }
+
+  const refreshListWeb3Web2 = () => {
+    setItems(...itemsWeb2, items)
+  }
   
   const mintButton = async (quantity, boxId, price) => {
     console.log("mintButton", quantity, boxId, price)
@@ -258,6 +266,22 @@ function App() {
 
     await(await usdc.approve(nftBox.address, toWei(price * quantity))).wait()
     await(await nftBox.mint(boxId, quantity)).wait()
+
+    let itemsTemp = []
+    for(let i = 0; i < quantity; i++) {
+      itemsTemp.push({
+        contract: NftBoxAddress.address.toUpperCase(),
+        name: "Mystery Box",
+        token_id: -1,
+        image_url: "",
+        creator: "",
+        metadata: getFilename(boxId),
+        web2: true
+      })
+    }
+    setItemsWeb2(...itemsWeb2, itemsTemp)
+    refreshListWeb3Web2()
+    setWaitingForBlockchain(true)
     
     setTransactionFinished(true)
   }

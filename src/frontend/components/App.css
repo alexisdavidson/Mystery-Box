@@ -93,7 +93,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .popupButtonClose, .mintButton, .wideButton, .wideButtonRed, .inventoryButton, .connectButton,
-.itemDescButton, .openingBoxButton, .equipButton, .openBoxButtonTransaction {
+.itemDescButton, .openingBoxButton, .equipButton, .openBoxButtonTransaction, .itemDescButtonWait {
   font-size: 2rem;
   vertical-align: middle;
   margin: auto;
@@ -393,12 +393,16 @@ a:link, a:visited, a:hover, a:active {
   color: white;
 }
 
-.itemDescButton, .openBoxButtonTransaction {
+.itemDescButton, .openBoxButtonTransaction, .itemDescButtonWait {
   font-size: 1rem;
   width: fit-content;
   padding: 0.2rem;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.itemDescButtonWait {
+  background-image: linear-gradient(rgba(255, 255, 255, .5), rgba(100, 100, 100, .5));
 }
 
 .openBoxButtonTransaction{
@@ -566,7 +570,7 @@ a:link, a:visited, a:hover, a:active {
     width: 40vw;
   }
 
-  .itemDescButton {
+  .itemDescButton, .itemDescButtonWait {
     width: 80%;
     text-align: center;
     margin-top: 1vh;

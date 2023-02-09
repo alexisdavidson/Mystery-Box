@@ -95,17 +95,23 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                                     </div>
                                 </Col>
                                 <Col className="col-12 col-lg-6">
-                                    {item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (
-                                        <div className="itemDescButton" onClick={() => clickOpenBox(idx)} >
-                                            Open
+                                    {item.web2 ? (
+                                        <div className="itemDescButtonWait" >
+                                            Wait
                                         </div>
                                     ) : (
-                                        item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
-                                            <div className="itemDescButton" onClick={() => clickSneaker(idx)} >
-                                                Equip
+                                        item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (
+                                            <div className="itemDescButton" onClick={() => clickOpenBox(idx)} >
+                                                Open
                                             </div>
                                         ) : (
-                                            <></>
+                                            item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
+                                                <div className="itemDescButton" onClick={() => clickSneaker(idx)} >
+                                                    Equip
+                                                </div>
+                                            ) : (
+                                                <></>
+                                            )
                                         )
                                     )}
                                 </Col>
