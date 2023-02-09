@@ -275,7 +275,7 @@ function App() {
       <div className="App" id="wrapper">
         <div className="m-0 p-0 container-fluid">
             <Navigation account={account} setMobileMenu={setMobileMenu} setMenu={setMenu}
-             didntAccept={didntAccept}   />
+             didntAccept={didntAccept} waitingForBlockchain={waitingForBlockchain}  />
             {account ? (
               <div className="menuMobile">
                 <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
