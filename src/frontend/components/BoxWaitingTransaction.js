@@ -6,7 +6,7 @@ import homeBox from './assets/homeBox.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const BoxWaitingTransaction = ({ transactionFinished, transactionObjectId, reveal }) => {
+const BoxWaitingTransaction = ({ transactionFinished, transactionObjectId, reveal, setMenu }) => {
     const transactionObject = [
         {
             description: "Welcome to MUSURE world and our Verified Creators! ⛩️",
@@ -52,6 +52,13 @@ const BoxWaitingTransaction = ({ transactionFinished, transactionObjectId, revea
             </div>
             <div className="openingBoxWaitingDiv">
                 <div className="openingBoxWaiting">{checkNumber()}/1 Waiting for MetaMask transaction</div>
+                {checkNumber() == 1 ? (
+                    <div className="openBoxButtonTransaction" onClick={() => setMenu(2)} >
+                        Open Box
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </Row>
     );

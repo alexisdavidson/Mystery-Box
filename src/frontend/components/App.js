@@ -284,7 +284,7 @@ function App() {
               {
               '0': <Home web3Handler={web3Handler} account={account} mintButton={mintButton} reveal={reveal} />,
               '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} 
-              reveal={reveal} />,
+              reveal={reveal} setMenu={setMenu} />,
               '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
                     setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} reveal={reveal}

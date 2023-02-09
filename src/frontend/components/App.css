@@ -88,12 +88,12 @@ a:link, a:visited, a:hover, a:active {
 .popupButton:hover, .popupButtonClose:hover, .audioDiv:hover, .subNavbarMenuNotSelected:hover,
 .coinDiv:hover, .mintButton:hover, .connectButton:hover, .wideButton:hover ,.wideButtonRed:hover, .navbarLinkElement:hover,
 .scratchyCardScratchable:hover, .logo:hover, .inventoryButton:hover, .itemDescButton:hover, .openingBoxButton:hover, 
-.equipButton:hover {
+.equipButton:hover, .openBoxButtonTransaction:hover {
   cursor: pointer;
 }
 
 .popupButtonClose, .mintButton, .wideButton, .wideButtonRed, .inventoryButton, .connectButton,
-.itemDescButton, .openingBoxButton, .equipButton {
+.itemDescButton, .openingBoxButton, .equipButton, .openBoxButtonTransaction {
   font-size: 2rem;
   vertical-align: middle;
   margin: auto;
@@ -362,7 +362,7 @@ a:link, a:visited, a:hover, a:active {
   color: white;
 }
 
-.itemDescButton {
+.itemDescButton, .openBoxButtonTransaction {
   font-size: 1rem;
   width: fit-content;
   padding: 0.2rem;
