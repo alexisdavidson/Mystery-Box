@@ -9,6 +9,7 @@ const toWei = (num) => ethers.utils.parseEther(num.toString())
 const Home = ({ web3Handler, account, mintButton, reveal }) => {
     const [quantities, setQuantities] = useState([1, 1])
     const [forcerender, setForceRender] = useState(0)
+    const [didntAccept, setDidntAcccept] = useState(false)
 
     const clickArrow = (direction, selectorId) => {
         console.log("clickArrow", direction, selectorId)
@@ -29,6 +30,7 @@ const Home = ({ web3Handler, account, mintButton, reveal }) => {
             web3Handler()
         else {
             element.classList.add('checkboxRed');
+            setDidntAcccept(true)
         }
     }
 
@@ -52,7 +54,14 @@ const Home = ({ web3Handler, account, mintButton, reveal }) => {
                     <div className="topDescriptionSecond">ORIGIN</div>
                 </div>
                 {!account ? (
-                    <div className="connectButton" onClick={clickConnect}>Connect Metamask</div>
+                    <div>
+                        {didntAccept ? (
+                            <div className="acceptTCAlert">Accept T&C</div>
+                        ) : (
+                            <></>
+                        )}
+                        <div className="connectButton" onClick={clickConnect}>Connect Metamask</div>
+                    </div>
                 ) : (
                     <div className="mintButtonsDiv">
                         <div className="mintButtonDiv">
