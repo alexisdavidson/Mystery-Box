@@ -48,6 +48,7 @@ function App() {
   const [items, setItems] = useState([])
   const [itemsEggs, setItemsEggs] = useState([])
   const [itemsWeb2, setItemsWeb2] = useState([])
+  const [itemsWeb3Remove, setItemsWeb3Remove] = useState([])
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
   const [selectedSneaker, setSelectedSneaker] = useState(0)
@@ -94,6 +95,8 @@ function App() {
   itemsRef.current = items;
   const itemsWeb2Ref = useRef();
   itemsWeb2Ref.current = itemsWeb2;
+  const itemsWeb3RemoveRef = useRef();
+  itemsWeb3RemoveRef.current = itemsWeb3Remove;
 
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -170,6 +173,19 @@ function App() {
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakers)]
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(eggs)]
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakerXs)]
+
+    // Remove all items that have been opened / consumed
+    let itemsRemoved = itemsWeb3RemoveRef.current
+    for(let i = 0; i < itemsRemoved.length; i++) {
+      for(let j = 0; j < itemsTemp.length; j++) {
+        // Same contract and same Id
+        if (itemsRemoved[i].contract == itemsTemp[j].contract
+            && itemsRemoved[i].token_id == itemsTemp[j].token_id) {
+              itemsTemp.splice(j, 1)
+              j--
+            }
+      }
+    }
 
     // If we got new items coming in, remove all web2 items
     if (itemsTemp.length > lastItemsLength) {
