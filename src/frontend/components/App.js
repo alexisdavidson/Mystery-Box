@@ -60,6 +60,7 @@ function App() {
   const [equip, setEquip] = useState({})
   const [usdc, setUsdc] = useState({})
   const [intervalVariable, setIntervalVariable] = useState(null)
+  const [didntAccept, setDidntAcccept] = useState(false)
 
   const providerRef = useRef();
   providerRef.current = provider;
@@ -272,7 +273,8 @@ function App() {
     <BrowserRouter>
       <div className="App" id="wrapper">
         <div className="m-0 p-0 container-fluid">
-            <Navigation account={account} setMobileMenu={setMobileMenu} setMenu={setMenu} />
+            <Navigation account={account} setMobileMenu={setMobileMenu} setMenu={setMenu}
+             didntAccept={didntAccept}   />
             {account ? (
               <div className="menuMobile">
                 <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
@@ -282,7 +284,8 @@ function App() {
             )}
             {
               {
-              '0': <Home web3Handler={web3Handler} account={account} mintButton={mintButton} reveal={reveal} />,
+              '0': <Home web3Handler={web3Handler} account={account} mintButton={mintButton} reveal={reveal} 
+              setDidntAcccept={setDidntAcccept} didntAccept={didntAccept} />,
               '1': <BoxWaitingTransaction transactionFinished={transactionFinished} transactionObjectId={transactionObjectId} 
               reveal={reveal} setMenu={setMenu} />,
               '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 

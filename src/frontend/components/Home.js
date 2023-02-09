@@ -6,10 +6,9 @@ import homeBox from './assets/homeBox.png'
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
-const Home = ({ web3Handler, account, mintButton, reveal }) => {
+const Home = ({ web3Handler, account, mintButton, reveal, setDidntAcccept, didntAccept }) => {
     const [quantities, setQuantities] = useState([1, 1])
     const [forcerender, setForceRender] = useState(0)
-    const [didntAccept, setDidntAcccept] = useState(false)
 
     const clickArrow = (direction, selectorId) => {
         console.log("clickArrow", direction, selectorId)
@@ -56,7 +55,7 @@ const Home = ({ web3Handler, account, mintButton, reveal }) => {
                 {!account ? (
                     <div>
                         {didntAccept ? (
-                            <div className="acceptTCAlert">Accept T&C</div>
+                            <div className="acceptTCAlertMobile">Accept T&C</div>
                         ) : (
                             <></>
                         )}

@@ -3,7 +3,7 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button, Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import logo from './assets/logo.png'
 
-const Navigation = ({ account, setMenu }) => {
+const Navigation = ({ account, setMenu, didntAccept }) => {
     
     const buttonLinkOnClick = async (elementId) => {
         console.log("buttonLinkOnClick: " + elementId)
@@ -20,7 +20,11 @@ const Navigation = ({ account, setMenu }) => {
                 {account ? (
                     <div onClick={() => setMenu(2)} className="inventoryButton">Inventory</div>
                 ) : (
-                    <></>
+                    didntAccept ? (
+                        <div className="acceptTCAlert">Accept T&C</div>
+                    ) : (
+                        <></>
+                    )
                 )}
             </Col>
         </Row>

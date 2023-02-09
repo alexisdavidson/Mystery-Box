@@ -303,7 +303,7 @@ a:link, a:visited, a:hover, a:active {
   color: white;
 }
 
-.acceptTCAlert {
+.acceptTCAlert, .acceptTCAlertMobile {
   background-image: linear-gradient(rgba(255, 255, 255, .2), rgba(100, 100, 100, .2));
   font-weight: normal;
   border-radius: 10vh;
@@ -316,6 +316,15 @@ a:link, a:visited, a:hover, a:active {
   font-size: 1.0rem;
   line-height: 2.2rem;
   margin-bottom: 2vh;
+}
+.acceptTCAlertMobile {
+  display: none;
+}
+
+.acceptTCAlert { 
+  width: 10rem;
+  margin: 0;
+  margin-right: 4vh;
 }
 
 .openingBoxCongratulationsTitle {
@@ -513,7 +522,12 @@ a:link, a:visited, a:hover, a:active {
 
 
 @media only screen and (max-width: 1199.98px){
-  
+  .acceptTCAlert{
+    display: none;
+  }
+  .acceptTCAlertMobile {
+    display: block;
+  }
   .homeEffect1, .homeEffect2 {
     /* width: 200%;
     height: 200%; */
