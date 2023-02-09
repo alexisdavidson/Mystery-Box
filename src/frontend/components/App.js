@@ -90,6 +90,8 @@ function App() {
   intervalRef.current = intervalVariable;
   const menuRef = useRef();
   menuRef.current = menu;
+  const itemsRef = useRef();
+  itemsRef.current = items;
 
   const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -253,8 +255,17 @@ function App() {
     });
   }
 
-  const refreshListWeb3Web2 = () => {
-    setItems(...itemsWeb2, items)
+  const refreshListWeb3Web2 = (itemsTempWeb2) => {
+    console.log("refreshListWeb3Web2 start:")
+    console.log("itemsTempWeb2")
+    console.log(itemsTempWeb2)
+    console.log("itemsRef.current")
+    console.log(itemsRef.current)
+    let itemsTemp = [...itemsTempWeb2, ...itemsRef.current]
+    setItems(itemsTemp)
+
+    console.log("refreshListWeb3Web2 result:")
+    console.log(itemsTemp)
   }
   
   const mintButton = async (quantity, boxId, price) => {
@@ -264,7 +275,7 @@ function App() {
     setTransactionObjectId(0)
     setMenu(1)
 
-    await(await usdc.approve(nftBox.address, toWei(price * quantity))).wait()
+    // await(await usdc.approve(nftBox.address, toWei(price * quantity))).wait()
     await(await nftBox.mint(boxId, quantity)).wait()
 
     let itemsTemp = []
@@ -275,12 +286,15 @@ function App() {
         token_id: -1,
         image_url: "",
         creator: "",
-        metadata: getFilename(boxId),
+        metadata: boxId,
         web2: true
       })
     }
-    setItemsWeb2(...itemsWeb2, itemsTemp)
-    refreshListWeb3Web2()
+    itemsTemp = [...itemsWeb2, ...itemsTemp]
+    setItemsWeb2(itemsTemp)
+    console.log("setItemsWeb2")
+    console.log(itemsTemp)
+    refreshListWeb3Web2(itemsTemp)
     setWaitingForBlockchain(true)
     
     setTransactionFinished(true)

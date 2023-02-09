@@ -59,9 +59,10 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                                             </video>
                                         ) : (
                                             item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (
-                                                <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
-                                                    <source src={"Box/"+ item.metadata + ".mp4"} type="video/mp4"/>
-                                                </video>
+                                                // <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                                                //     <source src={"Box/"+ item.metadata + ".mp4"} type="video/mp4"/>
+                                                // </video>
+                                                <></>
                                             ) : (
                                                 <img src={item.image_url} className="nftListItem" />
                                             )
