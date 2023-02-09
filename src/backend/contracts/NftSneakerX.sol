@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
+import './IForgeNft.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
@@ -8,6 +9,7 @@ import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 
 contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     address equipAddress;
+    address forgeNftAddress;
     string public uriPrefix = '';
     string public uriSuffix = '.json';
     uint256 public max_supply = 100;
@@ -93,6 +95,17 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
 
     function setEquipAddress(address _equipAddress) public onlyOwner {
         equipAddress = _equipAddress;
+    }
+
+    function setForgeNftAddress(address _forgeNftAddress) public onlyOwner {
+        forgeNftAddress = _forgeNftAddress;
+    }
+
+    function forgeNft(uint256 _tokenId) public {
+        require(ownerOf(_tokenId) == msg.sender, "You don't own this SneakerX");
+        IForgeNft(forgeNftAddress).forgeNft(msg.sender, _tokenId, idToMetadata[_tokenId]);
+
+        _burn(_tokenId);
     }
 
     function transferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {
