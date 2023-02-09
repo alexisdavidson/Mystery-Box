@@ -48,6 +48,7 @@ function App() {
   const [items, setItems] = useState([])
   const [itemsEggs, setItemsEggs] = useState([])
   const [itemsWeb2, setItemsWeb2] = useState([])
+  const [itemsWeb3, setItemsWeb3] = useState([])
   const [itemsWeb3Remove, setItemsWeb3Remove] = useState([])
   const [transactionFinished, setTransactionFinished] = useState(false)
   const [transactionObjectId, setTransactionObjectId] = useState(0)
@@ -95,6 +96,8 @@ function App() {
   itemsRef.current = items;
   const itemsWeb2Ref = useRef();
   itemsWeb2Ref.current = itemsWeb2;
+  const itemsWeb3Ref = useRef();
+  itemsWeb3Ref.current = itemsWeb3;
   const itemsWeb3RemoveRef = useRef();
   itemsWeb3RemoveRef.current = itemsWeb3Remove;
 
@@ -159,8 +162,6 @@ function App() {
   }
 
   const loadAllItems = async (acc) => {
-    let lastItemsLength = itemsRef.current.length - itemsWeb2Ref.current.length
-
     const boxes = await loadOpenSeaItems(acc, nftBoxRef.current)
     await new Promise(r => setTimeout(r, 1000));
     const sneakers = await loadOpenSeaItems(acc, nftSneakerRef.current)
@@ -174,30 +175,10 @@ function App() {
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(eggs)]
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakerXs)]
 
-    // Remove all items that have been opened / consumed
-    let itemsRemoved = itemsWeb3RemoveRef.current
-    for(let i = 0; i < itemsRemoved.length; i++) {
-      for(let j = 0; j < itemsTemp.length; j++) {
-        // Same contract and same Id
-        if (itemsRemoved[i].contract == itemsTemp[j].contract
-            && itemsRemoved[i].token_id == itemsTemp[j].token_id) {
-              itemsTemp.splice(j, 1)
-              j--
-            }
-      }
-    }
-
-    // If we got new items coming in, remove all web2 items
-    if (itemsTemp.length > lastItemsLength) {
-      setItemsWeb2([])
-      setWaitingForBlockchain(false)
-    } else { // Otherwise keep them and append them
-      itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
-    }
-
-    console.log(itemsTemp)
-    setItems(itemsTemp)
     setItemsEggs(compactOpenSeaList(eggs))
+    setItemsWeb3(itemsTemp)
+
+    refreshListWeb3Web2()
   }
 
   function getFilename (url) {
@@ -277,17 +258,72 @@ function App() {
         metadataRef.current = parseInt(metadata)
         setMenu(4)
         menuRef.current = 4
+
+        // Add Blank sneaker and Egg 
+        let itemsTemp = []
+
+        itemsTemp.push({
+          contract: NftEggAddress.address.toUpperCase(),
+          name: "Egg",
+          token_id: -1,
+          image_url: "",
+          creator: "",
+          metadata: metadata,
+          web2: true
+        })
+
+        itemsTemp.push({
+          contract: NftSneakerAddress.address.toUpperCase(),
+          name: "Blank Sneaker",
+          token_id: -1,
+          image_url: "https://i.seadn.io/gcs/files/d9ec2e22bc9ee479fb510b74f1ad6c60.png?w=500&auto=format",
+          creator: "",
+          metadata: 0,
+          web2: true
+        })
+
+        itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
+        setItemsWeb2(itemsTemp)
+        refreshListWeb3Web2(itemsTemp)
       }
     });
   }
 
-  const refreshListWeb3Web2 = (itemsTempWeb2) => {
+  const refreshListWeb3Web2 = () => {
+    let lastItemsLength = itemsRef.current.length - itemsWeb2Ref.current.length
+    console.log("lastItemsLength", lastItemsLength)
+
     console.log("refreshListWeb3Web2 start:")
     console.log("itemsTempWeb2")
-    console.log(itemsTempWeb2)
+    console.log(itemsWeb2Ref.current)
     console.log("itemsRef.current")
     console.log(itemsRef.current)
-    let itemsTemp = [...itemsTempWeb2, ...itemsRef.current]
+    console.log("itemsWeb3Ref.current")
+    console.log(itemsWeb3Ref.current)
+    let itemsTemp = [...itemsWeb2Ref.current, ...itemsWeb3Ref.current]
+
+    // Remove all items that have been opened / consumed
+    let itemsRemoved = itemsWeb3RemoveRef.current
+    for(let i = 0; i < itemsRemoved.length; i++) {
+      for(let j = 0; j < itemsTemp.length; j++) {
+        // Same contract and same Id
+        if (itemsRemoved[i].contract == itemsTemp[j].contract
+            && itemsRemoved[i].token_id == itemsTemp[j].token_id) {
+              itemsTemp.splice(j, 1)
+              j--
+            }
+      }
+    }
+
+    // If we got new items coming in, remove all web2 items
+    if (itemsTemp.length > lastItemsLength) {
+      setItemsWeb2([])
+      setWaitingForBlockchain(false)
+    } else { // Otherwise keep them and append them
+      itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
+      setWaitingForBlockchain(true)
+    }
+
     setItems(itemsTemp)
 
     console.log("refreshListWeb3Web2 result:")
@@ -316,12 +352,9 @@ function App() {
         web2: true
       })
     }
-    itemsTemp = [...itemsWeb2, ...itemsTemp]
+    itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
     setItemsWeb2(itemsTemp)
-    console.log("setItemsWeb2")
-    console.log(itemsTemp)
-    refreshListWeb3Web2(itemsTemp)
-    setWaitingForBlockchain(true)
+    refreshListWeb3Web2()
     
     setTransactionFinished(true)
   }
@@ -359,12 +392,14 @@ function App() {
               '2': <Inventory web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
                     setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} reveal={reveal}
-                    setEggLootMetadata={setEggLootMetadata} />,
+                    setEggLootMetadata={setEggLootMetadata} itemsWeb3RemoveRef={itemsWeb3RemoveRef} 
+                    setItemsWeb3Remove={setItemsWeb3Remove} refreshListWeb3Web2={refreshListWeb3Web2} />,
               '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} 
                     itemsEggs={itemsEggs} items={items} equip={equip} selectedSneaker={selectedSneaker} 
-                    reveal={reveal} chosenEggIndex={chosenEggIndex} 
-                    setChosenEggIndex={setChosenEggIndex}/>,
+                    reveal={reveal} chosenEggIndex={chosenEggIndex} setItemsWeb2={setItemsWeb2} itemsWeb2Ref={itemsWeb2Ref} 
+                    setChosenEggIndex={setChosenEggIndex} itemsWeb3RemoveRef={itemsWeb3RemoveRef} 
+                    setItemsWeb3Remove={setItemsWeb3Remove} refreshListWeb3Web2={refreshListWeb3Web2}/>,
               '4': <BoxOpenResult setMenu={setMenu}  reveal={reveal} itemsEggs={itemsEggs} eggLootMetadata={eggLootMetadata} />,
               '5': <EquipResult reveal={reveal} chosenEggIndex={chosenEggIndex} 
                     itemsEggs={itemsEggs}/>,

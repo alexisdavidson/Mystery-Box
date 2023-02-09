@@ -9,7 +9,7 @@ import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
 import NftSneakerXAddress from '../contractsData/NftSneakerX-address.json'
 
 const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTransactionObjectId, setTransactionFinished,
-                        items, nftBox, setEggLootMetadata, reveal}) => {
+                        items, nftBox, setEggLootMetadata, reveal, itemsWeb3RemoveRef, setItemsWeb3Remove, refreshListWeb3Web2}) => {
     
     const clickOpenBox = async (boxIndex) => {
         console.log("clickOpenBox", items[boxIndex].token_id)
@@ -22,6 +22,23 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
         setEggLootMetadata(1);
         await(await nftBox.openBox(items[boxIndex].token_id)).wait()
         // setMenu(4)
+
+        // Add Box to remove list
+        let itemsTemp = itemsWeb3RemoveRef.current
+
+        itemsTemp.push({
+          contract: NftBoxAddress.address.toUpperCase(),
+          name: "",
+          token_id: items[boxIndex].token_id,
+          image_url: "",
+          creator: "",
+          metadata: 0,
+          web2: true
+        })
+
+        itemsTemp = [...itemsWeb3RemoveRef.current, ...itemsTemp]
+        setItemsWeb3Remove(itemsTemp)
+        refreshListWeb3Web2()
     }
     const clickSneaker = (sneakerIndex) => {
         console.log("NftBoxAddress.address", NftBoxAddress.address)

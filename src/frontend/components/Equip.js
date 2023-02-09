@@ -4,13 +4,17 @@ import { Image, Row, Col, Button } from 'react-bootstrap'
 import videoPlaceholder from './assets/videoPlaceholder.png'
 import eggItemEquip from './assets/eggItemEquip.png'
 import sneakerItem from './assets/sneakerItem.png'
+import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
+import NftSneakerXAddress from '../contractsData/NftSneakerX-address.json'
+import NftEggAddress from '../contractsData/NftEgg-address.json'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
 
 const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, 
         setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker,
-        reveal, chosenEggIndex, setChosenEggIndex }) => {
+        reveal, chosenEggIndex, setChosenEggIndex, itemsWeb3RemoveRef, setItemsWeb3Remove, refreshListWeb3Web2,
+        setItemsWeb2, itemsWeb2Ref }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [eggClicked, setEggClicked] = useState(false)
 
@@ -50,6 +54,37 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
     
         await(await equip.equip(items[selectedSneaker].token_id, itemsEggs[chosenEggIndex].token_id)).wait()
         setMenu(5)
+
+        // Add sneaker and egg to remove list
+        let itemsTemp = itemsWeb3RemoveRef.current
+
+        itemsTemp.push({
+            contract: NftSneakerAddress.address.toUpperCase(),
+            token_id: items[selectedSneaker].token_id,
+            web2: true
+        })
+        itemsTemp.push({
+            contract: NftEggAddress.address.toUpperCase(),
+            token_id: itemsEggs[chosenEggIndex].token_id,
+            web2: true
+        })
+
+        itemsTemp = [...itemsWeb3RemoveRef.current, ...itemsTemp]
+        setItemsWeb3Remove(itemsTemp)
+
+        // Add SneakerX to web2
+        itemsTemp = []
+        itemsTemp.push({
+            contract: NftSneakerXAddress.address.toUpperCase(),
+            name: "Sneaker X",
+            metadata: itemsEggs[chosenEggIndex].metadata,
+            web2: true
+        })
+
+        itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
+        setItemsWeb2(itemsTemp)
+
+        refreshListWeb3Web2()
     }
 
     useEffect(() => {
