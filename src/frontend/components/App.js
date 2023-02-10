@@ -154,21 +154,21 @@ function App() {
     await loadContracts(accounts[0])
     
     setAccount(accounts[0])
-    loadAllItems(accounts[0])
+    refreshListWeb3Web2()
 
     setIntervalVariable(setInterval(() => {
-      loadAllItems(accounts[0])
+      refreshListWeb3Web2()
     }, refreshRate))
   }
 
-  const loadAllItems = async (acc) => {
-    const boxes = await loadOpenSeaItems(acc, nftBoxRef.current)
+  const loadWeb3Items = async () => {
+    const boxes = await loadOpenSeaItems(accountRef.current, nftBoxRef.current)
     await new Promise(r => setTimeout(r, 1000));
-    const sneakers = await loadOpenSeaItems(acc, nftSneakerRef.current)
+    const sneakers = await loadOpenSeaItems(accountRef.current, nftSneakerRef.current)
     await new Promise(r => setTimeout(r, 1000));
-    const eggs = await loadOpenSeaItems(acc, nftEggRef.current)
+    const eggs = await loadOpenSeaItems(accountRef.current, nftEggRef.current)
     await new Promise(r => setTimeout(r, 1000));
-    const sneakerXs = await loadOpenSeaItems(acc, nftSneakerXRef.current)
+    const sneakerXs = await loadOpenSeaItems(accountRef.current, nftSneakerXRef.current)
     let itemsTemp = []
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(boxes)]
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakers)]
@@ -176,9 +176,8 @@ function App() {
     itemsTemp = [...itemsTemp, ...compactOpenSeaList(sneakerXs)]
 
     setItemsEggs(compactOpenSeaList(eggs))
-    setItemsWeb3(itemsTemp)
 
-    refreshListWeb3Web2()
+    setItemsWeb3(itemsTemp)
   }
 
   function getFilename (url) {
@@ -289,9 +288,12 @@ function App() {
     });
   }
 
-  const refreshListWeb3Web2 = () => {
-    let lastItemsLength = itemsRef.current.length - itemsWeb2Ref.current.length
-    console.log("lastItemsLength", lastItemsLength)
+  const refreshListWeb3Web2 = async (ignoreWeb3) => {
+    const lastItemsWeb3Length = itemsWeb3Ref.current.length
+    console.log("lastItemsWeb3Length", lastItemsWeb3Length)
+
+    if (ignoreWeb3 == null)
+      await loadWeb3Items()
 
     console.log("refreshListWeb3Web2 start:")
     console.log("itemsTempWeb2")
@@ -300,7 +302,7 @@ function App() {
     console.log(itemsRef.current)
     console.log("itemsWeb3Ref.current")
     console.log(itemsWeb3Ref.current)
-    let itemsTemp = [...itemsWeb2Ref.current, ...itemsWeb3Ref.current]
+    let itemsTemp = [...itemsWeb3Ref.current]
 
     // Remove all items that have been opened / consumed
     let itemsRemoved = itemsWeb3RemoveRef.current
@@ -316,12 +318,17 @@ function App() {
     }
 
     // If we got new items coming in, remove all web2 items
-    if (itemsTemp.length > lastItemsLength) {
+    if (itemsWeb2Ref.current.length > 0) {
+      if (itemsWeb3Ref.current.length > lastItemsWeb3Length) {
+        setItemsWeb2([])
+        setWaitingForBlockchain(false)
+      } else { // Otherwise keep them and append them
+        itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
+        setWaitingForBlockchain(true)
+      }
+    } else {
       setItemsWeb2([])
       setWaitingForBlockchain(false)
-    } else { // Otherwise keep them and append them
-      itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
-      setWaitingForBlockchain(true)
     }
 
     setItems(itemsTemp)
@@ -337,7 +344,8 @@ function App() {
     setTransactionObjectId(0)
     setMenu(1)
 
-    // await(await usdc.approve(nftBox.address, toWei(price * quantity))).wait()
+    await(await usdc.approve(nftBox.address, toWei(price * quantity))).wait()
+    // await(await usdc.approve(nftBox.address, toWei(price * quantity * 10))).wait()
     await(await nftBox.mint(boxId, quantity)).wait()
 
     let itemsTemp = []
@@ -348,13 +356,14 @@ function App() {
         token_id: -1,
         image_url: "",
         creator: "",
-        metadata: boxId,
+        metadata: boxId + 1,
         web2: true
       })
     }
     itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
     setItemsWeb2(itemsTemp)
-    refreshListWeb3Web2()
+    refreshListWeb3Web2(true)
+    setWaitingForBlockchain(true)
     
     setTransactionFinished(true)
   }
@@ -393,13 +402,15 @@ function App() {
                     setSelectedSneaker={setSelectedSneaker} setTransactionObjectId={setTransactionObjectId} 
                     setTransactionFinished={setTransactionFinished} items={items} nftBox={nftBox} reveal={reveal}
                     setEggLootMetadata={setEggLootMetadata} itemsWeb3RemoveRef={itemsWeb3RemoveRef} 
-                    setItemsWeb3Remove={setItemsWeb3Remove} refreshListWeb3Web2={refreshListWeb3Web2} />,
+                    setItemsWeb3Remove={setItemsWeb3Remove} refreshListWeb3Web2={refreshListWeb3Web2} 
+                    setWaitingForBlockchain={setWaitingForBlockchain} />,
               '3': <Equip web3Handler={web3Handler} account={account} balance={balance} setMenu={setMenu} 
                     setTransactionObjectId={setTransactionObjectId} setTransactionFinished={setTransactionFinished} 
                     itemsEggs={itemsEggs} items={items} equip={equip} selectedSneaker={selectedSneaker} 
                     reveal={reveal} chosenEggIndex={chosenEggIndex} setItemsWeb2={setItemsWeb2} itemsWeb2Ref={itemsWeb2Ref} 
                     setChosenEggIndex={setChosenEggIndex} itemsWeb3RemoveRef={itemsWeb3RemoveRef} 
-                    setItemsWeb3Remove={setItemsWeb3Remove} refreshListWeb3Web2={refreshListWeb3Web2}/>,
+                    setItemsWeb3Remove={setItemsWeb3Remove} refreshListWeb3Web2={refreshListWeb3Web2} 
+                    setWaitingForBlockchain={setWaitingForBlockchain} />,
               '4': <BoxOpenResult setMenu={setMenu}  reveal={reveal} itemsEggs={itemsEggs} eggLootMetadata={eggLootMetadata} />,
               '5': <EquipResult reveal={reveal} chosenEggIndex={chosenEggIndex} 
                     itemsEggs={itemsEggs}/>,

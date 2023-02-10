@@ -9,7 +9,8 @@ import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
 import NftSneakerXAddress from '../contractsData/NftSneakerX-address.json'
 
 const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTransactionObjectId, setTransactionFinished,
-                        items, nftBox, setEggLootMetadata, reveal, itemsWeb3RemoveRef, setItemsWeb3Remove, refreshListWeb3Web2}) => {
+                        items, nftBox, setEggLootMetadata, reveal, itemsWeb3RemoveRef, setItemsWeb3Remove, refreshListWeb3Web2,
+                        setWaitingForBlockchain }) => {
     
     const clickOpenBox = async (boxIndex) => {
         console.log("clickOpenBox", items[boxIndex].token_id)
@@ -38,7 +39,8 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
 
         itemsTemp = [...itemsWeb3RemoveRef.current, ...itemsTemp]
         setItemsWeb3Remove(itemsTemp)
-        refreshListWeb3Web2()
+        refreshListWeb3Web2(true)
+        setWaitingForBlockchain(true)
     }
     const clickSneaker = (sneakerIndex) => {
         console.log("NftBoxAddress.address", NftBoxAddress.address)
@@ -76,10 +78,10 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                                             </video>
                                         ) : (
                                             item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (
-                                                // <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
-                                                //     <source src={"Box/"+ item.metadata + ".mp4"} type="video/mp4"/>
-                                                // </video>
-                                                <></>
+                                                <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                                                    <source src={"Box/"+ item.metadata + ".mp4"} type="video/mp4"/>
+                                                </video>
+                                                // <></>
                                             ) : (
                                                 <img src={item.image_url} className="nftListItem" />
                                             )

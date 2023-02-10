@@ -14,7 +14,7 @@ const toWei = (num) => ethers.utils.parseEther(num.toString())
 const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands, setMenu, 
         setTransactionFinished, setTransactionObjectId, itemsEggs, equip, items, selectedSneaker,
         reveal, chosenEggIndex, setChosenEggIndex, itemsWeb3RemoveRef, setItemsWeb3Remove, refreshListWeb3Web2,
-        setItemsWeb2, itemsWeb2Ref }) => {
+        setItemsWeb2, itemsWeb2Ref, setWaitingForBlockchain }) => {
     const [subMenu, setSubMenu] = useState(0)
     const [eggClicked, setEggClicked] = useState(false)
 
@@ -84,7 +84,8 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
         itemsTemp = [...itemsWeb2Ref.current, ...itemsTemp]
         setItemsWeb2(itemsTemp)
 
-        refreshListWeb3Web2()
+        refreshListWeb3Web2(true)
+        setWaitingForBlockchain(true)
     }
 
     useEffect(() => {
