@@ -135,6 +135,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
         require(msg.value >= getPrice() * quantity, "Not enough ETH sent; check price!");
 
         _mint(msg.sender, quantity);
+        idToMetadataMapping[_totalMinted()] = _metadataId;
 
         emit MintSuccessful(msg.sender, _metadataId);
     }
