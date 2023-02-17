@@ -58,10 +58,10 @@ async function main() {
   await nftEgg.setEquipAddress(equip.address);
   await nftSneakerX.setEquipAddress(equip.address);
   
-  // await nftEgg.transferOwnership(teamWallet)
-  // await nftSneaker.transferOwnership(teamWallet)
-  // await nftSneakerX.transferOwnership(teamWallet)
-  // await equip.transferOwnership(teamWallet)
+  await nftEgg.transferOwnership(teamWallet)
+  await nftSneaker.transferOwnership(teamWallet)
+  await nftSneakerX.transferOwnership(teamWallet)
+  await equip.transferOwnership(teamWallet)
   console.log("Setters functions called")
 
   // For testing
@@ -69,7 +69,7 @@ async function main() {
   console.log("1")
   await nftBox.addMysteryBox("Mystery Box 2", toWei(350), 50, true)
   console.log("2")
-  // await nftBox.transferOwnership(teamWallet)
+  await nftBox.transferOwnership(teamWallet)
   
   await usdc.approve(nftBox.address, toWei(10_000))
   console.log("2.5")

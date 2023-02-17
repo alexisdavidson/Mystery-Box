@@ -284,7 +284,7 @@ a:link, a:visited, a:hover, a:active {
 
 .openingBoxWaitingDivFlex {
   position: fixed;
-  bottom: 6%;
+  bottom: 2%;
   z-index: 2;
 }
 .openingBoxWaitingDiv {
