@@ -5,8 +5,9 @@ import './IForgeNft.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
+import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 
-contract NftSneakerX is Ownable, ERC721A {
+contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     address equipAddress;
     address forgeNftAddress;
     string public uriPrefix = '';
@@ -105,6 +106,22 @@ contract NftSneakerX is Ownable, ERC721A {
         IForgeNft(forgeNftAddress).forgeNft(msg.sender, _tokenId, idToMetadata[_tokenId]);
 
         _burn(_tokenId);
+    }
+
+    function transferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {
+        super.transferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {
+        super.safeTransferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data)
+        public
+        override
+        onlyAllowedOperator(from)
+    {
+        super.safeTransferFrom(from, to, tokenId, data);
     }
     
     function withdraw() external onlyOwner {

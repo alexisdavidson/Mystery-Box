@@ -5,8 +5,9 @@ import './IBoxLoot.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
+import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 
-contract NftSneaker is IBoxLoot, Ownable, ERC721A {
+contract NftSneaker is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     address boxAddress;
     address equipAddress;
     string public uriPrefix = '';
@@ -103,6 +104,22 @@ contract NftSneaker is IBoxLoot, Ownable, ERC721A {
 
     function setEquipAddress(address _address) public onlyOwner {
         equipAddress = _address;
+    }
+
+    function transferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {
+        super.transferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {
+        super.safeTransferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data)
+        public
+        override
+        onlyAllowedOperator(from)
+    {
+        super.safeTransferFrom(from, to, tokenId, data);
     }
     
     function withdraw() external onlyOwner {

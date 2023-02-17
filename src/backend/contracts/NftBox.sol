@@ -7,8 +7,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {DefaultOperatorFilterer} from "./DefaultOperatorFilterer.sol";
 
-contract NftBox is Ownable, ERC721A {
+contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     using SafeERC20 for IERC20;
 
     string public uriPrefix = '';
@@ -120,6 +121,22 @@ contract NftBox is Ownable, ERC721A {
     function setMintEnabled(uint256 _boxId, bool _state) public onlyOwner {
         require(_boxId < boxes.length, "boxId out of range");
         boxes[_boxId].mintEnabled = _state;
+    }
+
+    function transferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {
+        super.transferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {
+        super.safeTransferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data)
+        public
+        override
+        onlyAllowedOperator(from)
+    {
+        super.safeTransferFrom(from, to, tokenId, data);
     }
     
     function withdraw() external onlyOwner {
