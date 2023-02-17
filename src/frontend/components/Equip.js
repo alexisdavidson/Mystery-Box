@@ -113,7 +113,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                             <img src={sneakerItem} className="equipImage" />
                                         ) : (
                                             <video id="vid" loop autoPlay muted className="equipImage" >
-                                                <source src={"Sneaker/"+ itemsEggs[chosenEggIndex].metadata + ".mp4"} type="video/mp4"/>
+                                                <source src={"Sneaker/"+ itemsEggs[chosenEggIndex].metadata + ".webm"} type="video/mp4"/>
                                             </video>
                                         )}
                                     </Col>

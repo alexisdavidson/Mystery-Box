@@ -69,12 +69,12 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                                 ) : (
                                     item.contract.includes(NftSneakerXAddress.address.toUpperCase()) ? (
                                         <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
-                                            <source src={"Sneaker/"+ item.metadata + ".mp4"} type="video/mp4"/>
+                                            <source src={"Sneaker/"+ item.metadata + ".webm"} type="video/mp4"/>
                                         </video>
                                     ) : (
                                         item.contract.includes(NftEggAddress.address.toUpperCase()) ? (
                                             <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
-                                                <source src={"Egg/"+ item.metadata + ".mp4"} type="video/mp4"/>
+                                                <source src={"Egg/"+ item.metadata + ".webm"} type="video/mp4"/>
                                             </video>
                                         ) : (
                                             item.contract.includes(NftBoxAddress.address.toUpperCase()) ? (

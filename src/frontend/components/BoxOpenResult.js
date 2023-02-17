@@ -42,7 +42,7 @@ const BoxOpenResult = ({ setMenu, reveal, eggLootMetadata, itemsEggs }) => {
                     <Row className="openingBoxItemSlotFilled">
                         {/* <img src={Egg} className="openingBoxNftListItem" /> */}
                         <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
-                            <source src={"Egg/"+ eggLootMetadata + ".mp4"} type="video/mp4"/>
+                            <source src={"Egg/"+ eggLootMetadata + ".webm"} type="video/mp4"/>
                         </video>
                     </Row>
                 </Col>
