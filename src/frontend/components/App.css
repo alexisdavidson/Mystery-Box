@@ -303,6 +303,19 @@ a:link, a:visited, a:hover, a:active {
   color: white;
 }
 
+@keyframes imagefade {
+
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: .1
+  }
+  50% {
+    opacity: 1
+  }
+}
+
 .acceptTCAlert, .acceptTCAlertMobile, .waitingBlockchain {
   background-image: linear-gradient(#e501e2, #fb0016);
   font-weight: normal;
@@ -316,6 +329,12 @@ a:link, a:visited, a:hover, a:active {
   font-size: 1.0rem;
   line-height: 2.7rem;
   margin-bottom: 2vh;
+
+  
+  animation-name: imagefade;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
 }
 .acceptTCAlertMobile {
   display: none;
