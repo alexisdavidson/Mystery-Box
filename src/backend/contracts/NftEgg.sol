@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
+import "hardhat/console.sol";
 import './IBoxLoot.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -82,6 +83,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
             for (uint256 i = 0; i < _remainingEggsLength;) {
                 if (isOnePercentRarity(remainingEggs[i])) {
                     _idFirstRare = i;
+                    // console.log("HH", remainingEggs[i], _idFirstRare);
                     break;
                 }
                 unchecked { ++i; }
@@ -99,7 +101,12 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
 
         idToMetadataMapping[_totalMinted()] = _metadata;
 
-        remainingEggs[_random] = remainingEggs[remainingEggs.length - 1];
+        if (_remainingEggsLength > 1) {
+            for (uint256 i = _random; i < _remainingEggsLength - 1;) {
+                remainingEggs[i] = remainingEggs[i + 1];
+                unchecked { ++i; }
+            }
+        }
         remainingEggs.pop();
         
         emit MintSuccessful(_user, _metadata);

@@ -60,6 +60,24 @@ describe("Equip", async function() {
     })
 
     describe("Mint", function() {
+        it("Should open multiple Box Islands and 1% receive loot", async function() {
+            await usdc.connect(deployer).transfer(addr1.address, toWei(10_000));
+            await usdc.connect(addr1).approve(nftBox.address, toWei(10_000))
+            await nftBox.connect(addr1).mint(0, 3);
+            await nftBox.connect(addr1).mint(1, 2);
+            await nftBox.connect(addr1).mint(0, 3);
+            let tokenIdBoxRare = 4
+
+            await nftBox.connect(addr1).openBox(1);
+            await nftBox.connect(addr1).openBox(2);
+            await nftBox.connect(addr1).openBox(3);
+            await nftBox.connect(addr1).openBox(tokenIdBoxRare);
+            
+            const eggMetadata = parseInt(await nftEgg.idToMetadata(4));
+            console.log("eggMetadata", eggMetadata)
+            expect(eggMetadata).to.greaterThanOrEqual(25);
+            expect(eggMetadata).to.lessThanOrEqual(31);
+        })
         it("Should mint NFTs correctly", async function() {
             const price0 = fromWei(await nftBox.getMysteryBoxPrice(0));
             const price1 = fromWei(await nftBox.getMysteryBoxPrice(1));
