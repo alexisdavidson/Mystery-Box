@@ -3,7 +3,6 @@ import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
 import Egg from './assets/egg.png'
-import sneakerItem2 from './assets/sneakerItem.png'
 
 const fromWei = (num) => ethers.utils.formatEther(num)
 const toWei = (num) => ethers.utils.parseEther(num.toString())
@@ -35,7 +34,10 @@ const BoxOpenResult = ({ setMenu, reveal, eggLootMetadata, itemsEggs }) => {
             <Row className="openingBoxItems justify-content-center">
                 <Col className="m-0 p-0 col-6 col-lg-3">
                     <Row className="openingBoxItemSlotFilled">
-                        <img src={sneakerItem2} className="openingBoxNftListItem" />
+                        {/* <img src={sneakerItem} className="openingBoxNftListItem" /> */}
+                        <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                            <source src={'Sneaker/32.webm'} type="video/mp4"/>
+                        </video>
                     </Row>
                 </Col>
                 <Col className="m-0 p-0 col-6 col-lg-3">

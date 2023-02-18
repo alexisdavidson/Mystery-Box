@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
-import videoPlaceholder from './assets/videoPlaceholder.png'
-import eggItemEquip from './assets/eggItemEquip.png'
-import sneakerItem from './assets/sneakerItem.png'
 import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
 import NftSneakerXAddress from '../contractsData/NftSneakerX-address.json'
 import NftEggAddress from '../contractsData/NftEgg-address.json'
@@ -96,7 +93,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                 {!account ? (
                     <>
                         <Col className="homeCol">
-                            <img src={sneakerItem} className="equipImage" />
+                            {/* <img src={sneakerItem} className="equipImage" /> */}
                         </Col>
                         <Col className="homeCol">
                             <Row className="mintButton" onClick={web3Handler}>Connect MetaMask</Row>
@@ -110,7 +107,10 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                 <>
                                     <Col className="col-12 col-lg-6 homeCol">
                                         {!eggClicked ? (
-                                            <img src={sneakerItem} className="equipImage" />
+                                            // <img src={sneakerItem} className="equipImage" />
+                                            <video id="vid" loop autoPlay muted className="equipImage" >
+                                                <source src={'Sneaker/32.webm'} type="video/mp4"/>
+                                            </video>
                                         ) : (
                                             <video id="vid" loop autoPlay muted className="equipImage" >
                                                 <source src={"Sneaker/"+ itemsEggs[chosenEggIndex].metadata + ".webm"} type="video/mp4"/>
@@ -165,7 +165,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                 </>,
                             '1':
                                 <>
-                                    <Col className="homeCol">
+                                    {/* <Col className="homeCol">
                                         <img src={videoPlaceholder} className="homeBoxImage" />
                                     </Col>
                                     <Col className="homeCol">
@@ -174,16 +174,16 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                             <div><img src={eggItemEquip} className="homeBoxImage" /></div>
                                             <div className="mintButton" onClick={clickAgree}>Equip</div>
                                         </Row>
-                                    </Col>
+                                    </Col> */}
                                 </>,
                             '2':
                                 <>
-                                    <Row className="">
+                                    {/* <Row className="">
                                         <div className="openingBoxWaiting">Waiting for MetaMask transaction...</div>
                                         <div className="">
                                             <div><img src={videoPlaceholder} className="openingBoxBackground" /></div>
                                         </div>
-                                    </Row>
+                                    </Row> */}
                                 </>,
                         }[subMenu]
                     }

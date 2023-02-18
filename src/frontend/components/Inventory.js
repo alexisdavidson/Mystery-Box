@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
 import homeBox from './assets/homeBox.png'
-import sneakerItem from './assets/sneakerItem.png'
 import NftBoxAddress from '../contractsData/NftBox-address.json'
 import NftEggAddress from '../contractsData/NftEgg-address.json'
 import NftSneakerAddress from '../contractsData/NftSneaker-address.json'
@@ -65,7 +64,10 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                         <Col key={idx} className="m-0 p-0 col-6 col-lg-3">
                             <Row className="itemSlotFilled">
                                 {item.contract.includes(NftSneakerAddress.address.toUpperCase()) ? (
-                                    <img src={item.image_url} className="nftListItem" />
+                                    // <img src={item.image_url} className="nftListItem" />
+                                    <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >
+                                        <source src={'Sneaker/32.webm'} type="video/mp4"/>
+                                    </video>
                                 ) : (
                                     item.contract.includes(NftSneakerXAddress.address.toUpperCase()) ? (
                                         <video id="vid" loop autoPlay muted className="openingBoxNftListItem" >

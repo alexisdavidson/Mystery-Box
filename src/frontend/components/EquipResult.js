@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Image, Row, Col, Button } from 'react-bootstrap'
-import videoPlaceholder from './assets/videoPlaceholder.png'
 
 const EquipResult = ({ reveal, chosenEggIndex, itemsEggs }) => {
 
