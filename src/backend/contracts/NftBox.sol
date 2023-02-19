@@ -14,7 +14,7 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
 
     string public uriPrefix = '';
     string public uriSuffix = '.json';
-    string public uri = "ipfs://QmcuxJfsUh9raoWS1jQ2ENkS6p8wVt4SKWVkVg3NsAs8eY/";
+    string public uri = "ipfs://QmfNs44UKbLBf99ZZkuTQrkoEAeztjxYkmLA1TKAsG2T3G/";
     string public contractUri = "ipfs://QmZ7rzn8vqna7D54N5UnacoarPHB6cYZsRfwVfymcL8E23/";
 
     address public USDCAddress;
