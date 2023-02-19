@@ -24,7 +24,7 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
         var video = document.getElementById('vid');
         video?.load();
         
-        for(let i = 0; i < 3; i ++) {
+        for(let i = 0; i < itemsEggs.length; i ++) {
             var element = document.getElementById('equipItem-' + i);
             if (element != null)
                 element.classList.remove('equipItemSlotSelected');
