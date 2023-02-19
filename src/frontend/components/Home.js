@@ -100,7 +100,7 @@ const Home = ({ web3Handler, account, mintButton, reveal, setDidntAcccept, didnt
                     </div>
                 )}
                 <div className="homeBelowButton">
-                    <div className="">Get yours on <a href="https://testnets.opensea.io/collection/mystery-box-3" target="_blank">OpenSea</a> using your <span style={{fontWeight: "bold", color: "white", fontStyle: "italic"}}>credit card.</span></div>
+                    <div className="">Get yours on <a href="https://testnets.opensea.io/collection/mystery-box-8" target="_blank">OpenSea</a> using your <span style={{fontWeight: "bold", color: "white", fontStyle: "italic"}}>credit card.</span></div>
                     {!account ? (
                         <div className="mt-3">
                             <Form.Check className="checkboxForm"
