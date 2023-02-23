@@ -13,7 +13,7 @@ contract NftEgg is IBoxLoot, Ownable, ERC721A, DefaultOperatorFilterer {
     address equipAddress;
     string public uriPrefix = '';
     string public uriSuffix = '.json';
-    string public uri = "ipfs://QmPj9SiueCi7To7HSq7Y3wLNy94uaZ3KgBzx634CiUrwdT/";
+    string public uri = "ipfs://QmXLRESRtPZr2PZWufgugECEjmwZaMNTa9HVBZLRThCENW/";
     string public contractUri = "ipfs://QmaVcTLbmmY1CUswFBCBcpvgA8iYd7YEmaAraeF79bf8gZ/";
     uint256 public burnAmount;
 

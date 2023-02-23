@@ -14,7 +14,7 @@ contract NftSneakerX is Ownable, ERC721A, DefaultOperatorFilterer {
     string public uriSuffix = '.json';
     uint256 public max_supply = 100;
     uint256 public burnAmount;
-    string public uri = "ipfs://QmbautzCy5Mbg4Pua1pTbWWdXprnB9kmvHXLTxujtvPsbL/";
+    string public uri = "ipfs://QmcJEc9WGo2HPx7CMcQq183tYMqFArUwJqxvfKVcam3LLR/";
     string public contractUri = "ipfs://QmWCFqvGXWYS7uQSusgRzNtf2Druoh7YjtEknXESPZVVAr/";
 
     bool public mintEnabled;
