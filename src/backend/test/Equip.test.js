@@ -6,8 +6,8 @@ const fromWei = (num) => parseInt(ethers.utils.formatEther(num))
 
 describe("Equip", async function() {
     let deployer, addr1, addr2, nftBox, nftEgg, nftSneaker, nftSneakerX, equip, udsc
-    let mysteryBoxCid1 = "ipfs://QmU2nBBPvZ2Hrg18oD36NKCv567EiFk8kq1yckMDoWuoCw/1.json"
-    let mysteryBoxCid2 = "ipfs://QmU2nBBPvZ2Hrg18oD36NKCv567EiFk8kq1yckMDoWuoCw/2.json"
+    let mysteryBoxCid1 = "ipfs://QmfNs44UKbLBf99ZZkuTQrkoEAeztjxYkmLA1TKAsG2T3G/1.json"
+    let mysteryBoxCid2 = "ipfs://QmfNs44UKbLBf99ZZkuTQrkoEAeztjxYkmLA1TKAsG2T3G/2.json"
 
     beforeEach(async function() {
         // Get contract factories
@@ -163,10 +163,11 @@ describe("Equip", async function() {
             await usdc.connect(addr1).approve(nftBox.address, toWei(100_000))
             await nftBox.connect(addr1).mint(1, 50);
 
-            for(let i = 1; i <= 7; i++) { // There are a total of 7 items with 1% rarity
+            let amount1LowRarity = 7 * 3
+            for(let i = 1; i <= amount1LowRarity; i++) { // There are a total of 7 items with 1% rarity
                 await nftBox.connect(addr1).openBox(i);
             }
-            await expect(nftBox.connect(addr1).openBox(8)).to.be.revertedWith('No more one percent rarities available');
+            await expect(nftBox.connect(addr1).openBox(amount1LowRarity + 1)).to.be.revertedWith('No more one percent rarities available');
         })
 
         it("Should equip a sneaker and an egg to receive a Sneaker X with correct metadata", async function() {
