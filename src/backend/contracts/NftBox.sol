@@ -21,6 +21,9 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     address public sneakerAddress;
     address public eggAddress;
 
+    uint256 public maxSupply = 10_000;
+    uint256 public amountMinted = 0;
+
     bool public publicMintEnabled = true;
     bool public whitelistMintEnabled = true;
     uint256 public whitelistDiscount = 20; // 20% discount
@@ -60,6 +63,7 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
     }
 
     function mint(uint256 _boxId, uint256 _quantity) external {
+        require(amountMinted + _quantity <= maxSupply, "Can't mint more than total supply");
         require(_boxId < boxes.length, "boxId out of range");
         require(boxes[_boxId].mintEnabled, 'Minting is not enabled');
         require(boxes[_boxId].remainingSupply >= _quantity, 'Cannot mint more than max supply');
@@ -80,6 +84,8 @@ contract NftBox is Ownable, ERC721A, DefaultOperatorFilterer {
 
         _mint(msg.sender, _quantity);
         boxes[_boxId].remainingSupply --;
+
+        amountMinted += _quantity;
 
         emit MintSuccessful(msg.sender);
     }
