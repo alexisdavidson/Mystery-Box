@@ -17,7 +17,8 @@ async function main() {
   const Equip = await ethers.getContractFactory("Equip");
   const Usdc = await ethers.getContractFactory("Erc20Usdc");
 
-  const teamWallet = "0x40494EC8eCb8Ddb80fBCBd5D45048Fdb0664688E" // goerli
+  // const teamWallet = "0x40494EC8eCb8Ddb80fBCBd5D45048Fdb0664688E" // goerli
+  const teamWallet = "0x74A6302FF0072B2457A453c888DF4Ab31C27efb6" // mumbai
   // const teamWallet = "" // polygon mainnet
 
   // Deploy Usdc ERC20 Only for tests

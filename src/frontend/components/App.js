@@ -142,7 +142,8 @@ function App() {
     const providerTemp = new ethers.providers.Web3Provider(window.ethereum)
     const { chainId } = await providerTemp.getNetwork()
     console.log("chainId", chainId)
-    if (chainId != 5) { // Goerli Chain ID: 5
+    // if (chainId != 5) { // Goerli Chain ID: 5
+    if (chainId != 80001) { // Mumbai Chain ID: 80001
       await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: '0x5' }], // chainId must be in HEX with 0x in front
@@ -202,7 +203,9 @@ function App() {
   }
 
   const loadOpenSeaItems = async (acc, nft) => {
-    let itemsOpenSea = await fetch(`${configContract.OPENSEA_API_TESTNETS}/assets?owner=${acc}&asset_contract_address=${nft.address}&format=json`)
+    const cName = "mystery-box-21"
+    // let itemsOpenSea = await fetch(`${configContract.OPENSEA_API_TESTNETS}/assets/mumbai?owner=${acc}&asset_contract_address=${nft.address}&format=json`)
+    let itemsOpenSea = await fetch(`${configContract.OPENSEA_API_TESTNETS}/assets?owner=${acc}&name=${cName}&format=json`)
     .then((res) => res.json())
     .then((res) => {
       console.log("OS length:", res?.assets?.length)
