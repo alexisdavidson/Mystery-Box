@@ -186,10 +186,11 @@ function App() {
   }
 
   const compactOpenSeaList = (list) => {
+    return list
     let compactList = []
     for(let i = 0; i < list.length; i++) {
       compactList.push({
-        contract: list[i].asset_contract.address.toUpperCase(),
+        contract: list[i].contract.toUpperCase(),
         name: list[i].name,
         token_id: list[i].token_id,
         image_url: list[i].image_url,
@@ -203,19 +204,45 @@ function App() {
   }
 
   const loadOpenSeaItems = async (acc, nft) => {
-    const cName = "mystery-box-21"
     // let itemsOpenSea = await fetch(`${configContract.OPENSEA_API_TESTNETS}/assets/mumbai?owner=${acc}&asset_contract_address=${nft.address}&format=json`)
-    let itemsOpenSea = await fetch(`${configContract.OPENSEA_API_TESTNETS}/assets?owner=${acc}&name=${cName}&format=json`)
-    .then((res) => res.json())
-    .then((res) => {
-      console.log("OS length:", res?.assets?.length)
-      return res.assets
-    })
-    .catch((e) => {
-      console.error(e)
-      console.error('Could not talk to OpenSea')
-      return null
-    })
+    let requestUrl = 'https://polygon-mumbai.g.alchemy.com/nft/v2/' + process.env.REACT_APP_ALCHEMY_KEY + '/getNFTs?contractAddresses[]=' + nft.address + '&owner=' + acc + '&withMetadata=true&pageSize=100'
+    
+    console.log("requestUrl", requestUrl)
+    let itemsAlchemy = await fetch(requestUrl)
+  .then(response => response.json())
+  .then(response => {
+    // console.log("response", response); 
+    return response.ownedNfts
+  })
+  .catch(err => console.error(err))
+    // let itemsOpenSea = await fetch('https://polygon-testnet.g.alchemy.com/nft/v2/docs-demo/getNFTMetadata?contractAddress=' + nft.address + '&tokenId=44&refreshCache=false', options)
+    //   .then(response => response.json())
+    //   .then(response => console.log(response))
+    //   .catch(err => console.error(err));
+    
+    // let itemsOpenSea = await fetch(`${configContract.OPENSEA_API_TESTNETS}/assets?owner=${acc}&name=${cName}&format=json`)
+    // .then((res) => res.json())
+    // .then((res) => {
+    //   console.log("OS length:", res?.assets?.length)
+    //   return res.assets
+    // })
+    // .catch((e) => {
+    //   console.error(e)
+    //   console.error('Could not talk to OpenSea')
+    //   return null
+    // })
+    console.log("itemsAlchemy", itemsAlchemy)
+    let itemsOpenSea = []
+    for(let i = 0; i < itemsAlchemy.length; i++) {
+      itemsOpenSea.push({
+        contract: itemsAlchemy[i].contract.address.toUpperCase(),
+        name: itemsAlchemy[i].title,
+        token_id: parseInt(itemsAlchemy[i].id.tokenId, 16),
+        image_url: itemsAlchemy[i].image,
+        creator: itemsAlchemy[i].metadata.attributes.filter(e => e.trait_type == "CREATOR")[0]?.value ?? "",
+        metadata: getFilename(itemsAlchemy[i].token_metadata),
+      })
+    }
     console.log("itemsOpenSea", itemsOpenSea)
     return itemsOpenSea
   }
