@@ -30,7 +30,7 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
           contract: NftBoxAddress.address.toUpperCase(),
           name: "",
           token_id: items[boxIndex].token_id,
-          image_url: "",
+        //   image_url: "",
           creator: "",
           metadata: 0,
           web2: true
@@ -85,7 +85,8 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
                                                 </video>
                                                 // <></>
                                             ) : (
-                                                <img src={item.image_url} className="nftListItem" />
+                                                // <img src={item.image_url} className="nftListItem" />
+                                                <></>
                                             )
                                         )
                                     )

@@ -130,7 +130,10 @@ const Equip = ({ web3Handler, account, mintButtonAllRarities, mintButtonIslands,
                                                                 <source src={"https://ipfs.io/ipfs/QmY8ascXNak6Asqm6SSCe3p3zkiCWfTaGH5F7N1spmtj8x/" + metadataRef.current}
                                                                 type="video/mp4"/>
                                                             </video> */}
-                                                            <img src={item.image_url} className="equipListItem" onClick={() => clickEquip(idx)} />
+                                                            <video id="vid" loop autoPlay muted  className="equipListItem" onClick={() => clickEquip(idx)} >
+                                                                <source src={"Egg/"+ item.metadata + ".webm"} type="video/webm"/>
+                                                            </video>
+                                                            {/* <img src={item.image_url} className="equipListItem" onClick={() => clickEquip(idx)} /> */}
                                                         </Row>
                                                         <Row className="equipItemDescDiv">
                                                                 <div className="itemDescTitle">

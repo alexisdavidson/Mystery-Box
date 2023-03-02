@@ -182,7 +182,9 @@ function App() {
   }
 
   function getFilename (url) {
-    return url?.split('/')?.pop()?.replace('.json', '') ?? "1";
+    console.log("getFileName", url)
+    let result = url?.split('/')?.pop()?.replace('.json', '') ?? "1"
+    return result;
   }
 
   const compactOpenSeaList = (list) => {
@@ -193,7 +195,7 @@ function App() {
         contract: list[i].contract.toUpperCase(),
         name: list[i].name,
         token_id: list[i].token_id,
-        image_url: list[i].image_url,
+        // image_url: list[i].image_url,
         creator: list[i].traits.filter(e => e.trait_type == "CREATOR")[0]?.value ?? "",
         metadata: getFilename(list[i].token_metadata),
         web2: false
@@ -207,7 +209,7 @@ function App() {
     // let itemsOpenSea = await fetch(`${configContract.OPENSEA_API_TESTNETS}/assets/mumbai?owner=${acc}&asset_contract_address=${nft.address}&format=json`)
     let requestUrl = 'https://polygon-mumbai.g.alchemy.com/nft/v2/' + process.env.REACT_APP_ALCHEMY_KEY + '/getNFTs?contractAddresses[]=' + nft.address + '&owner=' + acc + '&withMetadata=true&pageSize=100'
     
-    console.log("requestUrl", requestUrl)
+    // console.log("requestUrl", requestUrl)
     let itemsAlchemy = await fetch(requestUrl)
   .then(response => response.json())
   .then(response => {
@@ -238,9 +240,9 @@ function App() {
         contract: itemsAlchemy[i].contract.address.toUpperCase(),
         name: itemsAlchemy[i].title,
         token_id: parseInt(itemsAlchemy[i].id.tokenId, 16),
-        image_url: itemsAlchemy[i].image,
+        // image_url: itemsAlchemy[i].media[0].gateway,
         creator: itemsAlchemy[i].metadata.attributes.filter(e => e.trait_type == "CREATOR")[0]?.value ?? "",
-        metadata: getFilename(itemsAlchemy[i].token_metadata),
+        metadata: getFilename(itemsAlchemy[i].tokenUri.raw),
       })
     }
     console.log("itemsOpenSea", itemsOpenSea)
@@ -295,7 +297,7 @@ function App() {
           contract: NftEggAddress.address.toUpperCase(),
           name: "Egg",
           token_id: -1,
-          image_url: "",
+          // image_url: "",
           creator: "",
           metadata: metadata,
           web2: true
@@ -305,7 +307,7 @@ function App() {
           contract: NftSneakerAddress.address.toUpperCase(),
           name: "Blank Sneaker",
           token_id: -1,
-          image_url: "https://i.seadn.io/gcs/files/d9ec2e22bc9ee479fb510b74f1ad6c60.png?w=500&auto=format",
+          // image_url: "https://i.seadn.io/gcs/files/d9ec2e22bc9ee479fb510b74f1ad6c60.png?w=500&auto=format",
           creator: "",
           metadata: 0,
           web2: true
