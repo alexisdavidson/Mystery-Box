@@ -23,6 +23,13 @@ module.exports = {
        allowUnlimitedContractSize: true,
        gas: 2100000,
        gasPrice: 35000000000,
+     },
+     polygon: {
+       url: process.env.REACT_APP_API_URL_POLYGON_INFURA,
+       accounts: ['0x' + process.env.REACT_APP_PRIVATE_KEY_POLYGON_MAINNET],
+       allowUnlimitedContractSize: true,
+       gas: 2100000,
+       gasPrice: 220000000000,
      }
     //  mainnet: {
     //   url: process.env.REACT_APP_API_URL_MAINNET_INFURA,

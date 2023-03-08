@@ -18,15 +18,16 @@ async function main() {
   const Usdc = await ethers.getContractFactory("Erc20Usdc");
 
   // const teamWallet = "0x40494EC8eCb8Ddb80fBCBd5D45048Fdb0664688E" // goerli
-  const teamWallet = "0x40494EC8eCb8Ddb80fBCBd5D45048Fdb0664688E" // mumbai
-  // const teamWallet = "" // polygon mainnet
+  // const teamWallet = "0x40494EC8eCb8Ddb80fBCBd5D45048Fdb0664688E" // mumbai
+  const teamWallet = "0x5284Dc4A0D0264Cf5C135a9fBfded3DAbf5Dafd5" // polygon mainnet
 
   // Deploy Usdc ERC20 Only for tests
-  usdc = await Usdc.deploy();
-  console.log("Usdc contract address", usdc.address)
-  saveFrontendFiles(usdc, "Erc20Usdc");
-  const usdcAddress = usdc.address
-  await usdc.transfer(teamWallet, toWei(100_000));
+  // usdc = await Usdc.deploy();
+  // console.log("Usdc contract address", usdc.address)
+  // saveFrontendFiles(usdc, "Erc20Usdc");
+  // const usdcAddress = usdc.address
+  // await usdc.transfer(teamWallet, toWei(100_000));
+  const usdcAddress = "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
 
   // Deploy contracts
   nftEgg = await NftEgg.deploy();
@@ -63,30 +64,34 @@ async function main() {
   await nftSneaker.transferOwnership(teamWallet)
   await nftSneakerX.transferOwnership(teamWallet)
   await equip.transferOwnership(teamWallet)
-  console.log("Setters functions called")
 
-  // For testing
   await nftBox.addMysteryBox("Mystery Box 1", toWei(80), 50, false)
   console.log("1")
   await nftBox.addMysteryBox("Mystery Box 2", toWei(350), 50, true)
   console.log("2")
   await nftBox.transferOwnership(teamWallet)
   
-  await usdc.approve(nftBox.address, toWei(10_000))
-  console.log("2.5")
+  console.log("Setters functions called")
 
-  await nftBox.mint(0, 2);
-  console.log("3")
-  await nftBox.mint(1, 2);
-  console.log("4")
-  await nftBox.openBox(1);
-  console.log("5")
-  await nftBox.openBox(3);
-  console.log("6")
-  await equip.equip(1, 1);
-  console.log("7")
+  // addMysteryBox("Mystery Box 1", 80000000000000000000, 50, false)
+  // addMysteryBox("Mystery Box 2", 350000000000000000000, 50, true)
+  
+  // For testing
+  // await usdc.approve(nftBox.address, toWei(10_000))
+  // console.log("2.5")
 
-  console.log("Goerli test functions called")
+  // await nftBox.mint(0, 2);
+  // console.log("3")
+  // await nftBox.mint(1, 2);
+  // console.log("4")
+  // await nftBox.openBox(1);
+  // console.log("5")
+  // await nftBox.openBox(3);
+  // console.log("6")
+  // await equip.equip(1, 1);
+  // console.log("7")
+
+  // console.log("Test functions called")
 }
 
 function saveFrontendFiles(contract, name) {

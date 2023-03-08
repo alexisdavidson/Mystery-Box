@@ -143,10 +143,11 @@ function App() {
     const { chainId } = await providerTemp.getNetwork()
     console.log("chainId", chainId)
     // if (chainId != 5) { // Goerli Chain ID: 5
-    if (chainId != 80001) { // Mumbai Chain ID: 80001
+    // if (chainId != 80001) { // Mumbai Chain ID: 80001
+    if (chainId != 137) { // Polygon Chain ID: 137
       await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: '0x5' }], // chainId must be in HEX with 0x in front
+      params: [{ chainId: '0x89' }], // chainId must be in HEX with 0x in front
       });
     }
 
@@ -207,7 +208,8 @@ function App() {
 
   const loadOpenSeaItems = async (acc, nft) => {
     // let itemsOpenSea = await fetch(`${configContract.OPENSEA_API_TESTNETS}/assets/mumbai?owner=${acc}&asset_contract_address=${nft.address}&format=json`)
-    let requestUrl = 'https://polygon-mumbai.g.alchemy.com/nft/v2/' + process.env.REACT_APP_ALCHEMY_KEY + '/getNFTs?contractAddresses[]=' + nft.address + '&owner=' + acc + '&withMetadata=true&pageSize=100'
+    // let requestUrl = 'https://polygon-mumbai.g.alchemy.com/nft/v2/' + process.env.REACT_APP_ALCHEMY_KEY + '/getNFTs?contractAddresses[]=' + nft.address + '&owner=' + acc + '&withMetadata=true&pageSize=100'
+    let requestUrl = 'https://polygon-mainnet.g.alchemy.com/nft/v2/' + process.env.REACT_APP_ALCHEMY_KEY + '/getNFTs?contractAddresses[]=' + nft.address + '&owner=' + acc + '&withMetadata=true&pageSize=100'
     
     // console.log("requestUrl", requestUrl)
     let itemsAlchemy = await fetch(requestUrl)

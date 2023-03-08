@@ -1,5 +1,5 @@
 module.exports = [
-    "0x8F04ab4c479cF4D54Bd731ACE9c5e9C51DFD20E3", // usdcAddress
-    "0x2f9dF84dAF36aA18b1af537e654Ac9Ab61B29D1A", // nftSneaker.address
-    "0xab6C455795fa972A428819BB6C09fDd2cFC587a4" // nftEgg.address
+    "0x2791bca1f2de4661ed88a30c99a7a9449aa84174", // usdcAddress
+    "0x6675dDA524EAa4bD5a247F46CdB64A6deC4F3645", // nftSneaker.address
+    "0x6Ddcb4d95d10BAC5EfA9012e1c3f117F56175c7e" // nftEgg.address
 ];

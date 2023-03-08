@@ -22,7 +22,7 @@ const Inventory = ({ web3Handler, account, setMenu, setSelectedSneaker, setTrans
         setEggLootMetadata(1);
         let estimatedGas = (await nftBox.estimateGas.openBox(items[boxIndex].token_id))
         console.log("estimatedGas", estimatedGas)
-        estimatedGas = estimatedGas.mul(2)
+        estimatedGas = estimatedGas.mul(5)
         console.log("estimatedGas", estimatedGas)
         await(await nftBox.openBox(items[boxIndex].token_id, {gasLimit: estimatedGas})).wait()
         // setMenu(4)
