@@ -378,7 +378,7 @@ function App() {
     setTransactionObjectId(0)
     setMenu(1)
 
-    await(await usdc.approve(nftBox.address, toWei(price * quantity))).wait()
+    await(await usdc.approve(nftBox.address, (price * quantity) * 1000000)).wait()
     // await(await usdc.approve(nftBox.address, toWei(price * quantity * 10))).wait()
     await(await nftBox.mint(boxId, quantity)).wait()
 
